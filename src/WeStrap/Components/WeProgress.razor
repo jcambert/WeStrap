@@ -1,0 +1,21 @@
+﻿@namespace WeStrap
+@inherits WeProgressBase
+
+@if (!IsMulti && !IsBar)
+{
+    <DynamicTag style="@Style" @attributes="@UnknownParameters" TagName="div" class="progress">
+        <div class="@ClassName" style="@styles" role="progressbar" aria-valuenow="@Value" aria-valuemin="0" aria-valuemax="@Max">@ChildContent</div>
+    </DynamicTag>
+}
+@if (IsMulti && !IsBar)
+{
+    <DynamicTag @attributes="@UnknownParameters" TagName="div" class="@ClassnameMulti" style="@Style">
+        @ChildContent
+    </DynamicTag>
+}
+@if (!IsMulti && IsBar)
+{
+    <DynamicTag style="@styles" @attributes="@UnknownParameters" TagName="div" class="@ClassName" role="progressbar" aria-valuenow="@Value" aria-valuemin="0" aria-valuemax="@Max">
+        @ChildContent
+    </DynamicTag>
+}

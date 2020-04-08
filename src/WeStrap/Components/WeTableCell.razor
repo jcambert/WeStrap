@@ -1,0 +1,5 @@
+﻿@namespace WeStrap
+@inherits WeTableCellBase
+<DynamicTag @attributes="@UnknownParameters" TagName="td" class="@ClassName" @onclick="()=>OnCellClick.InvokeAsync(new WeEvent<WeTableCell>(this))">
+    @ChildContent
+</DynamicTag>

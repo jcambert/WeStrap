@@ -1,0 +1,36 @@
+﻿@namespace WeStrap
+@if (Direction == CarouselDirection.Previous)
+{
+    <a class="carousel-control-prev"  role="button" data-slide="prev" @onclick="WantSlide" @attributes="AdditionalAttributes">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+}
+else
+{
+    <a class="carousel-control-next" role="button" data-slide="next" @onclick="WantSlide" @attributes="AdditionalAttributes">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+}
+
+@code {
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; }
+    [Parameter] public CarouselDirection Direction { get; set; }
+    [CascadingParameter] public WeCarousel Parent { get; set; }
+
+    [Parameter]
+    public EventCallback<CarouselDirection> OnWantSlide { get; set; }
+
+    protected void WantSlide()
+    {
+        OnWantSlide.InvokeAsync(Direction);
+        Parent.WantSlide(Direction);
+    }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+    }
+}

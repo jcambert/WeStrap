@@ -1,0 +1,272 @@
+﻿@page "/board"
+
+@inject IWeStrapSpinner Spinners
+<WeRow>
+
+    <WeTile Title="Total Sessions" SubTitle="231,809">
+        <span style="height:160px;">
+
+            NO CONTENT
+        </span>
+    </WeTile>
+    <WeTile Title="Total Sessions" SubTitle="231,809">
+        <span style="height:160px;">
+
+            NO CONTENT
+        </span>
+    </WeTile>
+    <WeTile Title="Total Sessions" SubTitle="231,809">
+        <span style="height:160px;">
+
+            NO CONTENT
+        </span>
+    </WeTile>
+    <WeTile Title="Total Sessions" SubTitle="231,809">
+        <span style="height:160px;">
+
+            NO CONTENT
+        </span>
+    </WeTile>
+</WeRow>
+<WeRow>
+    <WeWidget Columns="new List<WeColumn>() {WeColumn.md3 }">
+        <WePanel FixedHeight="FixedHeight.Height400">
+            <Ribbon>30% Off</Ribbon>
+            <Title>
+                <WePanelTitle Title="User Mail">
+
+                </WePanelTitle>
+
+            </Title>
+            <Content>
+                <WePanelContent>
+                    <WeRow RowColumnCount="WeRowCount.Row2">
+                        <WeCol>
+                            <WeDropdown>
+                                <WeDropdownToggle>@_spinner</WeDropdownToggle>
+                                <WeDropdownMenu>
+                                    <WeDropdownHeader>Choose your spin</WeDropdownHeader>
+                                    @foreach (var spinner in Spinners.Names)
+                                    {
+                                        <WeDropdownItem OnClick="args=>ChooseSpin(spinner)">@spinner</WeDropdownItem>
+                                    }
+                                </WeDropdownMenu>
+                            </WeDropdown>
+                        </WeCol>
+                        <WeCol>
+                            <WeInput InputType="InputType.Text" Value="@SpinColor"/>
+                        </WeCol>
+                    </WeRow>
+
+                    <WeSpinner Type="@_spinner" Color="@SpinColor"/>
+                    <WeColorPicker  OnColorChanged="c=> { SpinColor = c;StateHasChanged(); }"/>
+                </WePanelContent>
+            </Content>
+        </WePanel>
+    </WeWidget>
+
+    <WeWidget Columns="new List<WeColumn>() {WeColumn.md3 }">
+        <WePanel>
+            <Title>
+                <WePanelTitle Title="User Feed" IsCloseable="true" IsCollapseable="true">
+                    <ToolBox>
+
+                        <WeNavItem>
+                            <WeButton ButtonType="ButtonType.Link" Color="Color.None">
+                                <i class="fas fa-wrench"></i>
+                            </WeButton>
+                        </WeNavItem>
+
+                    </ToolBox>
+                </WePanelTitle>
+
+            </Title>
+            <Content>
+                <WePanelContent>
+                    loremaim
+
+                </WePanelContent>
+            </Content>
+        </WePanel>
+    </WeWidget>
+
+    <WeWidget Columns="new List<WeColumn>() {WeColumn.md3 }" Class="we_profile_box">
+        <WePanel Class="">
+            <Title>
+                <WePanelTitle Title="Mon Profile" IsCloseable="true" IsCollapseable="true"></WePanelTitle>
+            </Title>
+            <Content>
+                <WePanelContent>
+                    <div class="we_flex">
+                        <ul class="list-inline list-profile1">
+
+                            <li>
+                                <a>
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <img src="_content/WeStrap/img/user.png" alt="..." class="img-circle profile_img">
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h3 class="name">Musimbi</h3>
+                    <div class="flex">
+                        <ul class="list-inline list-profile2">
+                            <li>
+                                <h3>123</h3>
+                                <span>Articles</span>
+                            </li>
+                            <li>
+                                <h3>1234</h3>
+                                <span>Followers</span>
+                            </li>
+                            <li>
+                                <h3>123</h3>
+                                <span>Following</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <p>
+                        If you've decided to go in development mode and tweak all of this a bit, there are few things you should do.
+                    </p>
+                </WePanelContent>
+            </Content>
+        </WePanel>
+
+    </WeWidget>
+
+</WeRow>
+<WeRow>
+    <WeTile IsStatTile="true" Count="179" Icon="caret-square-o-right" Title="New Sign Ups" SubTitle="Lorem ipsum">
+
+    </WeTile>
+
+</WeRow>
+<WeRow>
+    <WeStatTile>
+        <Top><i class="fa fa-user"></i> Total Users</Top>
+        <Content>2500</Content>
+        <Bottom><i class="green">4% </i> From last Week</Bottom>
+    </WeStatTile>
+    <WeStatTile>
+        <Top><i class="fa fa-clock-o"></i> Total Users</Top>
+        <Content>123,5</Content>
+        <Bottom><i class="green">3% </i> From last Week</Bottom>
+    </WeStatTile>
+</WeRow>
+
+<WeRow RowColumnCount="WeRowCount.Row1">
+    <WeBigPanel LabelsTitle="Top Campaign Performance">
+        <Title>
+            <WeCol Columns="new List<WeColumn>() {WeColumn.md6 }">
+                <h3>Network Activities <small>Graph title sub-title</small></h3>
+            </WeCol>
+            <WeCol Columns="new List<WeColumn>() {WeColumn.md6 }">
+                <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                    <span>February 26, 2020 - March 26, 2020</span> <b class="caret"></b>
+                </div>
+            </WeCol>
+        </Title>
+        <Content>
+            <Chart Labels="@Labels" DefaultChartType="line">
+                <WeSerie Label="# of Votes" Values="@Votes" LineStyle="ls1" Type="bar" TDataset="Dataset"></WeSerie>
+                <WeSerie Label="# of Prices" Values="@Prices" LineStyle="ls2" Fill="false" TDataset="WaterFallDataset"></WeSerie>
+                <WeSerie Label="# of Todos +" Values="@Todos" LineStyle="ls3" Fill="false" TDataset="WaterFallDataset"></WeSerie>
+            </Chart>
+        </Content>
+        <Labels>
+            <WeCol Columns="new List<WeColumn>() {WeColumn.md12,WeColumn.sm12 }">
+                <div>
+                    <p>Facebook Campaign</p>
+                    <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80" aria-valuenow="79" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p>Twitter Campaign</p>
+                    <div class="">
+                        <div class="progress progress_sm" style="width: 76%;">
+                            <div class="progress-bar bg-purple" role="progressbar" data-transitiongoal="60" aria-valuenow="59" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </WeCol>
+        </Labels>
+    </WeBigPanel>
+</WeRow>
+
+@code{
+    public List<double> Prices { get; set; } = new List<double>() { };
+    public List<double> Votes { get; set; } = new List<double>() { };
+    public List<double> Todos { get; set; } = new List<double>() { };
+    public List<string> Labels { get; set; } = new List<string>
+        () { "January", "February", "March", "April", "May", "June", "July" };
+
+    static RGBA? bg1 = new RGBA(10, 10, 255, 0.2);
+    static RGBA? bg2 = new RGBA(10, 255, 10, 1);
+    static RGBA? bg3 = new RGBA(255, 255, 10, 1);
+    static BorderStyle? bs1 = new BorderStyle() { Width = 2 };
+    static BorderStyle? bs2 = new BorderStyle() { Width = 3 };
+
+    public LineStyle ls1 { get; set; } = new LineStyle() { Background = bg1, BorderStyle = bs1 };
+    public LineStyle ls2 { get; set; } = new LineStyle() { Background = bg2, BorderStyle = bs2, Fill = "false" };
+    public LineStyle ls3 { get; set; } = new LineStyle() { Background = bg3, BorderStyle = bs2, Fill = "false" };
+
+    public RGBA hoverbg { get; set; } = new RGBA(10, 10, 255, 1);
+
+    private int nbOfValues => Labels.Count();
+    private bool auto_gen = false;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _spinner = Spinners.Default;
+    }
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            GenerateValues(Prices, nbOfValues, 0, 30);
+            GenerateValues(Votes, nbOfValues, 0, 30);
+            GenerateValues(Todos, nbOfValues, 0, 30);
+            InvokeAsync(() => StateHasChanged());
+            if (auto_gen)
+                Observable.Interval(TimeSpan.FromSeconds(3)).Subscribe(t =>
+                {
+                    GenerateValues(Prices, nbOfValues, 0, 30);
+                    GenerateValues(Votes, nbOfValues, 0, 30);
+                    GenerateValues(Todos, nbOfValues, 0, 30);
+                    InvokeAsync(() => StateHasChanged());
+                });
+           
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void GenerateValues(List<double> liste, int nbre, int from, int to)
+    {
+        Random rnd = new Random();
+        liste.Clear();
+        for (int i = 0; i < nbre; i++)
+        {
+            liste.Add((double)rnd.Next(from, to));
+        }
+    }
+    WeC.WeColor SpinColor { get; set; }
+
+    string _spinner;
+    private void ChooseSpin(string spinner)
+    {
+        _spinner = spinner;
+        //StateHasChanged();
+    }
+
+}

@@ -1,0 +1,52 @@
+﻿@namespace WeStrap
+@typeparam TItem
+@inherits WeTableBase<TItem>
+<CascadingValue Value="this">
+    <DynamicTag TagName="table" class="@ClassName" @attributes="UnknownParameters">
+
+        @if (THead != null || (HeadCells?.Any() ?? false))
+        {
+
+            <thead class="@HeadColor">
+
+                @if (HeadCells?.Any() ?? false)
+                {
+                    <WeTableRow >
+                        @foreach (var (headCell, index) in HeadCells.WithIndex())
+                        {
+                            <WeTableHeadCell ColIndex="index" Color="headCell.Color">@headCell.Head</WeTableHeadCell>
+                        }
+                    </WeTableRow>
+                }
+                else
+                {
+                    <WeTableRow>@THead</WeTableRow>
+                }
+            </thead>
+        }
+        @if (TBody != null)
+        {
+            <tbody>
+
+                @foreach (var (item, index) in Items.WithIndex())
+                {
+                    <WeTableRow @onclick="@(()=>OnRowClick.InvokeAsync(item))">@TBody(new ItemWithIndex<TItem>() { Item = item, Index = index })</WeTableRow>
+                }
+                @ChildContent
+            </tbody>
+        }
+        @if (TFoot != null)
+        {
+            <tfoot>
+                <WeTableRow>@TFoot</WeTableRow>
+            </tfoot>
+        }
+
+
+    </DynamicTag>
+</CascadingValue>
+@code{
+    private string HeadColor => UseHeadCellColor ? "" : TableHeadType.ToDescriptionString();
+    [Parameter] public EventCallback<TItem> OnRowClick { get; set; }
+
+}

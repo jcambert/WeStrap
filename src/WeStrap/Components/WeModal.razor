@@ -1,0 +1,18 @@
+﻿
+@namespace WeStrap
+@inherits WeModalBase
+
+<WeQuery @ref="query">
+    <DynamicTag @attributes="@UnknownParameters" style="@Styles" TagName="div" class="@ClassName" tabindex="-1" role="dialog" @onfocus="OnBackdropClick" @bind-ElementRef="MyRef" aria-modal="true">
+        <div class="@InnerClassname" role="document" tabindex="-2">
+            <div class="modal-content" @ref="Me">
+                @ChildContent
+            </div>
+        </div>
+    </DynamicTag>
+
+    @if (!NoBackdrop)
+    {
+        <div class="modal-backdrop fade  @(IsOpen  ? "show" : "d-none")"></div>
+    }
+</WeQuery>

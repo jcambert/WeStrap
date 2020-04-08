@@ -1,0 +1,33 @@
+﻿@namespace WeStrap
+@inherits WeTileBase
+<div class="@ColClass">
+    <DynamicTag TagName="div" class="@ClassName" @attributes="UnknownParameters" style="@Style" @onclick="NotifyClick">
+        @if (IsStatTile)
+        {
+            @if (!string.IsNullOrEmpty(Icon))
+            {
+                <div class="icon"><i class="@Icon"></i></div>
+            }
+            @if (!string.IsNullOrEmpty(Count))
+            {
+                <div class="count">@Count</div>
+            }
+            <h2>@Title</h2>
+            <p>@SubTitle</p>
+        }
+        else
+        {
+            <span>@Title</span>
+            <h2>@SubTitle</h2>
+        }
+        @ChildContent
+    </DynamicTag>
+</div>
+@code{
+    protected string ColClass => string.Join(" ", Columns.ToDescriptionString());
+    private async Task NotifyClick()
+    {
+        if (IsClickable) 
+            await OnClick.InvokeAsync(null);
+    }
+}

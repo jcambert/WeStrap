@@ -1,0 +1,275 @@
+﻿@page "/"
+<WeRow>
+    <WeCol Columns="new List<WeColumn>() { WeColumn.lg2}">
+
+        <WeThemeForm></WeThemeForm>
+    </WeCol>
+</WeRow>
+<WeRow>
+    <WeCol>
+        <WeButton Id="tooltip1" Color="Color.Primary">Primary</WeButton>
+        <WeTooltip Target="tooltip1" Placement="Placement.Bottom">Tooltip on Bottom</WeTooltip>
+    </WeCol>
+    <WeCol>
+        <WeButton Color="Color.Secondary">Secondary</WeButton>
+    </WeCol>
+    <WeCol>
+        <WeButton Color="Color.Success">Success</WeButton>
+    </WeCol>
+    <WeCol>
+        <WeButton Color="Color.Info">Info</WeButton>
+    </WeCol>
+    <WeCol>
+        <WeButton Color="Color.Warning">Warning</WeButton>
+    </WeCol>
+    <WeCol>
+        <WeButton Color="Color.Danger">Danger</WeButton>
+    </WeCol>
+</WeRow>
+<WeRow RowColumnCount="WeRowCount.Row1">
+    <WeBreadcrumb Items="Breadcrumbs">
+        <Template Context="item">
+
+            <WeButton Color="item.Index%2==0?Color.Primary: Color.Danger" OnClick="()=>MoveTo(item.Href)">@item.Value @item.Index</WeButton>
+        </Template>
+    </WeBreadcrumb>
+
+</WeRow>
+<WeRow RowColumnCount="WeRowCount.Row1">
+    <WeBreadcrumb Items="Breadcrumbs"></WeBreadcrumb>
+</WeRow>
+<WeRow>
+    <WeCol>
+        <WeDropdown>
+            <WeDropdownToggle IsSplit="false">Click Me</WeDropdownToggle>
+        </WeDropdown>
+    </WeCol>
+    <WeCol>
+        <WeDropdown DropdownDirection="DropdownDirection.Right">
+            <WeDropdownToggle IsSplit="true">Another</WeDropdownToggle>
+        </WeDropdown>
+    </WeCol>
+    <WeCol Spacers="new List<WeSpacer>() { WeSpacer.MarginLeftLarge5 }">
+        <WeDropdown>
+            <WeButtonGroup>
+                <WeButton Color="Color.Secondary">Large split button</WeButton>
+                <WeDropdownToggle IsSplit="true" Color="Color.Secondary"></WeDropdownToggle>
+                <WeDropdownMenu>
+                    <WeDropdownItem>toto 0</WeDropdownItem>
+                    <WeDropdownItem>toto 1</WeDropdownItem>
+                </WeDropdownMenu>
+            </WeButtonGroup>
+        </WeDropdown>
+    </WeCol>
+    <WeCol>
+
+    </WeCol>
+</WeRow>
+<WeRow RowColumnCount="WeRowCount.Row1">
+    <WeCol>
+        <WeForm Model="@_exampleModel" ValidateOnInit="true" TModel="ExampleModel">
+            <WeDataAnnotationsValidator />
+            <WeFormGroup IsRow="true">
+                <WeLabel For="@(()=>_exampleModel.FirstName)" Columns="new List<WeColumn>() {WeColumn.lg2 }">First Name</WeLabel>
+                <WeCol Columns="new List<WeColumn>() {WeColumn.lg4 }">
+                    <WeInput Id="exampleEmail3" @bind-Value="_exampleModel.FirstName" ValidateOnChange="true"></WeInput>
+                    <WeFormFeedback For="@(() => _exampleModel.FirstName)" ValidMessage="You have entered a valid First Name" />
+                </WeCol>
+            </WeFormGroup>
+            <WeFormGroup IsRow="true">
+                <WeLabel  For="@(()=>_exampleModel.LastName)" Columns="new List<WeColumn>() {WeColumn.lg3 }">Last Name</WeLabel>
+                <WeCol Columns="new List<WeColumn>() {WeColumn.lg6 }">
+                    <WeInput Id="exampleEmail4" @bind-Value="_exampleModel.LastName" ValidateOnChange="true"></WeInput>
+                    <WeFormFeedback ShowInvalidMessage="false" For="@(() => _exampleModel.LastName)" ValidMessage="You have entered a valid Last Name" />
+                </WeCol>
+            </WeFormGroup>
+            <WeValidationSummary />
+            <WeButton ButtonType="ButtonType.Submit" Color="Color.Primary">Envoyer</WeButton>
+        </WeForm>
+    </WeCol>
+</WeRow>
+
+<WeRow RowColumnCount="WeRowCount.Row3">
+    <WeCol>
+        <input type="number" @bind-value="accordionNumber" min="0" max="@(items.Count()-1)" />
+    </WeCol>
+    <WeCol>
+        <WeButton OnClick="ActivateAccordion">Activate Accordion @accordionNumber</WeButton>
+    </WeCol>
+    <WeCol>
+        <WeAccordion @ref="accordion" Items="items" ActivatorIsLink="true" OnShow="ShowingAccordion">
+            <Header Context="item">
+                @item.Header
+            </Header>
+            <Content Context="item">
+                <WeCard CardType="CardType.Text">
+                    @item.Caption
+                </WeCard>
+            </Content>
+        </WeAccordion>
+    </WeCol>
+</WeRow>
+<WeRow>
+    <WeAccordion Item="items[0]">
+        <Header Context="item">
+            @item.Header
+        </Header>
+        <Content Context="item">
+            <WeCard CardType="CardType.Text">
+                @item.Caption
+            </WeCard>
+        </Content>
+    </WeAccordion>
+</WeRow>
+<WeRow>
+    <WeButtonGroup>
+        <WeButton Color="Color.Secondary">Left</WeButton>
+        <WeButton Color="Color.Primary">Middle</WeButton>
+        <WeButton Color="Color.Success">Right</WeButton>
+    </WeButtonGroup>
+</WeRow>
+<WeRow VerticalAlignment="VerticalAlignment.Bottom" RowColumnCount="WeRowCount.Row6">
+    <WeCol Class="py-3 px-lg-5 border bg-light" Spacers="new List<WeSpacer>() { WeSpacer.MarginBottomLarge1, WeSpacer.PaddingLeftAndRightSmall2 }">
+        <h1>Hello, world!</h1>
+    </WeCol>
+    <WeCol>
+        Welcome to your new app.
+    </WeCol>
+    <WeCol Offsets="new List<WeOffset>() { WeOffset.Large2 }">
+        <WeButton Color="Color.Danger">
+            Click Me
+        </WeButton>
+    </WeCol>
+</WeRow>
+
+<WeRow RowColumnSmallCount="WeRowSmallCount.Row1" RowColumnMediumCount="WeRowMediumCount.Row3" VerticalAlignment="VerticalAlignment.Bottom" HorizontalAlignment="Alignment.Right">
+    <WeCol>
+        <WeButton ButtonType="ButtonType.Checkbox">
+            check me
+        </WeButton>
+    </WeCol>
+    <WeCol>
+        <WeButton ButtonType="ButtonType.Submit" IsOutline="isOutline" @onclick="ToggleOutline" Size="Size.Large">
+            check me
+        </WeButton>
+    </WeCol>
+</WeRow>
+<WeRow>
+    <WeAlert IsDismissible="true" OnDismiss="AlertDismiss" OnClose="OnClose" OnClosed="OnClosed" Color="Color.Danger">Ceci est une alerte danger</WeAlert>
+</WeRow>
+<WeRow RowColumnCount="WeRowCount.Row1">
+    <WeAlert IsDismissible="true" OnDismiss="AlertDismiss" OnClose="OnClose" OnClosed="OnClosed" Color="Color.Info">
+        Ceci est une alerte info<br /><hr />
+        <WeButton Color="Color.Primary">
+            Profile <WeBadge Color="Color.Light" IsPill="true">9</WeBadge>
+            <span class="sr-only">unread messages</span>
+        </WeButton>
+    </WeAlert>
+</WeRow>
+
+
+<WeRow RowColumnCount="WeRowCount.Row1" BackgroundColor="rgba(86,61,124,.15)">
+
+    <WeCarousel Interval="0" Fade="false">
+        <WeCarouselItems Items="items" EnableTransition="true">
+            <Template Context="item">
+                <img class="d-block w-100" src="@item.Source" />
+            </Template>
+            <Caption Context="item">
+                <span>@item.Caption</span>
+            </Caption>
+        </WeCarouselItems>
+        <WeCarouselIndicators NumberOfItems="items.Count()"></WeCarouselIndicators>
+        <WeCarouselControl Direction="CarouselDirection.Previous"></WeCarouselControl>
+        <WeCarouselControl Direction="CarouselDirection.Next"></WeCarouselControl>
+
+    </WeCarousel>
+</WeRow>
+
+@code{
+    private bool isOutline;
+    public void ToggleOutline()
+    {
+        isOutline = !isOutline;
+    }
+
+    public void AlertDismiss()
+    {
+        Console.WriteLine("Alert dismiss");
+    }
+
+    void OnClose(WeEvent<WeAlertBase> args)
+    {
+        Console.WriteLine("Alert OnClose");
+    }
+
+    void OnClosed(WeEvent<WeAlertBase> args)
+    {
+        Console.WriteLine("Alert OnClosed");
+    }
+
+    List<WeBreadcrumbValue> Breadcrumbs => new List<WeBreadcrumbValue>() {
+        new WeBreadcrumbValue(){Value="Home",Href="#"},
+         new WeBreadcrumbValue(){Value="Free",Href="www.free.fr"},
+        new WeBreadcrumbValue(){Value="Google",Href="www.google.com"},
+
+    };
+
+    public void MoveTo(string href)
+    {
+        Console.WriteLine($"Want to move to {href}");
+    }
+
+    int i = 0;
+    List<Item> items = new List<Item>
+{
+       new Item {
+           Source ="_content/WeStrap/img/372-600x300.jpg",
+           Alt ="First Slide",
+           Caption = "Slide 1",
+           Header = "Slide 1 Header"
+       },
+       new Item {
+           Source = "_content/WeStrap/img/483-600x300.jpg",
+           Alt ="Second Slide",
+           Caption = "Slide 2",
+           Header = "Slide 2 Header"
+       },
+       new Item {
+           Source = "_content/WeStrap/img/88-600x300.jpg",
+           Alt ="Third Slide",
+           Caption = "Slide 3",
+           Header = "Slide 3 Header"
+       },
+       new Item {
+           Source = "_content/WeStrap/img/231-600x300.jpg",
+           Alt ="Fourth Slide",
+           Caption = "Slide 4",
+           Header = "Slide 4 Header"
+       }
+   };
+
+
+    class Item
+    {
+        public string Source { get; set; }
+        public string Alt { get; set; }
+        public string Caption { get; set; }
+        public string Header { get; set; }
+    }
+
+    WeAccordion<Item> accordion { get; set; }
+    protected int accordionNumber { get; set; }
+    protected async Task ActivateAccordion()
+    {
+        await accordion.Activate(accordionNumber);
+    }
+    protected void ShowingAccordion(int index)
+    {
+        Console.WriteLine($"Show accordion number {index}");
+        accordionNumber = index;
+    }
+    private ExampleModel _exampleModel = new ExampleModel();
+
+
+}

@@ -1,0 +1,21 @@
+﻿@namespace WeStrap
+@inherits WePopoverBase
+
+    @popoverState()
+
+@if (IsOpen)
+{
+
+    <DynamicTag Id="@Id" @attributes="@UnknownParameters" TagName="div" class="@ClassName" role="tooltip" @onclick="OnClick">
+        <div @ref="Arrow" class="arrow"></div>
+        @ChildContent
+    </DynamicTag>
+}
+@code{
+    protected string popoverState()
+    {
+        Console.WriteLine($"{Id}  Popover "+this.State.ToString());
+        return "";
+    }
+
+}

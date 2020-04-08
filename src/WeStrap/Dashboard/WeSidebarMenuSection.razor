@@ -1,0 +1,78 @@
+﻿@namespace WeStrap
+@inherits WeTag
+<DynamicTag TagName="div" class="@ClassName" @attributes="@UnknownParameters">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h3>@Title</h3>
+    }
+    <ul class="nav we_side-menu">
+        @if (SectionTemplate != null && Items.Any())
+        {
+            @foreach (var item in Items)
+            {
+                @SectionTemplate(item);
+            }
+        }
+        else if (Items.Any())
+        {
+            @foreach (var item in Items)
+            {
+                <WeSidebarMenuItem OnClick="@(args => NotifyMenuClick(args))" Icon="@item.Icon" Title="@item.Title" Items="item.Childs">
+                    <MenuTemplate Context="menu">
+                        <WeLi OnClick="@(args => NotifyMenuItemClick(args, menu))">@MenuTemplate(menu)</WeLi>
+                    </MenuTemplate>
+                </WeSidebarMenuItem>
+            }
+        }
+        else
+        {
+
+            @ChildContent
+        }
+    </ul>
+</DynamicTag>
+@code {
+    protected override WeStringBuilder BuildClassName(string s = "") =>
+        base.BuildClassName(s)
+        .Add("we_menu_section")
+        .Add("pt-2", AddTopPadding)
+        ;
+
+    [Parameter] public EventCallback<WeMouseEventArgs> OnMenuClick { get; set; }
+    [Parameter] public EventCallback<WeMenuItemEventArgs<WeMenuItem>> OnMenuItemClick { get; set; }
+    [Parameter] public bool AddTopPadding { get; set; } = false;
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public IReadOnlyList<WeMenuItem> Items { get; set; } = new List<WeMenuItem>();
+    [Parameter]
+    public RenderFragment<WeMenuItem> SectionTemplate { get; set; }
+    [Parameter]
+    public RenderFragment<WeMenuItem> MenuTemplate { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (MenuTemplate == null)
+            MenuTemplate = item => builder =>
+            {
+                builder.OpenElement(1, "a");
+                if(!string.IsNullOrEmpty(item.Icon))
+                {
+                    builder.OpenElement(2, "i");
+                    builder.AddAttribute(3, "class", $"fa fa-{item.Icon}");
+                    builder.CloseElement();
+                }
+                builder.AddContent(4, item.Title);
+                builder.CloseElement();
+            };
+    }
+
+    private async Task NotifyMenuClick(WeMouseEventArgs args)
+    {
+        await OnMenuClick.InvokeAsync(args);
+    }
+
+    private async Task NotifyMenuItemClick(WeMouseEventArgs args, WeMenuItem item)
+    {
+        await OnMenuItemClick.InvokeAsync(new WeMenuItemEventArgs<WeMenuItem>(args, item));
+    }
+}

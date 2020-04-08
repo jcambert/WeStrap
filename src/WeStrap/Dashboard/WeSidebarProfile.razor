@@ -1,0 +1,28 @@
+﻿@namespace WeStrap
+@inherits WeTag
+<DynamicTag TagName="div" Class="@ClassName" @attributes="UnknownParameters">
+
+    <div class="we_profile_pic">
+        <img src="@Avatar" alt="..." class="img-circle we_profile_img">
+    </div>
+    <div class="we_profile_info">
+        <span>@Welcome</span>
+        <h2>@Name</h2>
+    </div>
+</DynamicTag>
+
+
+@code {
+    protected override WeStringBuilder BuildClassName(string s = "") =>
+        base.BuildClassName(s)
+        .Add("we_sidebar_profile ")
+        .Add(Display.ToDescriptionString(), Display != Display.None)
+        .Add("clearfix")
+        .Add("d-none")
+        .Add("d-md-block")
+        ;
+    [Parameter] public Display Display { get; set; } = Display.None;
+    [Parameter] public string Avatar { get; set; } = @"_content/WeStrap/img/male.png";
+    [Parameter] public string Welcome { get; set; } = @"Bienvenue";
+    [Parameter] public string Name { get; set; } = @"Ambert Jc";
+}

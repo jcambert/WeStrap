@@ -1,0 +1,7 @@
+﻿@namespace WeStrap
+@inherits WeTooltipBase
+
+<div @ref="Tooltip" class="tooltip d-none  bs-tooltip-top" role="tooltip">
+    <div @ref="Arrow" class="arrow"></div>
+    <div class="tooltip-inner">@ChildContent</div>
+</div>

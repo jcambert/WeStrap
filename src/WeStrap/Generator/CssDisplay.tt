@@ -1,0 +1,38 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+Dictionary<string,string> displays=new Dictionary<string,string>(){
+	{"None","none"},
+	{"Block","block"},
+	{"Inline","inline"},
+	{"RunIn","run-in"},
+	{"Flow","flow"},
+	{"FlowRoot","flow-root"},
+	{"Table","table"},
+	{"Flex","flex"},
+	{"Grid","grid"},
+	{"Ruby","ruby"},
+	{"Contents","contents"},
+	{"Inherit","inherit"},
+	{"Initial","initial"},
+	{"Unset","unset"},
+	{"InlineBlock","inline-block"},
+	{"InlineTable","inline-table"},
+	{"InlineFlex","inline-flex"},
+	{"InlineGrid","inline-grid"}
+
+};
+#>
+using System.ComponentModel;
+namespace WeStrap{
+public enum CssDisplay{
+<#foreach(var display  in displays){#>
+	[Description("<#=display.Value #>")]
+	<#=display.Key#>,
+<#}#>
+}
+}

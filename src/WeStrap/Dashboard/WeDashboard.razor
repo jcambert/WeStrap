@@ -1,0 +1,87 @@
+﻿@namespace WeStrap
+
+@inject IJSRuntime js
+@inject NavigationManager navigator
+
+<WeNavBar IsFixedTop="true" IsDark="IsDark" Class="flex-md-nowrap p-0 " IsVisible="true">
+    <WeNavbarBrand Class="col-lg-2 col-md-3 mr-0 we_site_title">
+        <WeButton ButtonType="ButtonType.Link" Color="Color.None" Class="we_site_title" OnClick="OnBrandClick">
+            <i class="@Icon"></i>
+            <span>@Title</span>
+        </WeButton>
+
+    </WeNavbarBrand>
+    <WeNavbarToggler />
+</WeNavBar>
+<WeContainer IsFluid="IsFluid" Class="we_dashboard">
+    <div class="row">
+        @if (SidebarSide == Side.Right)
+        {
+            <WeMainContent>
+                @MainContent
+            </WeMainContent>
+        }
+
+        @if (ShowSidebar)
+        {
+            <WeSidebar IsDark="IsDark">
+                @if (ShowProfile)
+                {
+                    <WeSidebarProfile Welcome="@ProfileWelcome" Avatar="@ProfileAvatar" Name="@ProfileName"></WeSidebarProfile>
+                }
+                @if (ShowMenu)
+                {
+                    <WeSidebarMenu Menus="Menus" OnClickSideMenu="NotifyOnClickSideMenu" OnMenuItemClick="NotifyOnMenuItemClick" />
+                }
+                <WeClearFix />
+                <WeSidebarFooter>
+                    @Footer
+                </WeSidebarFooter>
+            </WeSidebar>
+        }
+        @if (SidebarSide == Side.Left)
+        {
+            <WeMainContent>
+                @MainContent
+            </WeMainContent>
+        }
+
+    </div>
+</WeContainer>
+
+@code {
+
+    [Parameter] public Side SidebarSide { get; set; } = Side.Left;
+    [Parameter] public bool IsFluid { get; set; } = true;
+    [Parameter] public bool IsDark { get; set; } = true;
+    [Parameter] public bool ShowSidebar { get; set; } = true;
+    [Parameter] public bool ShowProfile { get; set; } = true;
+    [Parameter] public bool ShowMenu { get; set; } = true;
+    [Parameter] public string Icon { get; set; } = "fas fa-paw";
+    [Parameter] public string Title { get; set; } = "Dashboard";
+    [Parameter] public string ProfileAvatar { get; set; } = @"_content/WeStrap/img/male.png";
+    [Parameter] public string ProfileWelcome { get; set; } = @"Bienvenue";
+    [Parameter] public string ProfileName { get; set; } = @"Ambert Jc";
+    [Parameter] public List<WeMenuItem> Menus { get; set; } = new List<WeMenuItem>();
+    [Parameter] public RenderFragment MainContent { get; set; }
+    [Parameter] public RenderFragment Footer { get; set; }
+
+    [Parameter] public EventCallback<WeMouseEventArgs> OnClickSideMenu { get; set; }
+    [Parameter] public EventCallback<WeMenuItemEventArgs<WeMenuItem>> OnMenuItemClick { get; set; }
+    [Parameter] public EventCallback OnBrandClick { get; set; }
+    private async Task NotifyOnClickSideMenu(WeMouseEventArgs args)
+    {
+        await js.InvokeVoidAsync("westrap.sidebar_click", args.Sender, args.Id);
+        await OnClickSideMenu.InvokeAsync(args);
+    }
+
+    private async Task NotifyOnMenuItemClick(WeMenuItemEventArgs<WeMenuItem> args)
+    {
+        if (string.IsNullOrEmpty(args.Item.NavigateTo)) return;
+        Console.WriteLine($"Menu item click:{args.Sender.Id}-{args.Item.Title}");
+        if (OnMenuItemClick.HasDelegate)
+            await OnMenuItemClick.InvokeAsync(args);
+        else
+            navigator.NavigateTo(args.Item.NavigateTo);
+    }
+}

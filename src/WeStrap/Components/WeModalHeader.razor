@@ -1,0 +1,9 @@
+﻿@namespace WeStrap
+@inherits WeModalHeaderBase
+
+<DynamicTag @attributes="@UnknownParameters" TagName="div" class="@divClassname">
+    <h5 class="@headingClassname">@ChildContent</h5>
+    <WeButton Color="Color.None" class="close" aria-label="Close" @onclick="OnClick" autofocus>
+        <span aria-hidden="true">&times;</span>
+    </WeButton>
+</DynamicTag>

@@ -1,0 +1,20 @@
+﻿@namespace WeStrap
+@inherits WePanelBase
+<CascadingValue Value="this">
+    <DynamicTag TagName="div" class="@ClassName" disabled="@disabled" @attributes="@UnknownParameters">
+
+        @if (Ribbon != null)
+        {
+            <div class="we_ribbon-wrapper">
+                <div class="we_ribbon">
+                    @Ribbon
+                </div>
+            </div>
+        }
+        @Title
+        @Content
+
+        @ChildContent
+
+    </DynamicTag>
+</CascadingValue>

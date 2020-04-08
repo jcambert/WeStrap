@@ -1,0 +1,13 @@
+﻿@namespace WeStrap
+@inherits WeStatTileBase
+<div class="we_tile_stat @ColClass">
+    <DynamicTag TagName="div" @attributes="UnknownParameters" class="@ClassName">
+        <span class="top">@Top</span>
+        <div class="content">@Content</div>
+        <span class="bottom">@Bottom</span>
+        @ChildContent
+    </DynamicTag>
+</div>
+@code{
+    protected string ColClass => string.Join(" ", Columns.ToDescriptionString());
+}

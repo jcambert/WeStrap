@@ -1,0 +1,42 @@
+﻿@namespace WeStrap
+@inherits WePanelTitleBase
+
+<DynamicTag TagName="div" class="@ClassName" @attributes="UnknownParameters">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h2>@Title</h2>
+
+    }
+    @if ((ToolBox != null || IsCollapseable ||IsCloseable) && Parent.Ribbon == null)
+    {
+<WeNav IsList="true" Class="navbar-right we_panel_toolbox">
+    @ToolBox
+    @if (IsCollapseable)
+    {
+        <WeNavItem>
+            <WeButton ButtonType="ButtonType.Link" Color="Color.None" OnClick="(args)=>Toggle()">
+                @if (State == ToggleState.Open)
+                {
+                    <i class="fas fa-chevron-up"></i>
+                }
+                else
+                {
+                    <i class="fas fa-chevron-down"></i>
+                }
+            </WeButton>
+        </WeNavItem>
+    }
+
+    @if (IsCloseable)
+    {
+        <WeNavItem>
+            <WeButton ButtonType="ButtonType.Link" Color="Color.None" OnClick="(args)=>OnClose.InvokeAsync(args)">
+                <i class="fas fa-times"></i>
+            </WeButton>
+        </WeNavItem>
+    }
+</WeNav>
+    }
+    @ChildContent
+    <div class="clearfix"></div>
+</DynamicTag>

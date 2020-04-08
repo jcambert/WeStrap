@@ -1,0 +1,59 @@
+﻿@namespace WeStrap
+@typeparam TModel
+@inject  IWeQuery jquery;
+<WeRow RowColumnCount="WeRowCount.Row1" Class="pt-4 pb-4 pl-4 pr-4 we_login_form">
+    <WeCol>
+        <WeForm ValidateOnInit="true" Model="@Value" @ref="me" TModel="TModel" OnValidSubmit="OnSubmit">
+            @if (!UserValidation)
+            {
+                <WeDataAnnotationsValidator />
+            }
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <WeFormTitle Title="@Title"></WeFormTitle>
+            }
+            @if (!string.IsNullOrEmpty(Avatar))
+            {
+                <WeFormAvatar Image="@Avatar"></WeFormAvatar>
+            }
+            @if (InnerForm != null)@InnerForm(Value)
+            @if (ShowValidationSummary && ValidationSummary == null)
+            {
+                <WeValidationSummary class="pb-1" Title="Erreur" />
+            }
+            else if (ShowValidationSummary && ValidationSummary != null)
+            {
+                @ValidationSummary
+            }
+            <WeRow Class="we_center_content">
+                <WeButtonGroup>
+                    <WeButton ButtonType="ButtonType.Submit" Color="Color.Primary">@SendButton</WeButton>
+                    <WeButton ButtonType="ButtonType.Button" Color="Color.Danger" OnClick="OnCancel">@CancelButton</WeButton>
+                </WeButtonGroup>
+            </WeRow>
+            @if (!string.IsNullOrEmpty(CreateAccount))
+            {
+            <WeRow Class="we_center_content pt-2">
+                <WeButton ButtonType="ButtonType.Link" Color="Color.Link" OnClick="OnCreateAccount">Créer un compte</WeButton>
+            </WeRow>
+            }
+        </WeForm>
+    </WeCol>
+</WeRow>
+@code {
+    [Parameter] public bool UserValidation { get; set; }
+    [Parameter] public bool ShowValidationSummary { get; set; } = true;
+    [Parameter] public string SendButton { get; set; } = "Entrer";
+    [Parameter] public string CancelButton { get; set; } = "Annuler";
+    [Parameter] public EventCallback<MouseEventArgs> OnCancel { get; set; }
+    [Parameter] public EventCallback OnSubmit { get; set; }
+    [Parameter] public EventCallback OnCreateAccount { get; set; }
+    [Parameter] public string Avatar { get; set; } = string.Empty;
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string Icon { get; set; } = string.Empty;
+    [Parameter] public string CreateAccount { get; set; } = string.Empty;
+    [Parameter] public RenderFragment<TModel> InnerForm { get; set; }
+    WeForm<TModel> me { get; set; }
+    [Parameter] public RenderFragment ValidationSummary { get; set; }
+
+}

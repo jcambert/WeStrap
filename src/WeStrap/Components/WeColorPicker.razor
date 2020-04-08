@@ -1,0 +1,39 @@
+﻿@namespace WeStrap
+@inherits WeTag
+@inject IJSRuntime js
+<DynamicTag TagName="div" class="color-container" @attributes="UnknownParameters" ElementRef="Me" id="@Id" @onclick="Show">
+    <input id="@PickId" class="jscolor" @onchange="Update">
+</DynamicTag>
+@code {
+    protected override WeStringBuilder BuildClassName(string s = "")
+    {
+        return base.BuildClassName("jscolor");
+    }
+    string Id = GenerateId();
+    string PickId = GenerateId();
+
+    [Parameter] public WeColor Color { get; set; } = WeColor.From("#FF0000");
+    [Parameter] public EventCallback<WeColor> OnColorChanged { get; set; }
+    private async Task Update(ChangeEventArgs args)
+    {
+        var c = await js.InvokeAsync<string>("westrap.update_picker", PickId, Id);
+        Color =WeColor.From(c );
+        Console.WriteLine(Color.ToString());
+        await OnColorChanged.InvokeAsync(Color);
+    }
+
+    private async Task Show(MouseEventArgs args)
+    {
+        await js.InvokeVoidAsync("westrap.show_picker", PickId);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            await js.InvokeAsync<string>("westrap.update_picker", PickId, Id, Color.ToString());
+        }
+    }
+
+}

@@ -1,0 +1,6 @@
+﻿@namespace WeStrap
+@inherits WeDropdownMenuBase
+
+<DynamicTag @attributes="@UnknownParameters" TagName="div" class="@ClassName" @onmouseout="MouseOut" @bind-ElementRef="MyRef">
+    @ChildContent
+</DynamicTag>

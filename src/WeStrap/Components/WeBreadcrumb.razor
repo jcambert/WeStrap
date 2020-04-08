@@ -1,0 +1,46 @@
+﻿@namespace WeStrap
+@inherits WeBreadcrumbBase
+
+<nav aria-label="breadcrumb">
+    <DynamicTag @attributes="@UnknownParameters" TagName="ol" class="@ClassName">
+        @if (Items.Any())
+        {
+
+            @foreach (var (item,index) in Items.WithIndex())
+            {
+                item.Index = index;
+                @if (!IsLastItem(item))
+                {
+                    <li class="breadcrumb-item active" aria-current="page">@Template(item)</li>
+                }
+                else
+                {
+                    @if (TemplateLast == null)
+                    {
+                        <li class="breadcrumb-item">@item.Value</li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item">@TemplateLast(item)</li>
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            @ChildContent
+        }
+
+    </DynamicTag>
+</nav>
+@code{
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (TemplateLast == null)
+            TemplateLast = (item) => @<span>@item.Value</span>;
+        if (Template == null)
+            Template = (item) =>@<a href="@item.Href">@item.Value</a>;
+    }
+}

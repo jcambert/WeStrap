@@ -1,0 +1,196 @@
+﻿@namespace WeStrap
+@implements IDisposable
+@typeparam TItem
+@using System.Reactive.Linq
+<div class="carousel-inner">
+    <WeQuery @ref="query">
+        @foreach (var (item, index) in Items.WithIndex())
+        {
+            var i = index;
+            <div class="carousel-item" data-item="@i">
+                @Template(item)
+                @if (Caption != null)
+                {
+                    <div class="carousel-caption d-none d-md-block">
+                        @Caption(item)
+                    </div>
+                }
+            </div>
+        }
+    </WeQuery>
+</div>
+@code {
+    //object _lock = new object();
+    protected WeQuery query { get; set; }
+    [CascadingParameter] public WeCarousel Parent { get; set; }
+    [Parameter] public IReadOnlyList<TItem> Items { get; set; }
+    [Parameter] public RenderFragment<TItem> Template { get; set; }
+    [Parameter] public RenderFragment<TItem> Caption { get; set; }
+    [Parameter] public bool EnableTransition { get; set; } = false;
+
+    // IObservable<long> _transitionTimer;
+    // IDisposable _transition;
+    private int _currentIndex = 0;
+    private bool _inTransition;
+
+    // private CancellationTokenSource tokenSource = new CancellationTokenSource();
+    public int CurrentIndex
+    {
+        get => _currentIndex;
+        set
+        {
+
+            _beforeTransitionIndex = _currentIndex;
+            _currentIndex = value;
+
+            if (EnableTransition)
+            {
+                //var token = tokenSource.Token;
+
+                Task.Run(() => InvokeAsync(async () =>
+                {
+                    _inTransition = true;
+                    if (Parent.Direction == CarouselDirection.Next)
+                    {
+                        await query.Query.AddClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "carousel-item-next");
+                        await query.Query.AddClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "carousel-item-left");
+                        await query.Query.AddClass(query.Id, $"[data-item=\"{_beforeTransitionIndex}\"]", "carousel-item-left");
+                        await Task.Delay(600);
+
+                        await query.Query.RemoveClass(query.Id, $"[data-item=\"{_beforeTransitionIndex}\"]", "carousel-item-left");
+                        await query.Query.RemoveClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "carousel-item-next carousel-item-left"); ;
+
+                        await query.Query.AddClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "active");
+                        await query.Query.RemoveClass(query.Id, $"[data-item=\"{_beforeTransitionIndex}\"]", "active");
+                    }
+                    else
+                    {
+                        await query.Query.AddClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "carousel-item-prev");
+                        await query.Query.AddClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "carousel-item-right");
+                        await query.Query.AddClass(query.Id, $"[data-item=\"{_beforeTransitionIndex}\"]", "carousel-item-right");
+                        await Task.Delay(600);
+
+                        await query.Query.RemoveClass(query.Id, $"[data-item=\"{_beforeTransitionIndex}\"]", "carousel-item-right");
+                        await query.Query.RemoveClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "carousel-item-prev carousel-item-right");
+
+
+                        await query.Query.AddClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "active");
+                        await query.Query.RemoveClass(query.Id, $"[data-item=\"{_beforeTransitionIndex}\"]", "active");
+                    }
+                    _inTransition = false;
+
+                }));
+
+            }
+            else
+            {
+                Task.Run(() => InvokeAsync(async () =>
+                {
+                    await query.Query.AddClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "active");
+                    await query.Query.RemoveClass(query.Id, $"[data-item=\"{_beforeTransitionIndex}\"]", "active");
+
+                }));
+            }
+            Parent?.ChangeActiveIndex(value);
+
+
+        }
+    }
+    public bool IsActive(int index) => (index == CurrentIndex || (EnableTransition && index == _beforeTransitionIndex));
+
+    private IDisposable _wantSlide;
+    private IDisposable _wantSlideToIndex;
+    private int _beforeTransitionIndex = -1;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _wantSlide = Parent?.SlideTo.Subscribe((direction) =>
+        {
+
+            //if (_inTransition) return;
+            //tokenSource?.Cancel();
+            switch (direction)
+            {
+                case CarouselDirection.Previous:
+                    if (CurrentIndex - 1 < 0)
+                        CurrentIndex = Items.Count() - 1;
+                    else
+                        CurrentIndex -= 1;
+                    break;
+                case CarouselDirection.Next:
+                    if (CurrentIndex + 1 > Items.Count() - 1)
+                        CurrentIndex = 0;
+                    else
+                        CurrentIndex += 1;
+                    break;
+                default:
+                    break;
+            }
+
+            // await Refresh();
+        });
+        _wantSlideToIndex = Parent?.SlideToIndex.Subscribe((index) =>
+        {
+
+            //tokenSource?.Cancel();
+            Console.WriteLine($"Want Slide To Index:{index}");
+            CurrentIndex = index;
+
+
+        });
+
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            _beforeTransitionIndex = Items.Count() - 1;
+            _currentIndex = 0;
+            _inTransition = false;
+            await query.Query.AddClass(query.Id, $"[data-item=\"{_currentIndex}\"]", "active");
+        }
+    }
+    public async Task Refresh()
+    {
+        await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+    }
+    #region IDisposable Support
+    private bool disposedValue = false; // Pour détecter les appels redondants
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // TODO: supprimer l'état managé (objets managés).
+                _wantSlide.Dispose();
+                _wantSlideToIndex.Dispose();
+            }
+
+            // TODO: libérer les ressources non managées (objets non managés) et remplacer un finaliseur ci-dessous.
+            // TODO: définir les champs de grande taille avec la valeur Null.
+
+            disposedValue = true;
+        }
+    }
+
+    // TODO: remplacer un finaliseur seulement si la fonction Dispose(bool disposing) ci-dessus a du code pour libérer les ressources non managées.
+    // ~WeCarouselBase()
+    // {
+    //   // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
+    //   Dispose(false);
+    // }
+
+    // Ce code est ajouté pour implémenter correctement le modèle supprimable.
+    public void Dispose()
+    {
+        // Ne modifiez pas ce code. Placez le code de nettoyage dans Dispose(bool disposing) ci-dessus.
+        Dispose(true);
+        // TODO: supprimer les marques de commentaire pour la ligne suivante si le finaliseur est remplacé ci-dessus.
+        GC.SuppressFinalize(this);
+    }
+    #endregion
+
+}

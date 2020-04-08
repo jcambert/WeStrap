@@ -1,0 +1,50 @@
+﻿@page "/login"
+@layout LoginLayout
+@inject NavigationManager NavigationManager
+<LoginForm Value="Model" TModel="LoginModel"
+           Avatar="_content/WeStrap/img/male.png" 
+           Title="WePing" 
+           CreateAccount="Créer un compte"
+           ShowValidationSummary="true" 
+           OnSubmit="TryLogin"
+           OnCreateAccount="TryCreateAccount">
+    <InnerForm Context="ctx">
+        <WeFormGroup IsRow="true" Class="pb-2">
+            <WeLabel Columns="new List<WeColumn>() { WeColumn.sm6}" Class="col-form-label" For="()=>ctx.UserName"></WeLabel>
+            <WeCol Columns="new List<WeColumn>() {WeColumn.sm6 }">
+                <WeInput @bind-Value="ctx.UserName" ></WeInput>
+                <WeFormFeedback For="@(() => ctx.UserName)" ValidMessage="Sweet! you fixed the issue" />
+            </WeCol>
+        </WeFormGroup>
+        <WeFormGroup IsRow="true" Class="pb-2 ">
+            <WeLabel Columns="new List<WeColumn>() { WeColumn.sm6}" Class="col-form-label" For="()=>ctx.Password"></WeLabel>
+            <WeCol Columns="new List<WeColumn>() {WeColumn.sm6 }">
+                <WeInput @bind-Value="ctx.Password" ValidateOnChange="true"></WeInput>
+                <WeFormFeedback For="@(() => ctx.Password)" ValidMessage="Sweet! you fixed the issue" />
+            </WeCol>
+        </WeFormGroup>
+
+        <WeFormGroup IsRow="true" Class="pb-2 ">
+            <WeLabel Columns="new List<WeColumn>() { WeColumn.sm6}" Class="col-form-label" For="()=>ctx.ConfirmPassword" Label="Confirme"></WeLabel>
+            <WeCol Columns="new List<WeColumn>() {WeColumn.sm6 }">
+                <WeInput @bind-Value="ctx.ConfirmPassword" ValidateOnChange="true"></WeInput>
+                <WeFormFeedback For="@(() => ctx.ConfirmPassword)" ValidMessage="Sweet! you fixed the issue" />
+            </WeCol>
+        </WeFormGroup>
+    </InnerForm>
+</LoginForm>
+@code {
+
+    [Parameter] public LoginModel Model { get; set; } = new LoginModel();
+    void TryLogin()
+    {
+        Console.WriteLine("TRY LOGIN");
+        NavigationManager.NavigateTo("");
+    }
+    void TryCreateAccount()
+    {
+        Console.WriteLine("TRY CREATE ACCOUNT");
+        NavigationManager.NavigateTo("board");
+    }
+}
+

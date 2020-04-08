@@ -1,0 +1,11 @@
+﻿@namespace WeStrap
+@inherits WeFormGroupBase
+
+<DynamicTag @attributes="@UnknownParameters" TagName="div" class="@ClassName">
+    @ChildContent
+</DynamicTag>
+@code{
+    [CascadingParameter] public IWeEditContext EditContext { get; set; }
+
+
+}

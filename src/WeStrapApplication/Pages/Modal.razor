@@ -1,0 +1,25 @@
+﻿@page  "/modal"
+
+<WeRow RowColumnCount="WeRowCount.Row1">
+    <WeButton OnClick="ShowModal">Show Modal</WeButton>
+    <WeModal @ref="modalForm" NoBackdrop="false" IgnoreClickOnBackdrop="true">
+        <WeModalHeader OnClick="()=>modalForm.Hide()">Modal Title</WeModalHeader>
+        <WeModalBody><p>Woohoo, you're reading this text in a modal!</p></WeModalBody>
+        <WeModalFooter>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </WeModalFooter>
+        
+
+    </WeModal>
+</WeRow>
+
+
+@code{
+
+    protected WeModal modalForm { get; set; }
+    protected void ShowModal()
+    {
+        modalForm.Toggle();
+    }
+}

@@ -1,0 +1,20 @@
+﻿@namespace WeStrap
+@inherits WeTag
+
+<DynamicTag TagName="div" class="@ClassName" @attributes="@UnknownParameters">
+    <div class="row  ">
+        @ChildContent
+    </div>
+</DynamicTag>
+
+@code {
+    protected override WeStringBuilder BuildClassName(string s = "") =>
+        base.BuildClassName(s)
+        .Add("d-none")
+        .Add("d-xl-block")
+        .Add("container-fluid")
+        .Add("col-md-2")
+        .Add("we_sidebar_footer")
+        .Add("-small");
+
+}

@@ -1,0 +1,90 @@
+﻿@namespace WeStrap
+@typeparam TItem
+@inherits WeTag
+@inject IWeQuery query
+<DynamicTag TagName="div" class="@ClassName" disabled="@disabled" @attributes="@UnknownParameters" id="@id">
+
+
+    @foreach (var (item, index) in Items.WithIndex())
+    {
+        var i = index;
+        <WeCard>
+            <WeCard CardType="CardType.Header">
+                <h2 class="mb-0">
+                    <WeButton ButtonType="ActivatorType" Class="@ActivatorClass" Color="ActivatorColor" IsLink="ActivatorIsLink" @onclick="()=>Activate(i)">
+                        @Header(item)
+                    </WeButton>
+
+                </h2>
+            </WeCard>
+            <WeCollapse data-item="@i">
+                @if (Content != null)@Content(item)
+            </WeCollapse>
+        </WeCard>
+    }
+
+
+
+</DynamicTag>
+@code{
+    private int _currentIndex = -1;
+    public bool IsAccordion => Items.Any();
+    public string id { get; set; } =Guid.NewGuid().ToString().Replace("-","");
+    [Parameter] public ButtonType ActivatorType { get; set; } = ButtonType.Button;
+    [Parameter] public string ActivatorClass { get; set; } = "";
+    [Parameter] public Color ActivatorColor { get; set; } = Color.None;
+    [Parameter] public bool ActivatorIsLink { get; set; } = true;
+
+    [Parameter] public IList<TItem> Items { get; set; } = new List<TItem>();
+
+    [Parameter]
+    public TItem Item
+    {
+        get => Items.FirstOrDefault();
+        set
+        {
+            Items.Clear();
+            Items.Add(value);
+        }
+    }
+
+    [Parameter] public RenderFragment<TItem> Header { get; set; }
+
+    [Parameter] public RenderFragment<TItem> Content { get; set; }
+
+    [Parameter] public EventCallback<int> OnShow { get; set; }
+
+    public async Task Activate(int index)
+    {
+        for (int i = 0; i < Items.Count(); i++)
+        {
+            if (i == index)
+            {
+                await query.ToggleClass(this.id, $".card>.collapse[data-item ='{i}']", "show");
+            }
+            else
+            {
+                await query.RemoveClass(this.id, $".card>.collapse[data-item ='{i}']", "show");
+            }
+        }
+
+        _currentIndex = index;
+        await OnShow.InvokeAsync(index);
+
+    }
+
+    protected override WeStringBuilder BuildClassName(string s = "")
+    {
+        return base.BuildClassName(s)
+            .Add("accordion", IsAccordion);
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            if (Header == null) Header = (item) =>@<WeButton ButtonType="ButtonType.Button" Color="ActivatorColor" IsLink="ActivatorIsLink">###</WeButton>;
+}
+}
+
+}

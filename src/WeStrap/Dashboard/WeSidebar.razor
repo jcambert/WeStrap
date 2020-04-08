@@ -1,0 +1,37 @@
+﻿@namespace WeStrap
+@using System.Text.RegularExpressions
+<WeNav Class="@ClassName">
+    <div class="we_sidebar_wrapper">
+
+        @ChildContent
+    </div>
+</WeNav>
+
+@code {
+    private WeStringBuilder BuildClassName()
+    {
+        return new WeStringBuilder()
+            .Add("we_sidebar")
+            .Add(Widths.ToDescriptionString())
+            .Add("d-none")
+            .AddList("d-{0}-block", BreakPoints)
+            .Add("bg-dark", IsDark);
+
+    }
+    public string ClassName => BuildClassName().ToString();
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public IReadOnlyList<WeColumn> Widths { get; set; } = new List<WeColumn>() { WeColumn.md3, WeColumn.lg2 };
+    private IEnumerable<string> BreakPoints
+    {
+        get
+        {
+            var result = new List<string>();
+            foreach (var width in Widths)
+            {
+                result.Add(Regex.Replace(width.ToString(), @"[\d-]", string.Empty));
+            }
+            return result;
+        }
+    }
+    [Parameter] public bool IsDark { get; set; }
+}

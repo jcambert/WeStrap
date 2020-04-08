@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>class</Title>
+			<Shortcut>weclp</Shortcut>
+			<Description>Extrait de code pour une classe</Description>
+			<Author>Microsoft Corporation</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<ToolTip>Nom de la Propriete</ToolTip>
+					<Default>Propriete</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[private string _$name$;
+			[Parameter] public string $name$
+	{
+			get=>_$name$;
+			set=>_$name$ = (int.TryParse(value, out var ivalue), value?.ToLowerInvariant()) switch
+            {
+                (false, "") => "",
+                (true, var lovalue) when ivalue >= 1 && ivalue <= 12 => lovalue,
+                _ => throw new ArgumentException(Resources.Between_1_and_12, nameof($name$))
+            };
+		
+	}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

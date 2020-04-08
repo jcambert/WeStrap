@@ -1,0 +1,24 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+Dictionary<string, string> offsets = new Dictionary<string, string>() {
+                {"sm","Small"},
+                {"md","Medium" },
+				{"lg","Large"},
+				{"xl","XtraLarge"},
+            };
+#>
+using System.ComponentModel;
+namespace WeStrap{
+	public enum WeOffset{
+		<#foreach(var offset in offsets)
+			for(var i=1;i<=12;i++){#>
+[Description("offset-<#=offset.Key#>-<#=i.ToString()#>")]
+		<#=offset.Value#><#=i.ToString()#>,
+		<#}#>
+	}
+}

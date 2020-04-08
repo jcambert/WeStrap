@@ -1,0 +1,43 @@
+﻿using System.ComponentModel;
+namespace WeStrap
+{
+    public enum CssDisplay
+    {
+        [Description("none")]
+        None,
+        [Description("block")]
+        Block,
+        [Description("inline")]
+        Inline,
+        [Description("run-in")]
+        RunIn,
+        [Description("flow")]
+        Flow,
+        [Description("flow-root")]
+        FlowRoot,
+        [Description("table")]
+        Table,
+        [Description("flex")]
+        Flex,
+        [Description("grid")]
+        Grid,
+        [Description("ruby")]
+        Ruby,
+        [Description("contents")]
+        Contents,
+        [Description("inherit")]
+        Inherit,
+        [Description("initial")]
+        Initial,
+        [Description("unset")]
+        Unset,
+        [Description("inline-block")]
+        InlineBlock,
+        [Description("inline-table")]
+        InlineTable,
+        [Description("inline-flex")]
+        InlineFlex,
+        [Description("inline-grid")]
+        InlineGrid,
+    }
+}

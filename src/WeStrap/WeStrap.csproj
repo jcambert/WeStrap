@@ -1,0 +1,172 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\lumen.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\pulse.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\simplex.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\styles.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Generator\BootstrapOffset.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BootstrapOffset.tt</DependentUpon>
+    </None>
+    <None Include="Generator\BootstrapSpacer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BootstrapSpacer.tt</DependentUpon>
+    </None>
+    <None Include="Generator\Column.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Column.tt</DependentUpon>
+    </None>
+    <None Include="Generator\CssDisplay.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CssDisplay.tt</DependentUpon>
+    </None>
+    <None Include="Generator\FixedHeight.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FixedHeight.tt</DependentUpon>
+    </None>
+    <None Include="Generator\RowMediumColumnCount.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RowMediumColumnCount.tt</DependentUpon>
+    </None>
+    <None Include="Generator\RowSmallColumnCount.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RowSmallColumnCount.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="3.1.2" />
+    <PackageReference Include="System.Reactive" Version="4.3.2" />
+    <PackageReference Include="System.Reactive.Linq" Version="4.3.2" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MicroS-Common\src\MicroS-Common\MicroS-Common.csproj" />
+    <ProjectReference Include="..\WeColor\WeColor.csproj" />
+    <ProjectReference Include="..\WeCommon\WeCommon.csproj" />
+    <ProjectReference Include="..\WeQuery\WeQuery.csproj" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Compile Update="Generator\BootstrapOffset.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BootstrapOffset.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Generator\BootstrapSpacer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BootstrapSpacer.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Generator\Column.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Column.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Generator\CssDisplay.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CssDisplay.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Generator\FixedHeight.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FixedHeight.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Generator\RowColumnCount.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RowColumnCount.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\WeStrapResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WeStrapResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\WeStrapResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WeStrapResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <None Update="Generator\BootstrapOffset.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BootstrapOffset.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\BootstrapSpacer.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BootstrapSpacer.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\Column.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Column.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\CssDisplay.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CssDisplay.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\FixedHeight.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FixedHeight.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\RowColumnCount.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RowColumnCount.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\RowMediumColumnCount.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RowMediumColumnCount.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\RowSmallColumnCount.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RowSmallColumnCount.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\bootswatch\cerulean\" />
+  </ItemGroup>
+
+
+
+
+</Project>

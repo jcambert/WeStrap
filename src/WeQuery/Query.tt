@@ -1,0 +1,37 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Globalization" #>
+<#@ output extension=".cs" #>
+<#
+
+static string ToTitleCase(string value){
+    return value = value[0].ToString().ToUpper() + value.Substring(1, value.Length - 1);
+};
+
+List<string> queries = new List<string>() {
+"add","addBack","addClass","after","ajaxComplete","ajaxError","ajaxSend","ajaxStart","ajaxStop","ajaxSuccess","andSelf","animate","append","appendTo","attr","before","bind","blur","has","remove","removeClass","css","toggleClass","focus"
+ };
+
+
+#>
+namespace WeQ{
+    internal class WeQueryList
+    {
+        public const string popper="window.wequery.popper";
+        public const string native="window.wequery.native";
+        public const string _="window.wequery._";
+        public const string setCssLink="window.wequery.setCssLink";
+        public const string getCssLink="window.wequery.getCssLink";
+        public const string tooltip="window.wequery.tooltip";
+     <#foreach( var query in queries){#>
+    /// <summary>
+        /// <see cref="https://api.jquery.com/<#=query#>"/>
+        /// </summary>
+        public const string <#=ToTitleCase(query)#>="window.wequery.<#=query#>";
+    <#}#>
+    }
+    
+}

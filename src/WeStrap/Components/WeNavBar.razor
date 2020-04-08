@@ -1,0 +1,9 @@
+﻿
+@namespace WeStrap
+@inherits WeNavbarBase
+
+<CascadingValue Value="this">
+    <DynamicTag @attributes="@UnknownParameters" TagName="nav" class="@ClassName">
+        @ChildContent
+    </DynamicTag>
+</CascadingValue>

@@ -1,0 +1,52 @@
+﻿@namespace WeStrap
+@inherits WeTag
+
+@if (Spinners[Type].NumberOfElement > 0 || !Spinners[Type].ApplyColorToInner)
+{
+    <style>
+    @Style
+    </style>
+}
+<DynamicTag TagName="div" class="@ClassName" @attributes="UnknownParameters">
+    @for (var i = 0; i < Spinners[Type].NumberOfElement; i++)
+    {
+        <div class="we_spinner-@Spinners[Type].InnerClass" />
+    }
+
+</DynamicTag>
+
+@code {
+
+    protected override WeStringBuilder BuildClassName(string s = "") =>
+        base.BuildClassName()
+        .Add($"we_spinner-{Spinners[Type].Class}")
+
+        ;
+    private string GetColor() => Color.ToRGBA();
+    protected override WeStringBuilder BuildStyle() => base.BuildStyle().Add($".we_spinner-{Spinners[Type].Class}").Immediate(true).Add(">*", Spinners[Type].NumberOfElement > 0).Add(":before", Spinners[Type].ApplyColorToInner).Immediate(false).Add("{background-color:").Add(GetColor()).Add(";}");
+
+    WeColor _color=WeColor.Fuchsia ;
+    [Parameter] public WeColor Color {
+        get=>_color;
+        set
+        {
+            _color = value;
+            StateHasChanged();
+        }
+    }
+
+
+    string _type;
+    [Parameter] public string Type { get; set; }
+
+
+    [Inject] public IWeStrapSpinner Spinners { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        StateHasChanged();
+    }
+
+
+}

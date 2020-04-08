@@ -1,0 +1,807 @@
+﻿@import "_variables";
+
+$size: 40px;
+$color: #333;
+$fixedColor: false;
+
+@mixin spinner($width: $size,$height: $size,$margin: $size) {
+    margin: $margin auto;
+    width: $width;
+    height: $height;
+    position: relative;
+    text-align: center;
+}
+
+@mixin bgColor($enable: $fixedColor) {
+    @if $enable {
+        background-color: var(--sk-color);
+    }
+}
+/* Config */
+:root {
+    --sk-size: $size;
+    --sk-color: $color;
+}
+
+$rotation: 30;
+$step: 0.1;
+
+$nbreOfCircleDot:12;
+$nbreOfWaveCube: 5;
+/* Utility class for centering */
+.#{$prefix}spinner-center {
+    margin: auto;
+}
+/***************************************************************/
+/*  CircleDot
+
+      <div class="#{$prefix}spinner--circle">
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+        <div class="#{$prefix}spinner-circle-dot"></div>
+      </div>
+ */
+.#{$prefix}spinner-circle {
+    @include spinner($size,$size);
+    /*width: $size;
+    height: $size;
+    position: relative;*/
+}
+
+.#{$prefix}spinner-circle > .#{$prefix}spinner-circle-dot {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.#{$prefix}spinner-circle > .#{$prefix}spinner-circle-dot:before {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 15%;
+    height: 15%;
+    @include bgColor();
+    border-radius: 100%;
+    -webkit-animation: #{$prefix}spinner-circleBounceDelay 1.2s infinite ease-in-out both;
+    animation: #{$prefix}spinner-circleBounceDelay 1.2s infinite ease-in-out both;
+}
+
+
+$i: 1;
+
+@for $i from 1 through $nbreOfCircleDot {
+    .#{$prefix}spinner-circle > .#{$prefix}spinner-circle-dot:nth-child(#{$i}) {
+        -webkit-transform: rotate(0deg + $i * $rotation );
+        -ms-transform: rotate(0deg + $i * $rotation );
+        transform: rotate( 0deg + $i * $rotation );
+    }
+
+    .#{$prefix}spinner-circle > .#{$prefix}spinner-circle-dot:nth-child(#{$i}):before {
+        -webkit-animation-delay: -1.1s + ($i - 1 ) * $step;
+        animation-delay: -1.1s + ($i - 1 ) * $step;
+    }
+}
+
+@-webkit-keyframes #{$prefix}spinner-circleBounceDelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes #{$prefix}spinner-circleBounceDelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+/***************************************************************/
+/* CircleFade
+
+    <div class="#{$prefix}spinner-fading-circle">
+      <div class="#{$prefix}spinner-circle1 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle2 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle3 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle4 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle5 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle6 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle7 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle8 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle9 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle10 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle11 #{$prefix}spinner-circle"></div>
+      <div class="#{$prefix}spinner-circle12 #{$prefix}spinner-circle"></div>
+    </div>
+*/
+
+
+.#{$prefix}spinner-circle > .#{$prefix}spinner-circle-fade {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.#{$prefix}spinner-circle > .#{$prefix}spinner-circle-fade:before {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 15%;
+    height: 15%;
+    @include bgColor();
+    border-radius: 100%;
+    -webkit-animation: #{$prefix}spinner-circleFadeDelay 1.2s infinite ease-in-out both;
+    animation: #{$prefix}spinner-circleFadeDelay 1.2s infinite ease-in-out both;
+}
+
+
+$i: 1;
+@for $i from 1 through 12 {
+    .#{$prefix}spinner-circle > .#{$prefix}spinner-circle-fade:nth-child(#{$i}) {
+        -webkit-transform: rotate(0deg + $i * $rotation );
+        -ms-transform: rotate(0deg + $i * $rotation );
+        transform: rotate( 0deg + $i * $rotation );
+    }
+
+    .#{$prefix}spinner-circle > .#{$prefix}spinner-circle-fade:nth-child(#{$i}):before {
+        -webkit-animation-delay: -1.1s + ($i - 1 ) * $step;
+        animation-delay: -1.1s + ($i - 1 ) * $step;
+    }
+}
+
+@webkit-keyframes #{$prefix}spinner-circleFadeDelay {
+    0%, 39%, 100% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 1;
+    }
+}
+
+@keyframes #{$prefix}spinner-circleFadeDelay {
+    0%, 39%, 100% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 1;
+    }
+}
+
+/***************************************************************/
+/*  CubeGrid
+
+      <div class="#{$prefix}spinner-cube-grid">
+        <div class="#{$prefix}spinner-cube"></div>
+        <div class="#{$prefix}spinner-cube"></div>
+        <div class="#{$prefix}spinner-cube"></div>
+        <div class="#{$prefix}spinner-cube"></div>
+        <div class="#{$prefix}spinner-cube"></div>
+        <div class="#{$prefix}spinner-cube"></div>
+        <div class="#{$prefix}spinner-cube"></div>
+        <div class="#{$prefix}spinner-cube"></div>
+        <div class="#{$prefix}spinner-cube"></div>
+      </div>
+ */
+
+.#{$prefix}spinner-cube-grid {
+    @include spinner();
+    /*width: $size;
+    height: $size;
+    margin: $size auto;*/
+}
+
+.#{$prefix}spinner-cube-grid > .#{$prefix}spinner-cube {
+    width: 33.33%;
+    height: 33.33%;
+    @include bgColor();
+    float: left;
+    -webkit-animation: #{$prefix}spinner-cubeGridScaleDelay 1.3s infinite ease-in-out;
+    animation: #{$prefix}spinner-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+
+$cube_delay: (0.2s,0.3s,0.4s,0.1s,0.2s,0.3s,0.0s,0.1s,0.2s);
+
+@for $i from 1 through length($cube_delay) {
+    .#{$prefix}spinner-cube-grid > .#{$prefix}spinner-cube:nth-child(#{$i}) {
+        -webkit-animation-delay: nth($cube_delay,$i);
+        animation-delay: nth($cube_delay,$i);
+    }
+}
+
+@-webkit-keyframes #{$prefix}spinner-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+@keyframes #{$prefix}spinner-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
+    }
+
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
+    }
+}
+
+/***************************************************************/
+/*  CubeFolding
+
+<div class="#{$prefix}spinner-folding-cube">
+  <div class="#{$prefix}spinner-cube"></div>
+  <div class="#{$prefix}spinner-cube"></div>
+  <div class="#{$prefix}spinner-cube"></div>
+  <div class="#{$prefix}spinner-cube"></div>
+</div>
+ */
+
+.#{$prefix}spinner-cube-fold {
+    @include spinner($size,$size,$size / 2);
+    /*margin: $size/2 auto;
+    width: $size;
+    height: $size;
+    position: relative;*/
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+}
+
+.#{$prefix}spinner-cube-fold > .#{$prefix}spinner-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.#{$prefix}spinner-cube-fold > .#{$prefix}spinner-cube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include bgColor();
+    -webkit-animation: #{$prefix}spinner-foldCubeAngle 2.4s infinite linear both;
+    animation: #{$prefix}spinner-foldCubeAngle 2.4s infinite linear both;
+    -webkit-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+}
+
+$rotation: (90deg,270deg,180deg);
+
+@for $i from 2 through 4 {
+    .#{$prefix}spinner-cube-fold > .#{$prefix}spinner-cube:nth-child(#{$i}) {
+        -webkit-transform: scale(1.1) rotateZ( nth($rotation, $i - 1));
+        transform: scale(1.1) rotateZ(0deg + nth($rotation, $i - 1));
+    }
+}
+
+$delay: (0.3s,0.9s,0.6s);
+
+@for $i from 2 through 4 {
+    .#{$prefix}spinner-cube-fold > .#{$prefix}spinner-cube:nth-child(#{$i}):before {
+        -webkit-animation-delay: nth($delay, $i - 1);
+        animation-delay: nth($delay, $i - 1);
+    }
+}
+
+@-webkit-keyframes #{$prefix}spinner-foldCubeAngle {
+    0%, 10% {
+        -webkit-transform: perspective(140px) rotateX(-180deg);
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0;
+    }
+
+    25%, 75% {
+        -webkit-transform: perspective(140px) rotateX(0deg);
+        transform: perspective(140px) rotateX(0deg);
+        opacity: 1;
+    }
+
+    90%, 100% {
+        -webkit-transform: perspective(140px) rotateY(180deg);
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0;
+    }
+}
+
+@keyframes #{$prefix}spinner-foldCubeAngle {
+    0%, 10% {
+        -webkit-transform: perspective(140px) rotateX(-180deg);
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0;
+    }
+
+    25%, 75% {
+        -webkit-transform: perspective(140px) rotateX(0deg);
+        transform: perspective(140px) rotateX(0deg);
+        opacity: 1;
+    }
+
+    90%, 100% {
+        -webkit-transform: perspective(140px) rotateY(180deg);
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0;
+    }
+}
+
+/***************************************************************/
+/*  CubeWandering
+
+<div class="#{$prefix}spinner-wandering-cube">
+    <div class="#{$prefix}spinner-cube"></div>
+    <div class="#{$prefix}spinner-cube"></div>
+</div>
+ */
+
+.#{$prefix}spinner-cube-wandering {
+    @include spinner();
+    /*margin: $size auto;
+    width: $size;
+    height: $size;
+    position: relative;*/
+}
+
+.#{$prefix}spinner-cube-wandering > .#{$prefix}spinner-cube {
+    @include bgColor();
+    width: $size / 4;
+    height: $size / 4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: #{$prefix}spinner-wanderingCube 1.8s ease-in-out -1.8s infinite both;
+    animation: #{$prefix}spinner-wanderingCube 1.8s ease-in-out -1.8s infinite both;
+}
+
+.#{$prefix}spinner-cube-wandering > .#{$prefix}spinner-cube:nth-child(2) {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+}
+
+@-webkit-keyframes #{$prefix}spinner-wanderingCube {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    25% {
+        -webkit-transform: translateX(30px) rotate(-90deg) scale(0.5);
+        transform: translateX(30px) rotate(-90deg) scale(0.5);
+    }
+
+    50% {
+        /* Hack to make FF rotate in the right direction */
+        -webkit-transform: translateX(30px) translateY(30px) rotate(-179deg);
+        transform: translateX(30px) translateY(30px) rotate(-179deg);
+    }
+
+    50.1% {
+        -webkit-transform: translateX(30px) translateY(30px) rotate(-180deg);
+        transform: translateX(30px) translateY(30px) rotate(-180deg);
+    }
+
+    75% {
+        -webkit-transform: translateX(0) translateY(30px) rotate(-270deg) scale(0.5);
+        transform: translateX(0) translateY(30px) rotate(-270deg) scale(0.5);
+    }
+
+    100% {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes #{$prefix}spinner-wanderingCube {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    25% {
+        -webkit-transform: translateX(30px) rotate(-90deg) scale(0.5);
+        transform: translateX(30px) rotate(-90deg) scale(0.5);
+    }
+
+    50% {
+        /* Hack to make FF rotate in the right direction */
+        -webkit-transform: translateX(30px) translateY(30px) rotate(-179deg);
+        transform: translateX(30px) translateY(30px) rotate(-179deg);
+    }
+
+    50.1% {
+        -webkit-transform: translateX(30px) translateY(30px) rotate(-180deg);
+        transform: translateX(30px) translateY(30px) rotate(-180deg);
+    }
+
+    75% {
+        -webkit-transform: translateX(0) translateY(30px) rotate(-270deg) scale(0.5);
+        transform: translateX(0) translateY(30px) rotate(-270deg) scale(0.5);
+    }
+
+    100% {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg);
+    }
+}
+
+/***************************************************************/
+/*  Wave
+
+<div class="#{$prefix}spinner-cube-wave">
+    <div class="#{$prefix}spinner-cube"></div>
+    <div class="#{$prefix}spinner-cube"></div>
+    <div class="#{$prefix}spinner-cube"></div>
+    <div class="#{$prefix}spinner-cube"></div>
+    <div class="#{$prefix}spinner-cube"></div>
+</div>
+ */
+
+.#{$prefix}spinner-cube-wave {
+    @include spinner($nbreOfWaveCube * 10px,$size,10px);
+    /*margin: 100px auto;
+    width: 50px;
+    height: $size;
+    text-align: center;
+    font-size: 10px;*/
+}
+
+.#{$prefix}spinner-cube-wave > .#{$prefix}spinner-cube {
+    @include bgColor();
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: #{$prefix}spinner-waveStretchDelay 1.2s infinite ease-in-out;
+    animation: #{$prefix}spinner-waveStretchDelay 1.2s infinite ease-in-out;
+}
+
+$delay: 0.1s;
+
+@for $i from 1 through $nbreOfWaveCube {
+    .#{$prefix}spinner-cube-wave > .#{$prefix}spinner-cube:nth-child(#{$i}) {
+        -webkit-animation-delay: -1.2s + ( $i - 1) * $delay;
+        animation-delay: -1.2s + ( $i - 1) * $delay;
+    }
+}
+
+@-webkit-keyframes #{$prefix}spinner-waveStretchDelay {
+    0%, 40%, 100% {
+        -webkit-transform: scaleY(0.4);
+        transform: scaleY(0.4);
+    }
+
+    20% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
+
+@keyframes #{$prefix}spinner-waveStretchDelay {
+    0%, 40%, 100% {
+        -webkit-transform: scaleY(0.4);
+        transform: scaleY(0.4);
+    }
+
+    20% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
+/*  RotatePlane
+
+      <div class="#{$prefix}spinner-rotating-plane"/>
+   
+ */
+.#{$prefix}spinner-rotating-plane {
+    @include spinner();
+    //width: $size;
+    //height: $size;
+    @include bgColor();
+    //margin: 40px auto;
+    -webkit-animation: #{$prefix}spinner-rotatePlane 1.2s infinite ease-in-out;
+    animation: #{$prefix}spinner-rotatePlane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes #{$prefix}spinner-rotatePlane {
+    0% {
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    }
+
+    50% {
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    }
+
+    100% {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+}
+
+@keyframes #{$prefix}spinner-rotatePlane {
+    0% {
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    }
+
+    50% {
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    }
+
+    100% {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+}
+
+/*  ChasingDot
+    
+    <div class="#{$prefix}spinner-chasing-dots">
+        <div class="#{$prefix}spinner-child #{$prefix}spinner-dot1"></div>
+        <div class="#{$prefix}spinner-child #{$prefix}spinner-dot2"></div>
+    </div>
+ 
+ */
+
+.#{$prefix}spinner-chasing-dots {
+    @include spinner();
+    //margin: $size auto;
+    //width: $size;
+    //height: $size;
+    //position: relative;
+    //text-align: center;
+    -webkit-animation: #{$prefix}spinner-chasingDotsRotate 2s infinite linear;
+    animation: #{$prefix}spinner-chasingDotsRotate 2s infinite linear;
+}
+
+.#{$prefix}spinner-chasing-dots > * {
+    width: 60%;
+    height: 60%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    @include bgColor();
+    border-radius: 100%;
+    -webkit-animation: #{$prefix}spinner-chasingDotsBounce 2s infinite ease-in-out;
+    animation: #{$prefix}spinner-chasingDotsBounce 2s infinite ease-in-out;
+}
+
+.#{$prefix}spinner-chasing-dots > .#{$prefix}spinner-dot:nth-child(2) {
+    top: auto;
+    bottom: 0;
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
+
+@-webkit-keyframes #{$prefix}spinner-chasingDotsRotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes #{$prefix}spinner-chasingDotsRotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes #{$prefix}spinner-chasingDotsBounce {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes #{$prefix}spinner-chasingDotsBounce {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+/*  DoubleBounce
+    
+    <div class="#{$prefix}spinner-double-bounce">
+        <div class="#{$prefix}spinner-child #{$prefix}spinner-double-bounce1"></div>
+        <div class="#{$prefix}spinner-child #{$prefix}spinner-double-bounce2"></div>
+    </div>
+ 
+ */
+.#{$prefix}spinner-double-bounce {
+    @include spinner();
+    /*width: $size;
+    height: $size;
+    position: relative;
+    margin: $size auto;*/
+}
+
+.#{$prefix}spinner-double-bounce > * {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    @include bgColor();
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: #{$prefix}spinner-doubleBounce 2s infinite ease-in-out;
+    animation: #{$prefix}spinner-doubleBounce 2s infinite ease-in-out;
+}
+
+.#{$prefix}spinner-double-bounce > .#{$prefix}spinner-double:nth-child(2) {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes #{$prefix}spinner-doubleBounce {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes #{$prefix}spinner-doubleBounce {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+/*  Pulse
+    <div class="#{$prefix}spinner-pulse"></div>
+ */
+
+.#{$prefix}spinner-pulse {
+    @include spinner();
+    //width: 40px;
+    //height: 40px;
+    //margin: 40px auto;
+    @include bgColor();
+    border-radius: 100%;
+    -webkit-animation: #{$prefix}spinner-pulseScaleOut 1s infinite ease-in-out;
+    animation: #{$prefix}spinner-pulseScaleOut 1s infinite ease-in-out;
+}
+
+@-webkit-keyframes #{$prefix}spinner-pulseScaleOut {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+@keyframes #{$prefix}spinner-pulseScaleOut {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/*  Three Bounce
+    <div class="#{$prefix}spinner-three-bounce">
+    <div class="#{$prefix}spinner-bounce "></div>
+    <div class="#{$prefix}spinner-bounce "></div>
+    <div class="#{$prefix}spinner-bounce "></div>
+</div>
+ */
+
+.#{$prefix}spinner-three-bounce {
+    @include spinner($size * 2 );
+   // margin: $size auto;
+  //  width: $size * 2;
+//text-align: center;
+}
+
+.#{$prefix}spinner-three-bounce > .#{$prefix}spinner-three {
+    width: $size / 2;
+    height: $size / 2;
+    @include bgColor();
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: #{$prefix}spinner-three-bounce 1.4s ease-in-out 0s infinite both;
+    animation: #{$prefix}spinner-three-bounce 1.4s ease-in-out 0s infinite both;
+}
+
+.#{$prefix}spinner-three-bounce > .#{$prefix}spinner-three:nth-child(1) {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.#{$prefix}spinner-three-bounce > .#{$prefix}spinner-three:nth-child(2) {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes #{$prefix}spinner-three-bounce {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes #{$prefix}spinner-three-bounce {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}

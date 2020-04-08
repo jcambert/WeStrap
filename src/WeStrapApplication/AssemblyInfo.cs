@@ -1,0 +1,2 @@
+﻿
+//[assembly: ResourceLocation("Resources")]

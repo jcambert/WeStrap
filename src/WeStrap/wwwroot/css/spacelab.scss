@@ -1,0 +1,16 @@
+﻿$theme: "spacelab";
+/*
+    This file is to show how CSS and other static resources (such as images) can be
+    used from a library project/package.
+
+    #{to-upper-case($theme)} THEME
+*/
+
+@import './../lib/bootswatch/spacelab/_variables';
+@import './../lib/bootstrap4.4.1/bootstrap';
+@import './../lib/bootswatch/spacelab/_bootswatch';
+
+
+@import "_westrap";
+
+@import "_spinner";

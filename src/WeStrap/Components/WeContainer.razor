@@ -1,0 +1,9 @@
+﻿@namespace WeStrap
+@inherits WeContainerBase
+<CascadingValue Value="this">
+
+    <DynamicTag @attributes="@UnknownParameters" TagName="div" class="@ClassName">
+        @ChildContent
+    </DynamicTag>
+
+</CascadingValue>

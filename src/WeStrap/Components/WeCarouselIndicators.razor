@@ -1,0 +1,37 @@
+﻿@namespace WeStrap
+<ol class="carousel-indicators">
+    @for (int i = 0; i < NumberOfItems; i++)
+    {
+        var tempint = i;
+        <li class="@ClassName(tempint)" @onclick="()=>WantSlide(tempint)"></li>
+    }
+</ol>
+@code {
+    [CascadingParameter] public WeCarousel Parent { get; set; }
+    [Parameter] public int NumberOfItems { get; set; }
+    protected string ClassName(int index) => new WeStringBuilder().Add("active", IsActive(index)).ToString();
+
+    private int _activeIndex = 0;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Parent?.ActiveIndexChanged.Subscribe(async (index) =>
+        {
+            _activeIndex = index;
+            await Refresh();
+        });
+    }
+    public async Task Refresh()
+    {
+        await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+    }
+    protected bool IsActive(int index)
+    {
+        return index == _activeIndex;
+    }
+    protected void WantSlide(int index)
+    {
+
+        Parent.WantSlide(index);
+    }
+}

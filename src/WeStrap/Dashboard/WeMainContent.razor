@@ -1,0 +1,18 @@
+﻿@namespace WeStrap
+@inherits WeTag
+<DynamicTag TagName="main" role="main" class="@ClassName" @attributes="@UnknownParameters">
+    @ChildContent
+</DynamicTag>
+
+@code{
+    protected override WeStringBuilder BuildClassName(string s = "")
+    {
+        return base.BuildClassName(s)
+            .Add("px-4")
+            .Add("ml-sm-auto")
+            .Add(Widths.ToDescriptionString())
+            ;
+    }
+    
+    [Parameter] public IReadOnlyList<WeColumn> Widths { get; set; } = new List<WeColumn>() { WeColumn.md9,WeColumn.lg10};
+}

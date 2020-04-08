@@ -1,0 +1,55 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime js
+
+<WeDashboard Title="WeTest" Icon="fab fa-windows" Menus="Menus"  OnMenuItemClick="OnMenuItemClick" SidebarSide="Side.Left">
+    <MainContent>@Body</MainContent>
+</WeDashboard>
+
+@code{
+    public List<WeMenuItem> Menus { get; set; } = new List<WeMenuItem>() {
+        new WeMenuItem(){
+            Title="General",
+            Childs=new List<WeMenuItem>{
+                new WeMenuItem()
+                {
+                    Title="Home",
+                    Icon="home",
+                    Childs=new List<WeMenuItem>(){
+                     new WeMenuItem(){Title="Dashboard1",Icon="home"},
+                    new WeMenuItem(){Title="Dashboard2"},
+                    new WeMenuItem(){Title="Dashboard3"},
+                    new WeMenuItem(){Title="Dashboard4"},
+                    }
+                }
+
+            }
+        },
+
+         new WeMenuItem(){
+            Title="General",
+            Childs=new List<WeMenuItem>{
+                new WeMenuItem()
+                {
+                    Title="Home",
+                    Icon="home",
+                    Childs=new List<WeMenuItem>(){
+                     new WeMenuItem(){Title="Dashboard1",Icon="home"},
+                    new WeMenuItem(){Title="Dashboard2"},
+                    new WeMenuItem(){Title="Dashboard3"},
+                    new WeMenuItem(){Title="Dashboard4"},
+                    }
+                }
+
+            }
+        }
+
+
+    };
+
+
+    async Task OnMenuItemClick(WeMenuItemEventArgs<WeMenuItem> args)
+    {
+        Console.WriteLine($"Menu item click:{args.Sender.Id}-{args.Item.Title}");
+    }
+
+}

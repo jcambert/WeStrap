@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="ChartType.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ChartType.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\WeColor\WeColor.csproj" />
+    <ProjectReference Include="..\WeCommon\WeCommon.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="ChartType.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ChartType.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="ChartType.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ChartType.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using System.ComponentModel;
+namespace WeStrap{
+	public enum WeRowMediumCount{
+		None,
+		<#for(var i=1;i<=12;i++){#>
+[Description("row-cols-md-<#=i.ToString()#>")]
+		Row<#=i.ToString()#>,
+		<#}#>
+}
+}

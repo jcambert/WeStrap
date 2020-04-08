@@ -1,0 +1,23 @@
+﻿@namespace WeStrap
+@inherits WeBigPanelBase
+
+<DynamicTag TagName="div" class="@ClassName" @attributes="@UnknownParameters">
+    <WeRow Class="we_title">
+        @Title
+    </WeRow>
+    <WeRow>
+
+
+        <WeCol Columns="new List<WeColumn>() { WeColumn.sm9,WeColumn.md9}">
+            @Content
+        </WeCol>
+        <WeCol Columns="new List<WeColumn>() { WeColumn.sm3,WeColumn.md3}" Class="bg-white">
+            <div class="row we_title"><h2>@LabelsTitle</h2></div>
+            @Labels
+        </WeCol>
+    </WeRow>
+    <div class="clearfix"></div>
+</DynamicTag>
+@code {
+
+}

@@ -1,0 +1,49 @@
+﻿@page "/popover"
+<WeRow>
+    <WeCol Offsets="new List<WeOffset>() { WeOffset.Large3}">
+        <WeButton Id="popover1" OnClick="onclick1">Popover 1</WeButton>
+
+        <WePopover Target="popover1" Placement="Placement.Bottom" @ref="pop1">
+            <WePopoverHeader>Popover 1</WePopoverHeader>
+            <WePopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</WePopoverBody>
+        </WePopover>
+    </WeCol>
+    <WeCol>
+        <WeButton Id="popover2" OnClick="onclick2">Popover 2</WeButton>
+        <WePopover Target="popover2"  Placement="Placement.Bottom" @ref="pop2">
+            <WePopoverHeader>Popover 2</WePopoverHeader>
+            <WePopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</WePopoverBody>
+        </WePopover>
+    </WeCol>
+</WeRow>
+<WeRow>
+    <WeCol>
+        @Status(pop1)
+    </WeCol>
+    <WeCol>
+        @Status(pop2)
+    </WeCol>
+</WeRow>
+<WeRow>
+    <WeThemeForm></WeThemeForm>
+</WeRow>
+@code {
+
+    protected WePopover pop1 { get; set; }
+    protected WePopover pop2 { get; set; }
+    protected string Status(WePopover pop)
+    {
+        return $"{pop.Target} is {pop.State.ToString()}";
+    }
+
+    void onclick1(MouseEventArgs e)
+    {
+        pop1.Toggle();
+    }
+
+    void onclick2(MouseEventArgs e)
+    {
+        pop2.Toggle();
+    }
+
+}

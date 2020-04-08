@@ -1,0 +1,6 @@
+﻿@namespace WeStrap
+@inherits WeListGroupItemBase
+
+<DynamicTag @attributes="@UnknownParameters" href="@(Href != null && Href != "#" ? Href : href)" TagName="@Tag" class="@ClassName" @onclick="OnClick" disabled="@IsDisabled" type="@IsButton">
+    @ChildContent
+</DynamicTag>

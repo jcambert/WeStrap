@@ -1,0 +1,48 @@
+﻿@namespace WeStrap
+@inject IWeStrapTheme wetheme
+@inject CurrentTheme currentTheme
+@inject WeQ.IWeQuery query
+@using System.Linq
+<WeForm Model="currentTheme" UserValidation="true" TModel="CurrentTheme">
+    <WeInput InputType="InputType.Select" @bind-Value="currentTheme.Theme" >
+        @foreach (var theme in themes)
+        {
+            <option value="@theme">@theme.ToString()</option>
+        }
+    </WeInput>
+</WeForm>
+
+
+@code {
+    private IEnumerable<Theme> themes;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            currentTheme.OnBeforeChanged.Subscribe( (theme) =>
+            {
+                InvokeAsync(()=> query.Native("body", "addClass", "loading"));
+            });
+            currentTheme.OnChanged.Subscribe( (theme) =>
+            {
+                /*  await query.Native("body", "removeClass", "loading");*/
+                 InvokeAsync(
+                    () =>
+                    {
+                        query.Native("body", "removeClass", "loading");
+                        StateHasChanged();
+                    });
+
+            });
+            await wetheme.FindCurrentTheme(firstRender);
+        }
+
+    }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        themes = CurrentTheme.Themes;
+    }
+
+}

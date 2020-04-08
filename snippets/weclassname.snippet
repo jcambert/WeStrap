@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>WeClassName</Title>
+			<Shortcut>wecln</Shortcut>
+			<Description>Extrait de code pour generer la propriete ClassName</Description>
+			<Author>Ambert Jean-Christophe</Author>
+			<SnippetTypes>
+				<SnippetType>WeStrap</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal Editable="false">
+					<ID>classname</ID>
+					<ToolTip>Nom de la classe</ToolTip>
+					<Function>ClassName()</Function>
+					<Default>ClassNamePlaceholder</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[protected override string ClassName => new CssBuilder().AddClass(Class).Build();]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,31 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+Dictionary<string,string> types=new Dictionary<string,string>(){
+	{"Bar","bar"},
+	{"Line","line"},
+	{"Radar","radar"},
+	{"Pie","pie"},
+	{"PolarArea","polarArea"},
+	{"Bubble","bubble"},
+	{"Scatter","scatter"}
+};
+#>
+using System.ComponentModel;
+using System.Text.Json.Serialization;
+using System.Runtime.Serialization;
+namespace WeChart{
+	[JsonConverter(typeof(EnumDescriptedConverter<ChartType>))]
+	public enum ChartType{
+	<#foreach(var _type in types){#>
+[Description("<#=_type.Value#>")]
+	<#=_type.Key#>,
+	<#}#>
+	
+	}
+
+}

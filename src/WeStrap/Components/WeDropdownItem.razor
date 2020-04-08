@@ -1,0 +1,8 @@
+﻿@namespace WeStrap
+@inherits WeDropdownItemBase
+
+<CascadingValue Value="@this">
+    <DynamicTag @attributes="@UnknownParameters" TagName="@Tag" class="@ClassName" type="@Type" @onclick="OnClickEvent" href="@Href">
+        @ChildContent
+    </DynamicTag>
+</CascadingValue>

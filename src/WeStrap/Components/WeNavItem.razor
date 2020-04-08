@@ -1,0 +1,10 @@
+﻿@namespace WeStrap
+@inherits WeNavItemBase
+
+<CascadingValue Value="@this">
+    <CascadingValue Value="@DropDownMenu">
+        <DynamicTag @attributes="@UnknownParameters" TagName="@Tag" class="@ClassName" @onfocusout="LostFocus" @onmouseout="MouseLeave" @onmouseover="MouseEnter">
+            @ChildContent
+        </DynamicTag>
+    </CascadingValue>
+</CascadingValue>

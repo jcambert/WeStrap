@@ -1,0 +1,11 @@
+﻿@namespace WeChart
+@inherits WeSerieBase
+@typeparam TDataset
+@inject IChartConfiguration config
+
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+@code {
+    public IChartConfiguration Configuration => config;
+}

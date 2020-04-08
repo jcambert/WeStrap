@@ -1,0 +1,32 @@
+﻿@namespace WeStrap
+@inherits WePaginationLinkBase
+
+<DynamicTag @attributes="@UnknownParameters" TagName="a" class="@ClassName" href="@Href">
+    @if (PaginationLinkType == PaginationLinkType.Custom)
+    {
+        @ChildContent
+    }
+    @if (PaginationLinkType == PaginationLinkType.NextIcon)
+    {
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+    }
+    @if (PaginationLinkType == PaginationLinkType.PreviousIcon)
+    {
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+    }
+    @if (PaginationLinkType == PaginationLinkType.NextText)
+    {
+        <span>@Next</span>
+    }
+    @if (PaginationLinkType == PaginationLinkType.PreviousText)
+    {
+        <span>@Previous</span>
+    }
+</DynamicTag>
+@code{
+    [Parameter] public string Previous { get; set; }="Previous";
+    [Parameter] public string Next { get; set; } = "Next";
+
+}

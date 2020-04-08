@@ -1,0 +1,28 @@
+﻿@namespace WeStrap
+@inherits WeEditContextBase
+@implements IWeEditContextBase
+@if (ValidationMessages.Any())
+{
+    <WePanel Class="we_validation_panel">
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <WePanelTitle Class="alert alert-danger" >@Title</WePanelTitle>
+        }
+        <WePanelContent >
+            <ul class="we_validation_summary">
+                @foreach (string message in ValidationMessages)
+                {
+                    <li class="we_validation_message">
+                        <i class="milestone-error   glyphicon glyphicon-remove"></i>
+                        @message
+                    </li>
+                }
+            </ul>
+        </WePanelContent>
+    </WePanel>
+
+}
+
+@code {
+
+}

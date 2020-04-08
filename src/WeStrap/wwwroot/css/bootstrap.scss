@@ -1,0 +1,15 @@
+﻿$theme: "bootstrap";
+/*
+    This file is to show how CSS and other static resources (such as images) can be
+    used from a library project/package.
+
+    #{to-upper-case($theme)} THEME
+*/
+
+@import './../lib/bootstrap4.4.1/bootstrap';
+
+@import "_westrap";
+
+@import "_spinner";
+
+@import "_color";

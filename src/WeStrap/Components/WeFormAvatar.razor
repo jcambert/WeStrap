@@ -1,0 +1,7 @@
+﻿@namespace WeStrap
+@inherits WeFormAvatarBase
+<DynamicTag TagName="span" @attributes="@UnknownParameters" class="@ClassName">
+    @if (!string.IsNullOrEmpty(Image)) { 
+    <img src="@Image"  alt="avatar"/>
+    }
+</DynamicTag>

@@ -1,0 +1,40 @@
+﻿@namespace WeStrap
+@inherits WeTag
+<DynamicTag TagName="div" class="@ClassName" @attributes="@UnknownParameters" id="@Id">
+    @if (Template != null && Menus.Any())
+    {
+        foreach (var menu in Menus)
+        {
+            @Template(menu);
+        }
+    }
+    else if (Menus.Any())
+    {
+        foreach (var menu in Menus)
+        {
+            <WeSidebarMenuSection AddTopPadding="true" Title="@menu.Title" Items="menu.Childs" OnMenuClick="OnClickSideMenu" OnMenuItemClick="OnMenuItemClick">
+
+            </WeSidebarMenuSection>
+        }
+    }
+    else
+    {
+        @ChildContent
+    }
+</DynamicTag>
+@code {
+    protected override WeStringBuilder BuildClassName(string s = "") =>
+        base.BuildClassName(s)
+        .Add("we_main_menu_side")
+        .Add("hidden-print")
+        .Add("we_main_menu")
+        ;
+
+
+    [Parameter] public string Id { get; set; } = "sidebar-menu";
+
+    [Parameter] public IReadOnlyList<WeMenuItem> Menus { get; set; }
+    [Parameter] public RenderFragment<WeMenuItem> Template { get; set; }
+    [Parameter] public EventCallback<WeMouseEventArgs> OnClickSideMenu { get; set; }
+    [Parameter] public EventCallback<WeMenuItemEventArgs<WeMenuItem>> OnMenuItemClick { get; set; }
+}

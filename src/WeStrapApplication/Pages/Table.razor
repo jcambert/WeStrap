@@ -1,0 +1,80 @@
+﻿@page "/table"
+<WeRow RowColumnCount="WeRowCount.Row1">
+    <WeTable Items="items" TableHeadType="TableHeadType.Dark" IsBordered="true" IsHovarable="true" HeadCellsSimple="HeadCellsSimple" >
+
+        <TBody Context="ctx">
+            <WeTableCell><img src="@ctx.Item.Source"/></WeTableCell>
+            <WeTableCell Color="Color.Dark">@ctx.Item.Alt</WeTableCell>
+            <WeTableCell>@ctx.Item.Caption</WeTableCell>
+            <WeTableCell>@ctx.Item.Header</WeTableCell>
+        </TBody>
+    </WeTable>
+</WeRow>
+<WeRow RowColumnCount="WeRowCount.Row1">
+    <WeTable Items="items" TableHeadType="TableHeadType.Dark" IsBordered="true" IsHovarable="true" HeadCells="HeadCells" UseHeadCellColor="true" IsResponsive="true">
+
+        <TBody Context="ctx">
+            <WeTableCell ColIndex="0" RowIndex="@ctx.Index">@(ctx.Index+1)</WeTableCell>
+            <WeTableCell ColIndex="1" RowIndex="@ctx.Index" OnCellClick="OnCellClick"><img src="@ctx.Item.Source" /></WeTableCell>
+            <WeTableCell ColIndex="2" RowIndex="@ctx.Index" OnCellClick="OnCellClick" VerticalAlignment="VerticalAlignment.Bottom" Alignment="Alignment.Center">@ctx.Item.Alt</WeTableCell>
+            <WeTableCell ColIndex="3" RowIndex="@ctx.Index" OnCellClick="OnCellClick" VerticalAlignment="VerticalAlignment.Center">@ctx.Item.Caption</WeTableCell>
+            <WeTableCell ColIndex="4" RowIndex="@ctx.Index" OnCellClick="OnCellClick" VerticalAlignment="VerticalAlignment.Top">@ctx.Item.Header</WeTableCell>
+        </TBody>
+        <ChildContent>
+            <WeTableRow Color="Color.Dark" >
+                <WeTableCell colspan="@(items.Count()+1)" Alignment="Alignment.Center">COLSPANED COLUMN</WeTableCell>
+            </WeTableRow>
+        </ChildContent>
+    </WeTable>
+</WeRow>
+@code{
+
+    protected void OnCellClick(WeEvent<WeTableCell> args)
+    {
+        Console.WriteLine($"You've click on Row:{args.Target.RowIndex} and Column:{args.Target.ColIndex}");
+    }
+    protected List<string> HeadCellsSimple = new List<string>() { "Source", "Alt", "Caption", "Header" };
+    protected List<TableHeadCell> HeadCells = new List<TableHeadCell>() {
+        new TableHeadCell(){Color=Color.Danger,Head="#"},
+        new TableHeadCell(){Color=Color.Danger,Head="Source"},
+        new TableHeadCell(){Color=Color.Primary,Head="Alt"},
+        new TableHeadCell(){Color=Color.Info,Head="Caption"},
+        new TableHeadCell(){Color=Color.Active,Head="Header"},
+        };
+    List<Item> items = new List<Item>
+{
+       new Item {
+           Source ="_content/WeStrap/img/372-600x300.jpg",
+           Alt ="First Slide",
+           Caption = "Slide 1",
+           Header = "Slide 1 Header"
+       },
+       new Item {
+           Source = "_content/WeStrap/img/483-600x300.jpg",
+           Alt ="Second Slide",
+           Caption = "Slide 2",
+           Header = "Slide 2 Header"
+       },
+       new Item {
+           Source = "_content/WeStrap/img/88-600x300.jpg",
+           Alt ="Third Slide",
+           Caption = "Slide 3",
+           Header = "Slide 3 Header"
+       },
+       new Item {
+           Source = "_content/WeStrap/img/231-600x300.jpg",
+           Alt ="Fourth Slide",
+           Caption = "Slide 4",
+           Header = "Slide 4 Header"
+       }
+   };
+
+
+    class Item
+    {
+        public string Source { get; set; }
+        public string Alt { get; set; }
+        public string Caption { get; set; }
+        public string Header { get; set; }
+    }
+}

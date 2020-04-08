@@ -1,0 +1,11 @@
+﻿@namespace WeStrap
+@inherits WeTagWithEvents
+
+
+
+<li @onclick:stopPropagation="true" @onclick="e=>NotifyClick(e)" @ref="Me" id="@Id">@ChildContent</li>
+
+
+@code {
+
+}
