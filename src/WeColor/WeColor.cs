@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -83,7 +84,7 @@ namespace WeC
 
         public override string ToString() => $"#{R.ToStringHex()}{G.ToStringHex()}{B.ToStringHex()}{Alpha.ToStringHex()}";
         public string ToRGB() => $"rgb({R},{G},{B})";
-        public string ToRGBA() => $"rgba({R},{G},{B},{Alpha})";
+        public string ToRGBA() => $"rgba({R},{G},{B},{Alpha.ToString("0.00",CultureInfo.InvariantCulture)})";
 
 
 
@@ -160,9 +161,9 @@ namespace WeC
         }
     }
 
-    internal static class WeColorExtensions
+    public static class WeColorExtensions
     {
-        public static WeColor RGB(this string value)
+        internal static WeColor RGB(this string value)
         {
             ColorType colorType;
             if (!value.TryParseColor(out colorType))
@@ -204,7 +205,7 @@ namespace WeC
             }
             return WeColor.White;
         }
-        public static WeHSL HSL(this string value)
+        internal static WeHSL HSL(this string value)
         {
             ColorType colorType;
             if (!value.TryParseColor(out colorType))
@@ -230,12 +231,11 @@ namespace WeC
             return (c.First(), c.Last());
         }
 
-
+        public static WeColor AdjustAlpha(this WeColor color, Percentage alpha) => WeColor.From(color.R, color.G, color.B,  alpha);
         public static WeColor Opacify(this WeColor color, int alpha) => WeColor.From(color.R, color.G, color.B, color.Alpha - alpha);
         public static WeColor Lightening(this WeColor color, int alpha) => WeColor.From(color.R, color.G, color.B, color.Alpha - alpha);
-
         public static WeColor Darkening(this WeColor color, int alpha) => WeColor.From(color.R, color.G, color.B, color.Alpha - alpha);
-
+        public static WeColor Filled(this WeColor? from) => WeColor.From(from?.R ?? 0, from?.G ?? 0, from?.B ?? 0, 1);
         internal static string ToStringHex(this IntH value) => value.m_value.ToString("X2");
         internal static string ToStringHex(this Percentage value) => ((IntH)value).ToStringHex();
         internal static int FromHex(this string value) => (int)(IntH)value;

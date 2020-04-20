@@ -11,7 +11,7 @@
 
                 @if (HeadCells?.Any() ?? false)
                 {
-                    <WeTableRow >
+                    <WeTableRow>
                         @foreach (var (headCell, index) in HeadCells.WithIndex())
                         {
                             <WeTableHeadCell ColIndex="index" Color="headCell.Color">@headCell.Head</WeTableHeadCell>
@@ -24,16 +24,33 @@
                 }
             </thead>
         }
-        @if (TBody != null)
+        @if (TBody != null || TBodyGroup !=null)
         {
-            <tbody>
+    <tbody>
 
-                @foreach (var (item, index) in Items.WithIndex())
+        @foreach (var (item, index) in Items.WithIndex())
+        {
+
+            @if (IsGroupingList(item))
+            {
+                @TGroup(_currentGroup);
+                @foreach (var (_item,_index) in ((IEnumerable<object>)item).ToList().WithIndex())
                 {
-                    <WeTableRow @onclick="@(()=>OnRowClick.InvokeAsync(item))">@TBody(new ItemWithIndex<TItem>() { Item = item, Index = index })</WeTableRow>
+                    <WeTableRow @onclick="@(() => OnRowClick.InvokeAsync(item))">
+                        @TBodyGroup(  new ItemWithIndex<object>() { Item = _item, Index = _index })
+                    </WeTableRow>
                 }
-                @ChildContent
-            </tbody>
+            }
+            else
+            {
+                <WeTableRow @onclick="@(() => OnRowClick.InvokeAsync(item))">
+                    @TBody(new ItemWithIndex<TItem>() { Item = item, Index = index })
+                </WeTableRow>
+            }
+
+        }
+        @ChildContent
+    </tbody>
         }
         @if (TFoot != null)
         {
@@ -47,6 +64,25 @@
 </CascadingValue>
 @code{
     private string HeadColor => UseHeadCellColor ? "" : TableHeadType.ToDescriptionString();
+    private object _currentGroup;
     [Parameter] public EventCallback<TItem> OnRowClick { get; set; }
+
+    private bool IsGroupingList(TItem item)
+    {
+        //typeof(IGrouping<,>).IsAssignableFrom(Items.GetType());
+        var type = item.GetType();
+        var keyProp = type.GetProperty("Key");
+        if (keyProp == null) return false;
+        var currentGroup = keyProp.GetGetMethod().Invoke(item, null);
+        var nb = type.GetGenericArguments().Count();
+        var result = nb == 2;
+        if (_currentGroup != currentGroup)
+        {
+            _currentGroup = currentGroup;
+            return result;
+        }
+        return false;
+    }
+
 
 }

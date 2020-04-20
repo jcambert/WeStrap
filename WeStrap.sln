@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleBlazorApp", "src\Samp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeColor", "src\WeColor\WeColor.csproj", "{30E6942C-F691-4E12-8EFA-DA027E826568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorApplication", "src\ColorApplication\ColorApplication.csproj", "{9D34DB75-99AB-4C77-BEB4-D9573C36B1D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorApplication", "src\ColorApplication\ColorApplication.csproj", "{9D34DB75-99AB-4C77-BEB4-D9573C36B1D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

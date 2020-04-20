@@ -1,0 +1,68 @@
+﻿@page "/bubble"
+@using WeC
+<WeRow RowColumnCount="WeRowCount.Row1" width="400" height="400">
+    <Chart Labels="@Labels" >
+        <WeSerieBubble Label="Vote:"  Values="@Votes" Backgrounds="bg"  Radius="radius"></WeSerieBubble>
+    </Chart>
+</WeRow>
+@code {
+    public List<BubbleData> Votes { get; set; } = new List<BubbleData>() { };
+    public List<string> Labels { get; set; } = new List<string>
+        () { "January", "February", "March", "April", "May", "June", "July" };
+
+
+    private WeColor CalculateBgColor(BubbleData value,bool opaque=true)
+    {
+        var x = value.X / 100;
+        var y = value.Y / 100;
+        var r = x < 0 && y < 0 ? 250 : x < 0 ? 150 : y < 0 ? 50 : 0;
+        var g = x < 0 && y < 0 ? 0 : x < 0 ? 50 : y < 0 ? 150 : 250;
+        var b = x < 0 && y < 0 ? 0 : x > 0 && y > 0 ? 250 : 150;
+        var a = opaque ? 1 : 0.5 * value.R / 1000;
+        return WeColor.From(r, g, b, a);
+
+    }
+    private int CalculateRadius(BubbleData value)
+    {
+        var b = Math.Abs(value.R) / 1000;
+        return (int)( (600 / 24) * b);
+    }
+    private List<WeColor> bg { get; set; } = new List<WeColor>();
+    private List<int> radius { get; set; } = new List<int>();
+    private int nbOfValues => Labels.Count();
+    private bool auto_gen = false;
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            bg.Clear();
+            radius.Clear();
+            GenerateValues(Votes, nbOfValues, -150,100,30);
+            Votes.ForEach(data =>
+            {
+                bg.Add(CalculateBgColor(data));
+                radius.Add(CalculateRadius(data));
+            });
+            InvokeAsync(() => StateHasChanged());
+            if (auto_gen)
+                Observable.Interval(TimeSpan.FromSeconds(3)).Subscribe(t =>
+                {
+                    GenerateValues(Votes, nbOfValues, -150, 100,50);
+
+                    InvokeAsync(() => StateHasChanged());
+                });
+
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private void GenerateValues(List<BubbleData> liste, int nbre, int from, int to,int r)
+    {
+        Random rnd = new Random();
+        liste.Clear();
+        for (int i = 0; i < nbre; i++)
+        {
+            liste.Add(new BubbleData() {X= (double)rnd.Next(from, to), Y = (double)rnd.Next(from, to) , R = (double)rnd.Next(0, r) });
+        }
+    }
+}

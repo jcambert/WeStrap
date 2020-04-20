@@ -1,18 +1,10 @@
 ﻿@page "/chart"
-
+@using WeC
 <WeRow RowColumnCount="WeRowCount.Row1" width="400" height="400">
     <Chart Labels="@Labels" DefaultChartType="line">
-        <!--<WeSerie Label="# of Price" Values="@Prices" TDataset="Dataset" Type="bar">
-        <WeRgba Red="255" Green="99" Blue="132" TDataset="Dataset"></WeRgba>
-        <WeRgba Red="54" Green="162" Blue="235" TDataset="Dataset"></WeRgba>
-        <WeRgba Red="255" Green="206" Blue="86" TDataset="Dataset"></WeRgba>
-        <WeRgba Red="75" Green="192" Blue="192" TDataset="Dataset"></WeRgba>
-        <WeRgba Red="153" Green="102" Blue="255" TDataset="Dataset"></WeRgba>
-        <WeRgba Red="255" Green="159" Blue="64" TDataset="Dataset"></WeRgba>
-    </WeSerie>-->
-        <WeSerie Label="# of Votes" Values="@Votes" LineStyle="ls1" Type="bar" TDataset="Dataset"></WeSerie>
-        <WeSerie Label="# of Prices" Values="@Prices" LineStyle="ls2" Fill="false" TDataset="WaterFallDataset"></WeSerie>
-        <WeSerie Label="# of Todos +" Values="@Todos" LineStyle="ls3" Fill="false" TDataset="WaterFallDataset"></WeSerie>
+        <WeSerie Label="# of Votes" Values="@Votes" LineStyle="ls1" Type="bar" ></WeSerie>
+        <WeSerie Label="# of Prices" Values="@Prices" LineStyle="ls2" Fill="false"></WeSerie>
+        <WeSerie Label="# of Todos +" Values="@Todos" LineStyle="ls3" Fill="false" ></WeSerie>
     </Chart>
 </WeRow>
 @code {
@@ -22,9 +14,9 @@
     public List<string> Labels { get; set; } = new List<string>
         () { "January", "February", "March", "April", "May", "June","July" };
 
-    static RGBA? bg1 = new RGBA(10, 10, 255, 0.2);
-    static RGBA? bg2 = new RGBA(10, 255, 10, 1);
-    static RGBA? bg3 = new RGBA(255, 255, 10, 1);
+    static WeColor bg1 = WeColor.From(10, 10, 255, 0.2);
+    static WeColor bg2 = WeColor.From(10, 255, 10, 1);
+    static WeColor bg3 = WeColor.From(255, 255, 10, 1);
     static BorderStyle? bs1 = new BorderStyle() { Width = 2 };
     static BorderStyle? bs2 = new BorderStyle() { Width = 3 };
 
@@ -32,7 +24,7 @@
     public LineStyle ls2 { get; set; } = new LineStyle() { Background = bg2, BorderStyle = bs2, Fill = "false" };
     public LineStyle ls3 { get; set; } = new LineStyle() { Background = bg3, BorderStyle = bs2, Fill = "false" };
 
-    public RGBA hoverbg { get; set; } = new RGBA(10, 10, 255, 1);
+    public WeColor hoverbg { get; set; } = WeColor.From(10, 10, 255, 1);
 
     private int nbOfValues => Labels.Count();
     private bool auto_gen = true;

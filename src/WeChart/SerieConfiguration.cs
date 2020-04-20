@@ -4,25 +4,25 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using WeCommon;
-
+using WeC;
 namespace WeChart
 {
-    public interface ISerieConfiguration
+    /*public interface ISerieConfiguration
     {
-        void UseDatasetCreator<TDataset>(Func<WeSerieBase, Dataset> datasetCreator)
+        void UseDatasetCreator<TData,TDataset>(Func<WeSerie<TData, TDataset>, TDataset> datasetCreator)
             where TDataset : Dataset;
-        void UseDatasetCreator<TDataset>(Func<WeSerieBase, Dataset, Dataset> datasetCreator)
+        void UseDatasetCreator<TData,TDataset>(Func<WeSerie<TData, TDataset>, TDataset, TDataset> datasetCreator)
             where TDataset : Dataset;
-        Func<WeSerieBase, Dataset> GetDatasetCreator<TDataset>()
+        Func<WeSerie<TData, TDataset>, Dataset> GetDatasetCreator<TData,TDataset>()
             where TDataset : Dataset;
 
-        Dataset CreateDataset<TDataset>(WeSerieBase serie)
+        TDataset CreateDataset<TData,TDataset>(WeSerie<TData, TDataset> serie)
             where TDataset : Dataset;
         string CreateDataset(WeSerieBase value, Type type);
 
 
-    }
-    public class SerieConfiguration : ISerieConfiguration
+    }*/
+   /* public class SerieConfiguration : ISerieConfiguration
     {
         Dictionary<Type, Func<WeSerieBase, Dataset>> creators = new Dictionary<Type, Func<WeSerieBase, Dataset>>();
         Dictionary<Type, Func<WeSerieBase, Dataset, Dataset>> subcreators = new Dictionary<Type, Func<WeSerieBase, Dataset, Dataset>>();
@@ -35,7 +35,7 @@ namespace WeChart
             this.jsonConfig = jsonConfig;
             this.logger = logger;
             this.mapper = mapper;
-            UseDatasetCreator<Dataset>(serie =>
+            UseDatasetCreator<double,Dataset>(serie =>
             {
                 var ds = new Dataset()
                 {
@@ -71,46 +71,42 @@ namespace WeChart
 
                 };
                 if(serie.Backgrounds?.Count>0 || false)
-                    serie.Backgrounds.ForEach(color => ds.BackgroundColor.Add(color.ToString()));
+                    serie.Backgrounds.ForEach(color => ds.BackgroundColor.Add(color.ToRGBA()));
                 else if (serie.LineStyle?.Background != null)
-                    serie.Values.ForEach(v => ds.BackgroundColor.Add(serie.LineStyle?.Background.ToString()));
+                    serie.Values.ForEach(v => ds.BackgroundColor.Add(serie.LineStyle?.Background?.ToRGBA()));
                 if (serie.LineStyle?.BorderStyle?.Color != null)
-                    serie.Values.ForEach(v => ds.BorderColor.Add(serie.LineStyle?.BorderStyle?.Color.ToString()));
+                    serie.Values.ForEach(v => ds.BorderColor.Add(serie.LineStyle?.BorderStyle?.Color?.ToRGBA()));
                 if (serie.LineStyle?.BorderStyle?.Width > 0 && serie.LineStyle?.Background != null)
-                    serie.Values.ForEach(v => ds.BorderColor.Add(RGBA.Filled(serie.LineStyle?.Background).ToString()));
+                    serie.Values.ForEach(v => ds.BorderColor.Add(serie.LineStyle?.Background.Filled().ToRGBA()));
                 return ds;
             });
         }
-        public void UseDatasetCreator<TDataset>(Func<WeSerieBase, Dataset> datasetCreator)
+        public void UseDatasetCreator<TData,TDataset>(Func<WeSerie<TData,TDataset>, TDataset> datasetCreator)
             where TDataset : Dataset
         {
-            creators[typeof(TDataset)] = datasetCreator;
+            creators[typeof(TDataset)] = (Func<WeSerieBase, Dataset>)datasetCreator;
         }
 
-        public void UseDatasetCreator<TDataset>(Func<WeSerieBase, Dataset, Dataset> datasetCreator)
+        public void UseDatasetCreator<TData,TDataset>(Func<WeSerie<TData, TDataset>, TDataset, TDataset> datasetCreator)
             where TDataset : Dataset
         {
-            subcreators[typeof(TDataset)] = datasetCreator;
+            subcreators[typeof(TDataset)] = (Func<WeSerieBase, Dataset, Dataset>)datasetCreator ;
         }
-        public Func<WeSerieBase, Dataset> GetDatasetCreator<TDataset>()
+        public Func<WeSerie<TData, TDataset>, Dataset> GetDatasetCreator<TData,TDataset>()
             where TDataset : Dataset
             =>
             creators.ContainsKey(typeof(TDataset)) ? creators[typeof(TDataset)] : null;
 
 
 
-        public Dataset CreateDataset<TDataset>(WeSerieBase serie)
+        public TDataset CreateDataset<TData,TDataset>(WeSerie<TData, TDataset> serie)
             where TDataset : Dataset
         {
-            /*if (!creators.ContainsKey(typeof(TDataset)))
-            {
-                return JsonSerializer.Serialize(new Object());
-            }
-            return JsonSerializer.Serialize(serie, typeof(TDataset), jsonConfig.SerializeOptions);*/
+            
             if (!creators.ContainsKey(typeof(TDataset))) return null;
             var c = creators[typeof(TDataset)];
             var ds = c(serie);
-            return ds;
+            return ds as TDataset;
         }
 
         public string CreateDataset(WeSerieBase serie, Type type)
@@ -131,24 +127,8 @@ namespace WeChart
                 return JsonSerializer.Serialize(sds, type, jsonConfig.SerializeOptions);
             }
             return null;
-
-            //var serieType=Type.MakeGenericSignatureType(typeof(WeSerie<>), type);
-            //var del=Convert((Func<object, object>)c , serieType, type);
-            //return JsonSerializer.Serialize(ds, type, jsonConfig.SerializeOptions);
         }
 
-        /*public static Delegate Convert(Func<object, object> func, Type argType, Type resultType)
-        {
-
-
-            var param = Expression.Parameter(argType);
-
-            var converted = Expression.Convert(
-                Expression.Call(func.Method, Expression.Convert(param, typeof(object))),
-                resultType);
-
-            var delegateType = typeof(Func<,>).MakeGenericType(argType, resultType);
-            return Expression.Lambda(delegateType, converted, param).Compile();
-        }*/
-    }
+        
+    }*/
 }

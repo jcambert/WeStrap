@@ -33,6 +33,8 @@ namespace WeStrap
         [Parameter] public IReadOnlyList<TItem> Items { get; set; } = new List<TItem>();
         [Parameter] public RenderFragment THead { get; set; }
         [Parameter] public RenderFragment<ItemWithIndex<TItem>> TBody { get; set; }
+        [Parameter] public RenderFragment<object> TGroup { get; set; }
+        [Parameter] public RenderFragment<object> TBodyGroup { get; set; }
         [Parameter] public RenderFragment TFoot { get; set; }
         [Parameter] public TableHeadType TableHeadType { get; set; } = TableHeadType.None;
         [Parameter] public bool UseHeadCellColor { get; set; } = false;

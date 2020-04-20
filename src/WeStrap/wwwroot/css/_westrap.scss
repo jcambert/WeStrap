@@ -68,6 +68,10 @@ a:hover, a:focus {
 .table-hover tbody tr:hover {
     cursor: pointer;
 }
+.disable-hovarable {
+    cursor:default !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+}
 
 @media (min-width: 768px) {
     .d-md-block {
@@ -206,11 +210,11 @@ $i: 200;
     clear: both;
     margin-top: 5px;
 }
-
+/*
 .#{$prefix}content h4 {
     font-size: 16px;
     font-weight: 500;
-}
+}*/
 
 .#{$prefix}content.#{$prefix}hide {
     visibility: hidden;

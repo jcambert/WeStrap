@@ -1,0 +1,10 @@
+﻿@namespace WeChart
+@inherits WeSerieBaseGeneric<BubbleData>
+@inject IChartConfiguration config
+
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+@code {
+    public IChartConfiguration Configuration => config;
+}

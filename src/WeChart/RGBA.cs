@@ -3,7 +3,7 @@
 namespace WeChart
 {
 
-    public readonly struct RGBA
+   /* public readonly struct RGBA
     {
         public int Red { get; }
         public int Green { get; }
@@ -14,5 +14,5 @@ namespace WeChart
         public override string ToString() => $"rgba({Red},{Green},{Blue},{Opacity.ToString("0.00", CultureInfo.GetCultureInfo("en-US"))})";
 
         public static RGBA Filled(RGBA? from) => new RGBA(from?.Red ?? 0, from?.Green ?? 0, from?.Blue ?? 0, 1);
-    }
+    }*/
 }

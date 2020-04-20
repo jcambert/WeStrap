@@ -7,7 +7,8 @@ namespace WeCommon
 {
     public static class Extensions
     {
-        public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> self) => self?.Select((item, index) => (item, index)) ?? null;
+        public static IEnumerable<(T item, int index)> WithIndex<T>(this IEnumerable<T> self) => 
+            self?.Select((item, index) => (item, index)) ?? new List<(T,int)> ();
         public static TEnum FromDescriptionString<TEnum>(this string s, TEnum @default)
         {
             if (string.IsNullOrEmpty(s)) return @default;
@@ -67,6 +68,29 @@ namespace WeCommon
             {
                 result.Add(item.ToDescriptionString());
             }
+            return result;
+        }
+
+        public static string IconToClass<TEnum>(this TEnum value) where TEnum : struct
+        {
+           
+            if (!typeof(TEnum).IsEnum)
+            {
+                throw new ArgumentException("TEnum must be an enumerated type");
+            }
+            var attributes = (IconAttribute[])typeof(TEnum).GetField(value.ToString()).GetCustomAttributes(typeof(IconAttribute), false);
+            return attributes.Length > 0 ? attributes[0].Name : string.Empty;
+        }
+
+
+        public static List<(string, string, TEnum)> GetIconAndDescription<TEnum>() where TEnum : struct
+        {
+            if (!typeof(TEnum).IsEnum)
+            {
+                throw new ArgumentException("TEnum must be an enumerated type");
+            }
+            List<(string, string, TEnum)> result =new List<(string, string, TEnum)>();
+            result.AddRange( Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList().Select(e=>( e.ToDescriptionString(), e.IconToClass(),e )));
             return result;
         }
     }

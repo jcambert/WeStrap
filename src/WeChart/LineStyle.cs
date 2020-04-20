@@ -1,5 +1,5 @@
 ﻿using System;
-
+using WeC;
 namespace WeChart
 {
     public struct LineStyle
@@ -12,7 +12,7 @@ namespace WeChart
         /// <summary>
         /// The line fill color.
         /// </summary>
-        public RGBA? Background { get; set; }
+        public WeColor? Background { get; set; }
         /// <summary>
         /// Cap style of the line
         /// </summary>

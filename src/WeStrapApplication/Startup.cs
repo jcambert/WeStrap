@@ -45,7 +45,7 @@ namespace WeStrapApplication
             cfg =>
             {
                 //cfg.AddConverter(new WaterfallDatasetConverter());
-            },
+            }/*,
             cfg =>
             {
                 cfg.UseDatasetCreator<WaterFallDataset>((serie, dataset) =>
@@ -53,7 +53,7 @@ namespace WeStrapApplication
                    ((WaterFallDataset)dataset).Stack = "STACK";
                    return dataset;
                });
-            });
+            }*/);
             // .AddDataset<WaterFallDataset>();
             services.AddWeStrap();
         }

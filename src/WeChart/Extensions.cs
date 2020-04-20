@@ -16,11 +16,11 @@ namespace WeChart
         /// <param name="jsonConfigure"></param>
         /// <param name="serieConfigure"></param>
         /// <returns></returns>
-        public static IServiceCollection AddWeChart(this IServiceCollection services, Action<IChartConfiguration> chartConfigure = null, Action<IJsonConfiguration> jsonConfigure = null, Action<ISerieConfiguration> serieConfigure = null)
+        public static IServiceCollection AddWeChart(this IServiceCollection services, Action<IChartConfiguration> chartConfigure = null, Action<IJsonConfiguration> jsonConfigure = null/*, Action<ISerieConfiguration> serieConfigure = null*/)
         {
 
             return services
-                .AddWeChart<IChartConfiguration, ChartConfiguration>(chartConfigure, jsonConfigure, serieConfigure);
+                .AddWeChart<IChartConfiguration, ChartConfiguration>(chartConfigure, jsonConfigure/*, serieConfigure*/);
             ;
         }
         /// <summary>
@@ -33,7 +33,7 @@ namespace WeChart
         /// <param name="jsonConfigure"></param>
         /// <param name="serieConfigure"></param>
         /// <returns></returns>
-        public static IServiceCollection AddWeChart<I, T>(this IServiceCollection services, Action<I> chartConfigure = null, Action<IJsonConfiguration> jsonConfigure = null, Action<ISerieConfiguration> serieConfigure = null)
+        public static IServiceCollection AddWeChart<I, T>(this IServiceCollection services, Action<I> chartConfigure = null, Action<IJsonConfiguration> jsonConfigure = null/*, Action<ISerieConfiguration> serieConfigure = null*/)
             where I : class, IChartConfiguration
             where T : ChartConfigurationBase, I
 
@@ -55,7 +55,7 @@ namespace WeChart
                  return instance;
              });
 
-            services.AddScoped<ISerieConfiguration, SerieConfiguration>(services =>
+            /*services.AddScoped<ISerieConfiguration, SerieConfiguration>(services =>
             {
                 var jsonConf = services.GetRequiredService<IJsonConfiguration>();
                 var logger = services.GetRequiredService<ILogger<SerieConfiguration>>();
@@ -63,7 +63,7 @@ namespace WeChart
                 var instance = new SerieConfiguration(jsonConf, logger, mapper);
                 serieConfigure?.Invoke(instance);
                 return instance;
-            });
+            });*/
             services.AddScoped<IRegistry, Registry>();
 
             services.AddAutoMapper(cfg =>

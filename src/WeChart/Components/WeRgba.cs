@@ -2,7 +2,7 @@
 using System.ComponentModel;
 
 namespace WeChart
-{
+{/*
     public enum RgbaType
     {
         [Description("backgroundColor")]
@@ -30,11 +30,6 @@ namespace WeChart
         [Parameter] public bool FillBorder { get; set; } = true;
         [CascadingParameter] public WeSerie<TDataset> Serie { get; set; }
 
-        protected override void OnParametersSet()
-        {
-            /* this.Serie.Dataset.BackgroundColor.Add(new RGBA(Red, Green, Blue, Opacity).ToString());
-             if(FillBorder)
-                 this.Serie.Dataset.BorderColor.Add(new RGBA(Red, Green, Blue, 1).ToString());*/
-        }
-    }
+
+    }*/
 }
