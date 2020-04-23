@@ -1,6 +1,10 @@
 ﻿@namespace WeStrap
 @inherits WeTableRowBase
 
-<DynamicTag @attributes="@UnknownParameters" TagName="tr" class="@ClassName">
+<DynamicTag @attributes="@UnknownParameters" TagName="tr" class="@ClassName" @onmouseover="OnRowHover"  @onmouseout="OnRowOut">
     @ChildContent
 </DynamicTag>
+@code{
+    [Parameter]public EventCallback<MouseEventArgs> OnRowHover { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnRowOut { get; set; }
+}

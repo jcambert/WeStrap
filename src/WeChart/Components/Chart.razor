@@ -4,35 +4,42 @@
 
 @using System.Text.Json
 <CascadingValue Value="this">
-    <div class="we_chart_container" @attributes="UnknownParameters"    >
+    <div class="we_chart_container" @attributes="UnknownParameters">
         <div>
-            <canvas id="@Id" @ref="Me" >
+            <canvas id="@Id" @ref="Me">
             </canvas>
         </div>
     </div>
     @ChildContent
 </CascadingValue>
 @code {
-
+    [Parameter] public bool EnableRendering { get; set; } = true;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            await Registry.Create(Id,this);
+            await Registry.Create(Id, this);
         }
         await Registry.Update(Id, Labels);
     }
     protected override void OnParametersSet()
     {
     }
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
         if (!string.IsNullOrEmpty(Id))
         {
             Registry.Add(Id);
+            //await Registry.Create(Id, this);
+            // await Registry.Update(Id, Labels);
         }
     }
-
+    protected override bool ShouldRender()
+    {
+        var res = EnableRendering;
+        EnableRendering=  base.ShouldRender();
+        return res;
+    }
 }

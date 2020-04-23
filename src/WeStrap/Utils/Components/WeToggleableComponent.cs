@@ -17,7 +17,7 @@ namespace WeStrap
         {
 
         }
-        private ISubject<ToggleState> _onChanged = new Subject<ToggleState>();
+        private Subject<ToggleState> _onChanged = new Subject<ToggleState>();
         internal ElementReference MyRef { get; set; }
         [Parameter] public EventCallback<ToggleState> IsOpenChanged { get; set; }
         [Parameter] public string AnimationClass { get; set; }
@@ -39,7 +39,8 @@ namespace WeStrap
 
         public IObservable<ToggleState> OnChanged => _onChanged.AsObservable();
 
-        public virtual ToggleState State { get; protected set; } = ToggleState.Close;
+        private ToggleState _state = ToggleState.Close;
+        public virtual ToggleState State { get=>_state; protected set=>_state=value; } 
 
         public bool IsOpen => State == ToggleState.Open;
 

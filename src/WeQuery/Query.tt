@@ -21,6 +21,9 @@ namespace WeQ{
     internal class WeQueryList
     {
         public const string popper="window.wequery.popper";
+        public const string popperShow="window.wequery.popperShow";
+        public const string popperHide="window.wequery.popperHide";
+        public const string popperDelete="window.wequery.popperDelete";
         public const string native="window.wequery.native";
         public const string _="window.wequery._";
         public const string setCssLink="window.wequery.setCssLink";

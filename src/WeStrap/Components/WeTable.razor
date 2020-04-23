@@ -24,33 +24,33 @@
                 }
             </thead>
         }
-        @if (TBody != null || TBodyGroup !=null)
+        @if (TBody != null || TBodyGroup != null)
         {
-    <tbody>
+            <tbody>
 
-        @foreach (var (item, index) in Items.WithIndex())
-        {
-
-            @if (IsGroupingList(item))
-            {
-                @TGroup(_currentGroup);
-                @foreach (var (_item,_index) in ((IEnumerable<object>)item).ToList().WithIndex())
+                @foreach (var (item, index) in Items.WithIndex())
                 {
-                    <WeTableRow @onclick="@(() => OnRowClick.InvokeAsync(item))">
-                        @TBodyGroup(  new ItemWithIndex<object>() { Item = _item, Index = _index })
-                    </WeTableRow>
-                }
-            }
-            else
-            {
-                <WeTableRow @onclick="@(() => OnRowClick.InvokeAsync(item))">
-                    @TBody(new ItemWithIndex<TItem>() { Item = item, Index = index })
-                </WeTableRow>
-            }
 
-        }
-        @ChildContent
-    </tbody>
+                    @if (IsGroupingList(item))
+                    {
+                        @TGroup(_currentGroup);
+                        @foreach (var (_item, _index) in ((IEnumerable<object>)item).ToList().WithIndex())
+                        {
+                            <WeTableRow OnRowHover="@(() => OnRowMouseOver.InvokeAsync(item))" OnRowOut="@(() => OnRowMouseOut.InvokeAsync(item))">
+                                @TBodyGroup(new ItemWithIndex<object>() { Item = _item, Index = _index })
+                            </WeTableRow>
+                        }
+                    }
+                    else
+                    {
+                        <WeTableRow @onclick="@(() => OnRowClick.InvokeAsync(item))" OnRowHover="@(() => OnRowMouseOver.InvokeAsync(item))" OnRowOut="@(() => OnRowMouseOut.InvokeAsync(item))">
+                            @TBody(new ItemWithIndex<TItem>() { Item = item, Index = index })
+                        </WeTableRow>
+                    }
+
+                }
+                @ChildContent
+            </tbody>
         }
         @if (TFoot != null)
         {
@@ -66,9 +66,12 @@
     private string HeadColor => UseHeadCellColor ? "" : TableHeadType.ToDescriptionString();
     private object _currentGroup;
     [Parameter] public EventCallback<TItem> OnRowClick { get; set; }
-
+    [Parameter] public EventCallback<TItem> OnRowMouseOver { get; set; }
+    [Parameter] public EventCallback<TItem> OnRowMouseOut { get; set; }
+    void MouseAction(MouseEventArgs args) { }
     private bool IsGroupingList(TItem item)
     {
+        
         //typeof(IGrouping<,>).IsAssignableFrom(Items.GetType());
         var type = item.GetType();
         var keyProp = type.GetProperty("Key");

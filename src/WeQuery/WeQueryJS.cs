@@ -8,7 +8,11 @@ namespace WeQ
     public interface IWeQuery
     {
 
-        Task<bool> Popper(string target, string popper, ElementReference arrow, string placement);
+        Task<ElementReference> Popper(string target, string popper, ElementReference arrow, string placement,bool isHoverable);
+        Task PopperShow(string tooltipId);
+        Task PopperHide(string tooltipId);
+        Task PopperDelete(ElementReference popper);
+
         Task Native(string selector, string fn, params string[] args);
 
         Task _(string id, string selector, string fn, params string[] args);
@@ -32,10 +36,25 @@ namespace WeQ
         }
 
         public readonly IJSRuntime JS;
-        public async Task<bool> Popper(string target, string popper, ElementReference arrow, string placement)
+        public async Task<ElementReference> Popper(string target, string popper, ElementReference arrow, string placement, bool isHoverable)
         {
-            return await JS.InvokeAsync<bool>(WeQueryList.popper, target, popper, arrow, placement);
+            return await JS.InvokeAsync<ElementReference>(WeQueryList.popper, target, popper, arrow, placement,isHoverable);
         }
+        public async Task PopperShow(string tooltipId)
+        {
+             await JS.InvokeVoidAsync(WeQueryList.popperShow, tooltipId);
+        }
+
+        public async Task PopperHide(string tooltipId)
+        {
+             await JS.InvokeVoidAsync(WeQueryList.popperHide, tooltipId);
+        }
+
+        public async Task PopperDelete(ElementReference popper)
+        {
+             await JS.InvokeVoidAsync(WeQueryList.popperDelete, popper);
+        }
+
         public async Task Native(string selector, string fn, params string[] args)
         {
             var p = new List<string>() { selector, fn };
@@ -82,5 +101,7 @@ namespace WeQ
         }
 
         public async Task Focus(string id, string selector) => await JS.InvokeVoidAsync(WeQueryList.Focus, new object[] { id, selector });
+
+        
     }
 }

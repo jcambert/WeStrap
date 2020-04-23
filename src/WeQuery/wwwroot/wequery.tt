@@ -18,6 +18,9 @@ List<string> queries = new List<string>() {
     "add","addBack","addClass","after","ajaxComplete","ajaxError","ajaxSend","ajaxStart","ajaxStop","ajaxSuccess","andSelf","animate","append","appendTo","attr","before","bind","blur","has","remove","removeClass","css","toggleClass","focus"
  };
 #>
+const showEvents = ['mouseenter', 'focus'];
+const hideEvents = ['mouseleave', 'blur'];
+
 function createSelector(id,selector){
     var sel= "div#" + id + ">" + selector;
     console.log(sel);
@@ -98,10 +101,35 @@ window.wequery = {
         reference.addEventListener("mouseover", mouseoverHandler);
         return true;
     },
-     popper: function (target, popperId, arrow, placement) {
+     popper: function (target, popperId, arrow, placement,isHoverable) {
         var reference = document.getElementById(target);
-        var popper = document.getElementById(popperId);
-        showPopper(reference, popper, arrow, placement);
+        var tooltip = document.getElementById(popperId);
+         window.jQuery("#" + popperId).css('display', 'none');
+         if(isHoverable){
+            showEvents.forEach(evt=>{
+                window.jQuery("#" + target).on(evt, ()=> this.popperShow(popperId));
+            });
+             hideEvents.forEach(evt=>{
+                window.jQuery("#" + target).on(evt, ()=>this.popperHide(popperId));
+            });
+         }
+        return showPopper(reference, tooltip, arrow, placement);
+    },
+    popperShow: function (popperId) {
+        var tooltip = document.getElementById(popperId);
+        window.jQuery("#" + popperId).css('display', 'block');
+        //tooltip.setAttribute('data-show', '');
+        return true;
+    },
+    popperHide: function (popperId) {
+        var tooltip = document.getElementById(popperId);
+        //tooltip.removeAttribute('data-show');
+        window.jQuery("#" + popperId).css('display', 'none');
+        return true;
+    },
+    popperDelete: function (element) {
+        element.destroy();
+        element=null;
         return true;
     },
     native:function(selector,fn,...args){
