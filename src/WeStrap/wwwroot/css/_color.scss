@@ -34,4 +34,3 @@ $colors:aliceblue, antiquewhite, aqua, aquamarine, azure, beige, bisque, black, 
 @each $color in $colors{
     @include colors($color);
 }
-

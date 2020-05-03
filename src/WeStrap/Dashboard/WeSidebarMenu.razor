@@ -12,7 +12,7 @@
     {
         foreach (var menu in Menus)
         {
-            <WeSidebarMenuSection AddTopPadding="true" Title="@menu.Title" Items="menu.Childs" OnMenuClick="OnClickSideMenu" OnMenuItemClick="OnMenuItemClick">
+            <WeSidebarMenuSection AddTopPadding="true" Title="@menu.Title" Items="menu.Childs" OnMenuClick="NotifyOnClickSideMenu" OnMenuItemClick="NotifyOnMenuItemClick">
 
             </WeSidebarMenuSection>
         }
@@ -37,4 +37,14 @@
     [Parameter] public RenderFragment<WeMenuItem> Template { get; set; }
     [Parameter] public EventCallback<WeMouseEventArgs> OnClickSideMenu { get; set; }
     [Parameter] public EventCallback<WeMenuItemEventArgs<WeMenuItem>> OnMenuItemClick { get; set; }
+
+    private async Task NotifyOnClickSideMenu(WeMouseEventArgs args)
+    {
+        await OnClickSideMenu.InvokeAsync(args);
+    }
+
+    private async Task NotifyOnMenuItemClick(WeMenuItemEventArgs<WeMenuItem> args)
+    {
+        await OnMenuItemClick.InvokeAsync(args);
+    }
 }

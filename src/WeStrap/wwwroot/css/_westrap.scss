@@ -114,6 +114,9 @@ $i: 200;
     .#{$prefix}title h2 small {
         display: none;
     }
+    #{$prefix}title h4 small {
+        display: none;
+    }
 }
 
 .we_clickable {
@@ -191,6 +194,17 @@ $i: 200;
     white-space: nowrap;
     font-size: 18px;
     font-weight: 400;
+}
+
+.#{$prefix}title h4 {
+    margin: 10px 0px 0 10px;
+    float: left;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 800;
 }
 
 .#{$prefix}title h2 small {
@@ -1021,10 +1035,14 @@ ul.nav.child_menu li:after {
     height: 100% !important;
     width: 100% !important;
 }
-/*
-.#{$prefix}chart_container>div {
-    height: 100% !important;
-    width:100% !important;
-    min-height:260px;
-    min-width:260px;
-}*/
+
+
+
+$widths: 5,10,15,16,20,25,33,40,50,60,66,70,75,80,85,90,100;
+
+@each $width in $widths {
+    .width-#{$width} {
+        width: $width * 1%;
+        min-width: $width * 1%;
+    }
+}

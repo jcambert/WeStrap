@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace WeCommon
 {
@@ -91,6 +92,34 @@ namespace WeCommon
             }
             List<(string, string, TEnum)> result =new List<(string, string, TEnum)>();
             result.AddRange( Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList().Select(e=>( e.ToDescriptionString(), e.IconToClass(),e )));
+            return result;
+        }
+
+        public static void QueryStringToDictionary(this string qs, Dictionary<string, string> result,bool add=false)
+        {
+            if(!add)
+                result.Clear();
+            if (string.IsNullOrEmpty(qs)) return;
+            string pattern = @"[\?&]*(?<name>[^&=]+)=(?<value>[^&=]+)";
+            var regex = new Regex(pattern);
+            var matches = Regex.Matches(qs, pattern);
+            foreach (Match match in matches)
+            {
+                result[match.Groups[1].Value] = match.Groups[2].Value;
+            }
+
+            /*var match = regex.Match(qs);
+            var keys = match.Groups.Keys.ToList();
+            foreach (var key in keys)
+            {
+                result[key] = match.Groups[key].Value.Replace("+", " ");
+            }*/
+        }
+
+        public static Dictionary<string,string> QueryStringToDictionary(this string qs)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            qs.QueryStringToDictionary(result);
             return result;
         }
     }

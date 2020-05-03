@@ -96,5 +96,6 @@ namespace WeCommon
         public string Join(string separator = "") => string.Join(separator, Buffer);
 
         public string[] ToArray() => Buffer.ToArray();
+        public static implicit operator string( WeStringBuilder sb)=>sb.ToString();
     }
 }

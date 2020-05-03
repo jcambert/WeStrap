@@ -1,35 +1,59 @@
 ﻿@namespace WeStrap
 @inherits WeTagWithEvents
-<WeLi OnClick="OnClick">
-    <a><i class="fas fa-@Icon"></i> @Title <span class="fas fa-chevron-down"></span></a>
-    <ul class="nav child_menu" style="display: none;">
-        @if (MenuTemplate != null && Items.Any())
-        {
-            @foreach (var item in Items)
-            {
-                @MenuTemplate(item);
-            }
-        }
-        else if (Items.Any())
-        {
-            @foreach (var item in Items)
-            {
-                <WeLi OnClick="OnMenuClick"><a href="#">@item.Title</a></WeLi>
-            }
-        }
-        else
-        {
+@if (Items.Any())
+{
+    <WeLi OnClick="OnClick">
+        <a>
+            <i class="@Icon"></i> @Title
 
-           @ChildContent
-        }
+            <span class="fas fa-chevron-down"></span>
 
-    </ul>
-</WeLi>
+        </a>
+
+        <ul class="nav child_menu" style="display: none;">
+            @if (MenuTemplate != null && Items.Any())
+            {
+                @foreach (var item in Items)
+                {
+                    @MenuTemplate(item);
+                }
+            }
+            else if (Items.Any())
+            {
+                @foreach (var item in Items)
+                {
+                    <WeLi OnClick="InvokeOnMenuClick"><a href="#">@item.Title</a></WeLi>
+                }
+            }
+            else
+            {
+
+                @ChildContent
+            }
+
+        </ul>
+
+    </WeLi>
+}
+else
+{
+    <WeLi OnClick="InvokeOnMenuClick">
+        <a>
+            <i class="@Icon"></i> @Title
+
+
+        </a>
+    </WeLi>
+}
 @code {
     [Parameter] public string Icon { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public IReadOnlyList<WeMenuItem> Items { get; set; } = new List<WeMenuItem>();
     [Parameter] public RenderFragment<WeMenuItem> MenuTemplate { get; set; }
     [Parameter] public EventCallback<WeMouseEventArgs> OnMenuClick { get; set; }
+    void InvokeOnMenuClick(WeMouseEventArgs args)
+    {
+        OnMenuClick.InvokeAsync(args);
+    }
 
 }

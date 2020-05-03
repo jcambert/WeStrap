@@ -17,7 +17,7 @@
         {
             @foreach (var item in Items)
             {
-                <WeSidebarMenuItem OnClick="@(args => NotifyMenuClick(args))" Icon="@item.Icon" Title="@item.Title" Items="item.Childs">
+                <WeSidebarMenuItem OnClick="@(args => NotifyMenuClick(args))" OnMenuClick="@(args => NotifyMenuItemClick(args, item))" Icon="@item.Icon" Title="@item.Title" Items="item.Childs">
                     <MenuTemplate Context="menu">
                         <WeLi OnClick="@(args => NotifyMenuItemClick(args, menu))">@MenuTemplate(menu)</WeLi>
                     </MenuTemplate>

@@ -7156,6 +7156,8 @@ a:hover, a:focus {
 
 @media (max-width: 1270px) and (min-width: 192px) {
   .we_title h2 small, .we_title .h2 small, .we_title h2 .small, .we_title .h2 .small {
+    display: none; }
+  we_title h4 small, we_title .h4 small, we_title h4 .small, we_title .h4 .small {
     display: none; } }
 
 .we_clickable {
@@ -7220,6 +7222,16 @@ a:hover, a:focus {
   white-space: nowrap;
   font-size: 18px;
   font-weight: 400; }
+
+.we_title h4, .we_title .h4 {
+  margin: 10px 0px 0 10px;
+  float: left;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 800; }
 
 .we_title h2 small, .we_title .h2 small, .we_title h2 .small, .we_title .h2 .small {
   margin-left: 10px; }
@@ -7887,13 +7899,74 @@ ul.nav.child_menu li:after {
   height: 100% !important;
   width: 100% !important; }
 
-/*
-.we_chart_container>div {
-    height: 100% !important;
-    width:100% !important;
-    min-height:260px;
-    min-width:260px;
-}*/
+.width-5 {
+  width: 5%;
+  min-width: 5%; }
+
+.width-10 {
+  width: 10%;
+  min-width: 10%; }
+
+.width-15 {
+  width: 15%;
+  min-width: 15%; }
+
+.width-16 {
+  width: 16%;
+  min-width: 16%; }
+
+.width-20 {
+  width: 20%;
+  min-width: 20%; }
+
+.width-25 {
+  width: 25%;
+  min-width: 25%; }
+
+.width-33 {
+  width: 33%;
+  min-width: 33%; }
+
+.width-40 {
+  width: 40%;
+  min-width: 40%; }
+
+.width-50 {
+  width: 50%;
+  min-width: 50%; }
+
+.width-60 {
+  width: 60%;
+  min-width: 60%; }
+
+.width-66 {
+  width: 66%;
+  min-width: 66%; }
+
+.width-70 {
+  width: 70%;
+  min-width: 70%; }
+
+.width-75 {
+  width: 75%;
+  min-width: 75%; }
+
+.width-80 {
+  width: 80%;
+  min-width: 80%; }
+
+.width-85 {
+  width: 85%;
+  min-width: 85%; }
+
+.width-90 {
+  width: 90%;
+  min-width: 90%; }
+
+.width-100 {
+  width: 100%;
+  min-width: 100%; }
+
 /* Config */
 :root {
   --sk-size: 40px;

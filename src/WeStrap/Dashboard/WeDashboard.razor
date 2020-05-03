@@ -25,9 +25,10 @@
         @if (ShowSidebar)
         {
             <WeSidebar IsDark="IsDark">
-                @if (ShowProfile)
+                @if (ShowProfile && Profile!=null)
                 {
-                    <WeSidebarProfile Welcome="@ProfileWelcome" Avatar="@ProfileAvatar" Name="@ProfileName"></WeSidebarProfile>
+                    @*<WeSidebarProfile Welcome="@ProfileWelcome" Avatar="@ProfileAvatar" Name="@ProfileName"></WeSidebarProfile>*@
+                    @Profile
                 }
                 @if (ShowMenu)
                 {
@@ -59,13 +60,11 @@
     [Parameter] public bool ShowMenu { get; set; } = true;
     [Parameter] public string Icon { get; set; } = "fas fa-paw";
     [Parameter] public string Title { get; set; } = "Dashboard";
-    [Parameter] public string ProfileAvatar { get; set; } = @"_content/WeStrap/img/male.png";
-    [Parameter] public string ProfileWelcome { get; set; } = @"Bienvenue";
-    [Parameter] public string ProfileName { get; set; } = @"Ambert Jc";
+
     [Parameter] public List<WeMenuItem> Menus { get; set; } = new List<WeMenuItem>();
     [Parameter] public RenderFragment MainContent { get; set; }
     [Parameter] public RenderFragment Footer { get; set; }
-
+    [Parameter] public RenderFragment Profile { get; set; }
     [Parameter] public EventCallback<WeMouseEventArgs> OnClickSideMenu { get; set; }
     [Parameter] public EventCallback<WeMenuItemEventArgs<WeMenuItem>> OnMenuItemClick { get; set; }
     [Parameter] public EventCallback OnBrandClick { get; set; }
@@ -77,11 +76,10 @@
 
     private async Task NotifyOnMenuItemClick(WeMenuItemEventArgs<WeMenuItem> args)
     {
-        if (string.IsNullOrEmpty(args.Item.NavigateTo)) return;
-        Console.WriteLine($"Menu item click:{args.Sender.Id}-{args.Item.Title}");
+        //Console.WriteLine($"Menu item click:{args.Sender.Id}-{args.Item.Title}");
         if (OnMenuItemClick.HasDelegate)
             await OnMenuItemClick.InvokeAsync(args);
-        else
+        else if (!string.IsNullOrEmpty(args.Item.NavigateTo))
             navigator.NavigateTo(args.Item.NavigateTo);
     }
 }

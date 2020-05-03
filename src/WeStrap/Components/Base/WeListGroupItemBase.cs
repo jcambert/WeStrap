@@ -27,7 +27,7 @@ namespace WeStrap
 
         [Parameter] public bool IsActive { get; set; }
         [Parameter] public string Href { get; set; }
-        public ListGroupType ListGroupType { get; set; } = ListGroupType.List;
+        [Parameter]public ListGroupType ListGroupType { get; set; } = ListGroupType.List;
         [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
         [Parameter] public Color Color { get; set; } = Color.None;
         [CascadingParameter] public WeListGroup Parent { get; set; }

@@ -12,10 +12,11 @@ namespace WeStrap
         }
         [CascadingParameter] public WePanelBase Parent { get; set; }
         [Parameter] public string Title { get; set; } = "";
+        [Parameter] public string SubTitle { get; set; } = "";
         [Parameter] public bool IsCollapseable { get; set; }
         [Parameter] public bool IsCloseable { get; set; }
         [Parameter] public RenderFragment ToolBox { get; set; }
-
+        [Parameter] public RenderFragment TitleContent { get; set; }
         [Parameter] public EventCallback OnClose { get; set; }
         public override ToggleState State { get; protected set; } = ToggleState.Open;
 

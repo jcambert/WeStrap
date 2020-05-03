@@ -1,13 +1,25 @@
 ﻿@namespace WeStrap
 @inherits WeTag
 <DynamicTag TagName="div" Class="@ClassName" @attributes="UnknownParameters">
-
+    @if (!string.IsNullOrEmpty(Avatar))
+    {
     <div class="we_profile_pic">
         <img src="@Avatar" alt="..." class="img-circle we_profile_img">
     </div>
+    }
     <div class="we_profile_info">
+        @if (!string.IsNullOrEmpty(Welcome))
+        {
         <span>@Welcome</span>
+        }
+        @if (!string.IsNullOrEmpty(Name))
+        {
         <h2>@Name</h2>
+        }
+        @if (ChildContent != null)
+        {
+            @ChildContent
+        }
     </div>
 </DynamicTag>
 
@@ -23,6 +35,6 @@
         ;
     [Parameter] public Display Display { get; set; } = Display.None;
     [Parameter] public string Avatar { get; set; } = @"_content/WeStrap/img/male.png";
-    [Parameter] public string Welcome { get; set; } = @"Bienvenue";
-    [Parameter] public string Name { get; set; } = @"Ambert Jc";
+    [Parameter] public string Welcome { get; set; } 
+    [Parameter] public string Name { get; set; } 
 }

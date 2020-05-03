@@ -36,7 +36,7 @@
                         @TGroup(_currentGroup);
                         @foreach (var (_item, _index) in ((IEnumerable<object>)item).ToList().WithIndex())
                         {
-                            <WeTableRow OnRowHover="@(() => OnRowMouseOver.InvokeAsync(item))" OnRowOut="@(() => OnRowMouseOut.InvokeAsync(item))">
+                            <WeTableRow @onclick="@(() => OnRowClick.InvokeAsync(item))"  OnRowHover="@(() => OnRowMouseOver.InvokeAsync(item))" OnRowOut="@(() => OnRowMouseOut.InvokeAsync(item))" >
                                 @TBodyGroup(new ItemWithIndex<object>() { Item = _item, Index = _index })
                             </WeTableRow>
                         }
