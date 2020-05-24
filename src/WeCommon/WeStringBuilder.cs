@@ -63,7 +63,22 @@ namespace WeCommon
         public WeStringBuilder Add(WeStringBuilder builder, bool when = true) => when ? this.Add(builder.Buffer) : this;
 
         public WeStringBuilder Add(WeStringBuilder builder, Func<bool> when = null) => this.Add(builder, when());
-
+        public WeStringBuilder Add( IEnumerable<string> liste, bool when = true)
+        {
+            foreach (var item in liste)
+            {
+                Add(item, when);
+            }
+            return this;
+        }
+        public WeStringBuilder Add<T>(IEnumerable<T> liste, bool when = true)
+        {
+            foreach (var item in liste)
+            {
+                Add(item.ToString(), when);
+            }
+            return this;
+        }
         public WeStringBuilder AddList<T>(string value, IEnumerable<T> liste, bool when = true)
             where T : struct
         {
@@ -94,6 +109,8 @@ namespace WeCommon
         public override string ToString() => Join(" ");
 
         public string Join(string separator = "") => string.Join(separator, Buffer);
+
+        public bool HasItems => buffer.Any();
 
         public string[] ToArray() => Buffer.ToArray();
         public static implicit operator string( WeStringBuilder sb)=>sb.ToString();
