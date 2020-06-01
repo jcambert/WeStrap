@@ -112,6 +112,8 @@ namespace WeCommon
 
         public bool HasItems => buffer.Any();
 
+        public IEnumerable<string> AsEnumerable => buffer.AsEnumerable();
+
         public string[] ToArray() => Buffer.ToArray();
         public static implicit operator string( WeStringBuilder sb)=>sb.ToString();
     }
