@@ -9,7 +9,7 @@
 Dictionary<string,string> colors=new Dictionary<string,string>(){
 	{"AliceBlue","#F0F8FF"},
 	{"AntiqueWhite","#FAEBD7"},
-	{"Aqua","#	00FFFF"},
+	{"Aqua","#00FFFF"},
 	{"Aquamarine","#7FFFD4"},
 	{"Azure","#F0FFFF"},
 	{"Beige","#F5F5DC"},
@@ -165,15 +165,15 @@ namespace WeC{
 
 	public readonly partial struct WeColor{
 
+		
+<#foreach(var color in colors){#>
+		public static WeColor <#=TitleCase(color.Key)#>=WeColor.From("<#=color.Value#>");
+<#}#>
 		internal static Dictionary<string,WeColor> Colors=new Dictionary<string,WeColor>(){
 <#foreach(var color in colors){#>
 			{"<#=KeyCase(color.Key)#>",<#=TitleCase(color.Key)#>},
 <#}#>
 			
-		};
-<#foreach(var color in colors){#>
-		public static WeColor <#=TitleCase(color.Key)#>=WeColor.From("<#=color.Value#>");
-<#}#>
-		
+		};//
 	}
 }

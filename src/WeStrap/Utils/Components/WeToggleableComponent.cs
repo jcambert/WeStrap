@@ -22,8 +22,8 @@ namespace WeStrap
         [Parameter] public EventCallback<ToggleState> IsOpenChanged { get; set; }
         [Parameter] public string AnimationClass { get; set; }
         [Parameter] public RenderFragment ChildContent { get; set; }
-
-        protected bool Open
+        [Parameter]
+        public bool Open
         {
             get => State == ToggleState.Open;
             set

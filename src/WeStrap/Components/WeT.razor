@@ -1,0 +1,8 @@
+﻿@namespace WeStrap
+@inherits WeTag
+<DynamicTag @attributes="@UnknownParameters" TagName="@TagName" class="@ClassName" style="@Style">
+    @ChildContent
+</DynamicTag>
+@code {
+    [Parameter] public string TagName { get; set; } = "p";
+}

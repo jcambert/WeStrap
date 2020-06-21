@@ -13,6 +13,7 @@ namespace WeStrap
             .Add(s)
             .Add(Spacers.ToDescriptionString())
             .Add("hidden", !IsVisible)
+            .Add(Alpha.ToDescriptionString(),Alpha!=Alpha.None)
             ;
 
         protected virtual WeStringBuilder BuildStyle()
@@ -33,6 +34,7 @@ namespace WeStrap
 
         [Parameter]
         public IReadOnlyList<WeSpacer> Spacers { get; set; } = new List<WeSpacer>();
+        [Parameter] public Alpha Alpha { get; set; } = Alpha.None;
     }
     public abstract class WeTag : WeTagBase
     {

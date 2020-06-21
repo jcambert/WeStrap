@@ -1,7 +1,7 @@
 ﻿@namespace WeStrap
-@inherits WeTag
+@inherits WeCollapseBase
 
-    <DynamicTag TagName="div" class="@ClassName" disabled="@disabled" @attributes="@UnknownParameters">
+    <DynamicTag TagName="@Tag" class="@ClassName"  @attributes="@UnknownParameters">
 
         @ChildContent
 
@@ -11,24 +11,5 @@
 
 
  
-    protected override WeStringBuilder BuildClassName(string s = "")
-    {
-        return base.BuildClassName(s)
-        .Add("collapse");
-    }
-
-    /*public async Task Show()
-    {
-        await query.RemoveClass("div", "collapse");
-        await query.AddClass("div", "collapsing");
-        await query.AddClass("div", "collapse show");
-    }
-
-    public async Task Hide()
-    {
-        await query.RemoveClass("div", "show");
-        await query.RemoveClass("div", "collapse");
-        await query.AddClass("div", "collapsing");
-        await query.AddClass("div", "collapse");
-    }*/
+   
 }

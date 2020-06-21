@@ -1,0 +1,16 @@
+﻿@namespace WeStrap
+@inherits WeTag
+<DynamicTag @attributes="@UnknownParameters" TagName="main" role="main" class="@ClassName" style="@Style">
+    @ChildContent
+</DynamicTag>
+
+@code { 
+    
+    protected override WeStringBuilder BuildClassName(string s = "")
+        => base.BuildClassName(s)
+        .Add("container",!IsFluid)
+        .Add("container-fuild",IsFluid)
+        ;
+        
+        [Parameter]public bool IsFluid { get; set; }
+}

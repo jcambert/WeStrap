@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -88,7 +89,7 @@ namespace WeC
 
 
 
-        public static WeColor From(string value) => value.RGB();
+        public static WeColor From(string value) => value.Trim().RGB();
         public static WeColor From(IntH red, IntH green, IntH blue, Percentage opacity) => new WeColor(red, green, blue, opacity);
 
         public static WeColor Random() => WeColor.From(GetRandomColor());
@@ -114,9 +115,24 @@ namespace WeC
             }
             return sb.Join();
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is WeColor color &&
+                   R.Equals(color.R) &&
+                   G.Equals(color.G) &&
+                   B.Equals(color.B) &&
+                   Alpha.Equals(color.Alpha);
+        }
+        public override int GetHashCode()=>R + G + B + Alpha;
+        
         public static WeColor operator +(WeColor color, int step) => new WeColor(color.R + step, color.G + step, color.B + step, color.Alpha);
         public static WeColor operator +(WeColor color, (int stepR, int stepG, int stepB) steps) => new WeColor(color.R + steps.stepR, color.G + steps.stepG, color.B + steps.stepB, color.Alpha);
         public static WeColor operator +(WeColor color, (int stepR, int stepG, int stepB, int stepA) steps) => new WeColor(color.R + steps.stepR, color.G + steps.stepG, color.B + steps.stepB, color.Alpha + steps.stepA);
+
+        public static bool operator ==(WeColor c1, WeColor c2) => c1.R == c2.R && c1.G == c2.G && c1.B == c2.B && c1.Alpha == c2.Alpha;
+
+        public static bool operator !=(WeColor c1, WeColor c2) => !(c1 == c2);
 
         public static implicit operator WeColor(WeHSL value)
         {
@@ -259,6 +275,22 @@ namespace WeC
             }
             result.Add(to);
             return result;
+        }
+        public static string GetName(this WeColor color)
+        {
+            string s = color.ToString();
+            var v=WeColor.Colors.Where(c => c.Value == color).Select(c=>c.Key).FirstOrDefault();
+            /*WeColor.Colors.Keys.ToList().ForEach(k => {
+                Console.WriteLine(k);
+                if (k == "lightgray")
+                {
+                    Debugger.Break();
+                    Console.WriteLine(WeColor.Colors[k]);
+                    Console.WriteLine(WeColor.LightGray == WeColor.Colors[k]);
+                }
+            });*/
+                
+            return v ?? "";
         }
 
     }

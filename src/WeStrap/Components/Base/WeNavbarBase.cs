@@ -20,7 +20,7 @@ namespace WeStrap
         }
         [Parameter] public Color BackgroundColor { get; set; } = Color.None;
         [Parameter] public bool IsDark { get; set; }
-        [Parameter] public bool IsExpand { get; set; }
+       // [Parameter] public bool IsExpand { get; set; }
         [Parameter] public bool IsFixedBottom { get; set; }
         [Parameter] public bool IsFixedTop { get; set; }
         [Parameter] public bool IsStickyTop { get; set; }

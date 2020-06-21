@@ -17,8 +17,10 @@ namespace ColorApplication
         static void Main(string[] args)
         {
 
-            Console.WriteLine(WeColor.DarkGreen.ToRGBA());
-            Console.WriteLine(WeColor.DarkGreen.AdjustAlpha(0.5).ToRGBA());
+           // Console.WriteLine(WeColor.DarkGreen.ToRGBA());
+           // Console.WriteLine(WeColor.DarkGreen.AdjustAlpha(0.5).ToRGBA());
+            //Console.WriteLine(WeColor.LightGray == WeColor.From("#D3D3D3"));
+            Console.WriteLine(WeColor.LightGray.GetName());
             Console.ReadLine();
             //            var colors = WeC.WeColor.Random(6);
             /* Console.WriteLine($"nbre:{255*IntH.MaxValue}");

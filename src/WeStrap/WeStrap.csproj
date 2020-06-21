@@ -12,6 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Generator\Alpha.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Alpha.tt</DependentUpon>
+    </None>
     <None Include="Generator\BootstrapOffset.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -71,6 +76,11 @@
 
 
   <ItemGroup>
+    <Compile Update="Generator\Alpha.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Alpha.tt</DependentUpon>
+    </Compile>
     <Compile Update="Generator\BootstrapOffset.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -120,6 +130,10 @@
 
 
   <ItemGroup>
+    <None Update="Generator\Alpha.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Alpha.cs</LastGenOutput>
+    </None>
     <None Update="Generator\BootstrapOffset.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>BootstrapOffset.cs</LastGenOutput>

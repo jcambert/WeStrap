@@ -38,6 +38,10 @@ Dictionary<string,string> displays = new Dictionary<string,string>(){
 using System.ComponentModel;
 namespace WeStrap{
 	public enum WeSpacer{
+	[Description("mr-auto")]
+	MarginRightAuto,
+	[Description("ml-auto")]
+	MarginLeftAuto,
 	<# foreach(var property in properties)
 		foreach(var side in sides)
 			foreach(var point in breakPoints)

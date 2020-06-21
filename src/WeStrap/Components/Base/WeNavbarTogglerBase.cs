@@ -9,6 +9,7 @@ namespace WeStrap
         protected override WeStringBuilder BuildClassName(string s = "") => base.BuildClassName("navbar-toggler");
 
         [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+        [Parameter] public int MyProperty { get; set; }
 
         protected async Task Clicked(MouseEventArgs e)
         {

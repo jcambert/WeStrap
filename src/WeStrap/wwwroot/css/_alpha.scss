@@ -1,0 +1,7 @@
+﻿@import "_variables";
+
+@for $i from 0 through 100 {
+.alpha#{$i}{
+    background-color: rgba(0,0,0, $i/100)
+    }
+}

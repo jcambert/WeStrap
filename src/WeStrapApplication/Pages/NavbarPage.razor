@@ -1,0 +1,138 @@
+﻿@page "/navbar"
+<header>
+    <WeNavBar IsFixedTop="true" Expand="NavBarExpand.ExpandLarge" IsDark="true" BackgroundColor="Color.Light" Spacers="new List<WeSpacer> { WeSpacer.PaddingLeftAndRightLarge2}">
+        <WeNavbarBrand Alpha="Alpha.A0">
+            <img id="logo" class="" src="https://q-cf.bstatic.com/static/img/b26logo/booking_logo_retina/22615963add19ac6b6d715a97c8d477e8b95b7ea.png" alt="Booking.com réservations d'hôtels en ligne">
+        </WeNavbarBrand>
+        <WeNavbarToggler @onclick="onclick"></WeNavbarToggler>
+
+        <WeCollapse Open="@IsOpen" IsNavbar="true">
+            <WeNav IsList="true" IsNavbar="true" MarginLeftAuto="true">
+                <WeNavItem IsDropdown="true">
+                    <WeDropdownToggle Color="Color.Primary" IsOutline="true" TextColor="WeC.WeColor.LightGray">Devise: €uros</WeDropdownToggle>
+                    <WeDropdownMenu>
+                        <WeDropdownItem>Dollars Américains $</WeDropdownItem>
+                        <WeDropdownItem>Franc Suisse CHF</WeDropdownItem>
+                        <WeDropdownItem IsDivider="true"></WeDropdownItem>
+                        <WeDropdownItem>Autres Devises</WeDropdownItem>
+                    </WeDropdownMenu>
+                </WeNavItem>
+                <WeNavItem IsDropdown="true">
+                    <WeDropdownToggle Color="Color.Primary" IsOutline="true"  TextColor="WeC.WeColor.LightGray">Langue: Francais</WeDropdownToggle>
+                    <WeDropdownMenu>
+                        <WeDropdownItem>English US</WeDropdownItem>
+                        <WeDropdownItem>English UK</WeDropdownItem>
+                        <WeDropdownItem>Español </WeDropdownItem>
+                        <WeDropdownItem>Deutsch </WeDropdownItem>
+                        <WeDropdownItem>Italiano </WeDropdownItem>
+                        <WeDropdownItem IsDivider="true"></WeDropdownItem>
+                        <WeDropdownItem>Autres langues</WeDropdownItem>
+                    </WeDropdownMenu>
+                </WeNavItem>
+                <WeNavItem>
+                    <WeButton ButtonType="ButtonType.Button" IsOutline="true">
+                        <span class="glyphicon glyphicon-print"><WeBadge Color="Color.Light">2</WeBadge></span>
+                    </WeButton>
+                </WeNavItem>
+            </WeNav>
+        </WeCollapse>
+    </WeNavBar>
+</header>
+<WeMain IsFluid="true">
+    <WeT TagName="div"></WeT>
+    <div class="jumbotron jumbotron-fluid" style="background-color: #e0e0e0">
+        <div class="container">
+            <h3 class="display-4">Votre destination</h3>
+            <p class="lead  d-none d-lg-block">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            <div class="search-destination " style="padding: 4px; ">
+                <div class=" d-none d-lg-block">
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@@</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Où allez-vous?" aria-label="Username" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend" style="margin-left:4px;">
+                            <span class="input-group-text" id="basic-addon1">@@</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Arrivée - Départ" aria-label="Username" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend" style="margin-left:4px;">
+                            <span class="input-group-text" id="basic-addon1">@@</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Personnes" aria-label="Username" aria-describedby="basic-addon1">
+                        <WeButton ButtonType="ButtonType.Button" style="margin-left:4px;">Rechercher</WeButton>
+                    </div>
+                </div>
+                <div class="d-lg-none">
+                    <form action="/" method="post">
+                        <div class="form-row mt-3">
+                            <div class="form-group col-md-12">
+                                <label for="inputEmail4">Destination</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Où allez-vous?">
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Du</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="A Partir de ">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Au</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Jusqu'au">
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="form-group col-md-4">
+                                <label for="inputEmail4">Adultes</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Nombre d'adultes ">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputEmail4">Enfants</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Nombre d'enfants">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputEmail4">Chambre</label>
+                                <input type="email" class="form-control" id="inputEmail4" placeholder="Nombre de chambres">
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="btn btn-outline-primary" style="width: 100%;height: 100px;font-size: xx-large;border-radius: 20px;">Rechercher</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <WeRow>
+            <WeCard CardType="CardType.Deck">
+                <WeCard>
+                    <WeCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="https://r-cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o="></WeCard>
+                    <WeCard CardType="CardType.Body">
+                        <WeCard CardType="CardType.Title">Hotels</WeCard>
+                        <WeCard CardType="CardType.Subtitle">712,876 hôtels</WeCard>
+                    </WeCard>
+                </WeCard>
+
+                <WeCard>
+                    <WeCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-apartments_300/9f60235dc09a3ac3f0a93adbc901c61ecd1ce72e.jpg"></WeCard>
+                    <WeCard CardType="CardType.Body">
+                        <WeCard CardType="CardType.Title">Appartements</WeCard>
+                        <WeCard CardType="CardType.Subtitle">779 997 Apparetements</WeCard>
+                    </WeCard>
+                </WeCard>
+
+            </WeCard>
+        </WeRow>
+    </div>
+</WeMain>
+@code{
+    bool IsOpen { get; set; } = true;
+    void onclick(MouseEventArgs e)
+    {
+        IsOpen = !IsOpen;
+        StateHasChanged();
+        Console.WriteLine("Navbar Class->" + IsOpen.ToString());
+    }
+}

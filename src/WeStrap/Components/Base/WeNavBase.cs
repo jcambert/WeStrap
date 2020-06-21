@@ -27,7 +27,10 @@ namespace WeStrap
             .Add("nav-pills", IsPills)
             .Add("nav-fill", IsFill)
             .Add("flex-column", IsVertical)
-            .Add(GetAlignment());
+            .Add(GetAlignment())
+            .Add(WeSpacer.MarginRightAuto.ToDescriptionString(),MarginRightAuto)
+            .Add(WeSpacer.MarginLeftAuto.ToDescriptionString(), MarginLeftAuto)
+            ;
         }
 
 
@@ -42,7 +45,8 @@ namespace WeStrap
         [Parameter] public bool IsPills { get; set; }
         [Parameter] public bool IsFill { get; set; }
         [Parameter] public bool IsNavbar { get; set; }
-
+        [Parameter] public bool MarginLeftAuto { get; set; }
+        [Parameter] public bool MarginRightAuto { get; set; }
 
         private string GetAlignment()
         {

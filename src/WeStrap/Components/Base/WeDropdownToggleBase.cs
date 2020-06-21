@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using System;
 using WeCommon;
+using WeC;
 namespace WeStrap
 {
     public abstract class WeDropdownToggleBase : WeComponentBase
@@ -13,11 +14,14 @@ namespace WeStrap
              .Add("btn", !IsLink)
              .Add("dropdown-item", Dropdown?.IsSubmenu == true)
              .Add($"btn-{Size.ToDescriptionString()}", !IsLink && Size != Size.None)
-             .Add($"btn-{Color.ToDescriptionString()}", !IsLink && Color != Color.None)
+             .Add($"btn-{Color.ToDescriptionString()}", !IsLink && Color != Color.None && !IsOutline)
+             .Add($"btn-outline-{Color.ToDescriptionString()}", !IsLink && Color != Color.None && IsOutline)
              .Add("dropdown-toggle-split", IsSplit)
              .Add("dropdown-toggle")
              //nav-link should only show on root drop down toggle
-             .Add("nav-link", IsLink && Dropdown?.NavItem != null && Dropdown?.IsSubmenu == false);
+             .Add("nav-link", IsLink && Dropdown?.NavItem != null && Dropdown?.IsSubmenu == false)
+             .Add($"color-{TextColor.GetName()}",TextColor.GetName().Length>0)
+             ;
         }
 
 
@@ -29,7 +33,8 @@ namespace WeStrap
         [Parameter] public Color Color { get; set; } = Color.Primary;
         [Parameter] public Size Size { get; set; } = Size.None;
         [Parameter] public bool IsLink { get; set; } = false;
-
+        [Parameter] public bool IsOutline { get; set; } = false;
+        [Parameter] public WeColor TextColor { get; set; } 
         [Obsolete("This Parameter is no longer require and will be removed soon")]
         [Parameter] public bool? IsOpen { get; set; }
 
