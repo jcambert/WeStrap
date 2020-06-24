@@ -68,8 +68,9 @@ a:hover, a:focus {
 .table-hover tbody tr:hover {
     cursor: pointer;
 }
+
 .disable-hovarable {
-    cursor:default !important;
+    cursor: default !important;
     background-color: rgba(0, 0, 0, 0) !important;
 }
 
@@ -114,6 +115,7 @@ $i: 200;
     .#{$prefix}title h2 small {
         display: none;
     }
+
     #{$prefix}title h4 small {
         display: none;
     }
@@ -1045,4 +1047,138 @@ $widths: 5,10,15,16,20,25,33,40,50,60,66,70,75,80,85,90,100;
         width: $width * 1%;
         min-width: $width * 1%;
     }
+}
+
+///WEBOOK
+$card-width: 320px;
+
+body {
+    min-width: $card-width;
+}
+
+.card.card-search-suggestion {
+    justify-content: center;
+    margin:auto;
+}
+
+.card.card-search-suggestion img.card-img-top {
+    width: $card-width;
+    height: 210px;
+}
+
+.card-img-center {
+    display: block;
+    margin: auto;
+}
+
+@media (min-width: 0px) {
+    .card-deck {
+        // display: inline-flex;
+        justify-content: center;
+        /*& .card {
+            flex: none;
+            align-items: center;
+        }*/
+    }
+}
+
+.card.card-search-suggestion {
+    min-width: $card-width+5;
+    max-width: $card-width+5;
+}
+
+.accordion-suggestion {
+    //width: 100%;
+}
+
+.accordion-suggestion-innercard {
+    //width:100%;
+}
+
+
+.webook-score-badge {
+    background: #003580;
+    color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    vertical-align: baseline;
+    border-radius: 6px 6px 6px 0;
+    height: 32px;
+    width: 32px;
+    min-width: 32px;
+}
+
+.webook-search-card-notation {
+    display: flex;
+}
+
+.webook-search-card-notation.webook-small .webook-score-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.webook-search-card-notation .webook-score-review {
+    margin-left: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.webook-search-card-notation {
+    &.webook-small .webook-score-title {
+        font-size: 14px;
+    }
+
+    &.webook-small .webook-score-content {
+        font-size: 12px;
+    }
+}
+
+.webook-score-title {
+    color: #003580;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.webook-score-content:before {
+    content: '\00b7';
+    margin: 0 4px;
+    line-height: 0;
+    position: relative;
+}
+
+.webook-score-content {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    margin-top: 2px;
+    line-height: 1;
+    color: #6b6b6b;
+}
+
+.card-footer .webook-town {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b6b6b;
+}
+
+.card-footer .webook-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b6b6b;
 }

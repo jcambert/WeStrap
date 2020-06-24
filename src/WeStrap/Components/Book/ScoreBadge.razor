@@ -1,0 +1,16 @@
+﻿@namespace WeStrap
+@inherits WeTagBase
+<DynamicTag TagName="div" class="@ClassName" @attributes="@UnknownParameters">
+    @Note
+</DynamicTag>
+
+@code{        
+    protected override WeStringBuilder BuildClassName(string s = "")=>
+        base.BuildClassName(s)
+        .UsePrefix("webook-{0}")
+        .Add("score-badge")
+        ;
+        
+    [Parameter]
+    public double Note { get; set; }
+}

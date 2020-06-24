@@ -1,0 +1,12 @@
+﻿@namespace WeStrap
+@inherits WeTag
+<DynamicTag TagName="div" class="@ClassName" @attributes="@UnknownParameters">
+    <ScoreBadge Note="@Note.Note"></ScoreBadge>
+    <ScoreContent Title="@Note.Evaluation" Content="@(Note.Numbers.ToString()+" visites")"></ScoreContent>
+</DynamicTag>
+@code {
+
+    [Parameter]
+    public Notation  Note{ get; set; }
+    
+}

@@ -8,7 +8,7 @@
     @foreach (var (item, index) in Items.WithIndex())
     {
         var i = index;
-        <WeCard>
+        <WeCard Class="@InnerCardClass">
             <WeCard CardType="CardType.Header">
                 <h2 class="mb-0">
                     <WeButton ButtonType="ActivatorType" Class="@ActivatorClass" Color="ActivatorColor" IsLink="ActivatorIsLink" @onclick="()=>Activate(i)">
@@ -36,7 +36,7 @@
     [Parameter] public bool ActivatorIsLink { get; set; } = true;
 
     [Parameter] public IList<TItem> Items { get; set; } = new List<TItem>();
-
+    [Parameter] public string InnerCardClass { get; set; }
     [Parameter]
     public TItem Item
     {
