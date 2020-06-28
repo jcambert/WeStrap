@@ -1,9 +1,9 @@
 ﻿@page "/navbar"
 
-<header>
-    <WeNavBar IsFixedTop="true" Expand="NavBarExpand.ExpandLarge" IsDark="true" BackgroundColor="Color.Light" Spacers="new List<WeSpacer> { WeSpacer.PaddingLeftAndRightLarge2}">
+<WeHeader>
+    <WeNavBar IsFixedTop="true" Expand="NavBarExpand.ExpandMedium" IsDark="true" BackgroundColor="Color.Light" Spacers="new List<WeSpacer> { WeSpacer.PaddingLeftAndRightXtraSmall2}">
         <WeNavbarBrand Alpha="Alpha.A0">
-            <img id="logo" class="" src="https://q-cf.bstatic.com/static/img/b26logo/booking_logo_retina/22615963add19ac6b6d715a97c8d477e8b95b7ea.png" alt="Booking.com réservations d'hôtels en ligne">
+            <img id="logo" width="250" class="" src="https://q-cf.bstatic.com/static/img/b26logo/booking_logo_retina/22615963add19ac6b6d715a97c8d477e8b95b7ea.png" alt="Booking.com réservations d'hôtels en ligne">
         </WeNavbarBrand>
         <WeNavbarToggler @onclick="onclick"></WeNavbarToggler>
 
@@ -38,9 +38,10 @@
             </WeNav>
         </WeCollapse>
     </WeNavBar>
-</header>
+
+</WeHeader>
+
 <WeMain IsFluid="true">
-    <WeT TagName="div"></WeT>
     <div class="jumbotron jumbotron-fluid" style="background-color: #e0e0e0">
         <div class="container">
             <h3 class="display-4">Votre destination</h3>
@@ -53,13 +54,13 @@
                         </div>
                         <input type="text" class="form-control" placeholder="Où allez-vous?" aria-label="Username" aria-describedby="basic-addon1">
                         <div class="input-group-prepend" style="margin-left:4px;">
-                            <span class="input-group-text" id="basic-addon1">@@</span>
+                            <span class="input-group-text" id="basic-addon2">@@</span>
                         </div>
                         <input type="text" class="form-control" placeholder="Arrivée - Départ" aria-label="Username" aria-describedby="basic-addon1">
                         <div class="input-group-prepend" style="margin-left:4px;">
-                            <span class="input-group-text" id="basic-addon1">@@</span>
+                            <span class="input-group-text" id="basic-addon3">@@</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Personnes" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" placeholder="Personnes" aria-label="Username" aria-describedby="basic-addon4">
                         <WeButton ButtonType="ButtonType.Button" style="margin-left:4px;">Rechercher</WeButton>
                     </div>
                 </div>
@@ -74,25 +75,25 @@
                         <div class="form-row mt-3">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Du</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="A Partir de ">
+                                <input type="email" class="form-control" id="inputEmail5" placeholder="A Partir de ">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Au</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Jusqu'au">
+                                <input type="email" class="form-control" id="inputEmail6" placeholder="Jusqu'au">
                             </div>
                         </div>
                         <div class="form-row mt-3">
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Adultes</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Nombre d'adultes ">
+                                <input type="email" class="form-control" id="inputEmail9" placeholder="Nombre d'adultes ">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Enfants</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Nombre d'enfants">
+                                <input type="email" class="form-control" id="inputEmail7" placeholder="Nombre d'enfants">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Chambre</label>
-                                <input type="email" class="form-control" id="inputEmail4" placeholder="Nombre de chambres">
+                                <input type="email" class="form-control" id="inputEmail8" placeholder="Nombre de chambres">
                             </div>
                         </div>
                         <div class="form-row mt-3">
@@ -108,61 +109,69 @@
     <div class="container-fluid" style="">
         <WeRow Spacers="new List<WeSpacer> { WeSpacer.PaddingLeftAndRightMedium5}">
 
-            <WeAccordion Class="accordion-suggestion w-100" InnerCardClass="accordion-suggestion-innercard w-100" ActivatorClass="btn-outline-primary" @ref="_accordionsug" Items="_sugs"  OnShow="ShowingSuggestionAccordion">
-                <Header Context="item">
-                    @item.Title
-                </Header>
+            <WeAccordion Class="accordion-suggestion w-100" InnerCardClass="accordion-suggestion-innercard w-100" HeaderClass="mx-md-1 mx-auto " ActivatorClass="btn-outline-primary" @ref="_accordionsug" Items="_sugs" OnShow="ShowingSuggestionAccordion">
+                <CardHeader Context="item">
+                    <WeCard CardType="CardType.Header" Class="mx-md-1 mx-auto  ">
+                        <h2 class="d-block d-md-none mb-0">
+                            <WeButton ButtonType="ButtonType.Button" Class="btn-outline-primary" Color="Color.None" IsLink="true" @onclick="() => ( ((WeAccordionBase) item.Item1).Activate(item.Item2))">
+                                @item.Item3.Title
+                            </WeButton>
+
+                        </h2>
+                        <h4 class="	d-none d-md-block">@item.Item3.Title</h4>
+                    </WeCard>
+                </CardHeader>
                 <Content Context="sugs">
                     <WeCard CardType="CardType.Deck" Class="mx-2">
                         @foreach (var sug in sugs.Items)
                         {
-                            
-                        <WeCard Class="card-search-suggestion my-3">
-                            @if (sug.Title.Length > 0)
-                            {
-                            <WeCard CardType="CardType.Header"><h5>@sug.Title</h5></WeCard>
-                            }
-                            @if (sug.ImgSource.Length > 0)
-                            {
-                                <div>
-                                    <WeCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="@sug.ImgSource" Class="card-img-center"></WeCard>
-                                </div>
-                            }
-                            <WeCard CardType="CardType.Body">
-                                <WeCard CardType="CardType.Subtitle">@sug.SubTitle</WeCard>
-                           
-                            </WeCard>
-                            @if (sug.Town.Length > 0 || sug.Price.Length > 0 || sug.Notation != null)
-                            {
-                                <WeCard CardType="CardType.Footer">
-                               
-                                    @if (sug.Town.Length > 0)
-                                    {
-                                        <div class="webook-town">@sug.Town</div>
-                                    }
-                                    @if (sug.Price.Length > 0)
-                                    {
-                                        <div class="webook-price">@sug.Price</div>
-                                    }
-                                    @if (sug.Notation != null)
-                                    {
-                                    <SearchCardNotation Note="sug.Notation" Class="webook-search-card-notation webook-small"></SearchCardNotation> 
-                                    }
+
+                            <WeCard Class="card-search-suggestion my-3">
+                                @if (sug.Title.Length > 0)
+                                {
+                                    <WeCard CardType="CardType.Header"><h5>@sug.Title</h5></WeCard>
+                                }
+                                @if (sug.ImgSource.Length > 0)
+                                {
+                                    <div>
+                                        <WeCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="@sug.ImgSource" Class="card-img-center"></WeCard>
+                                    </div>
+                                }
+                                <WeCard CardType="CardType.Body">
+                                    <WeCard CardType="CardType.Subtitle">@sug.SubTitle</WeCard>
+
                                 </WeCard>
-                            }
-                        </WeCard>
-                            
+                                @if (sug.Town.Length > 0 || sug.Price.Length > 0 || sug.Notation != null)
+                                {
+                                    <WeCard CardType="CardType.Footer">
+
+                                        @if (sug.Town.Length > 0)
+                                        {
+                                            <div class="webook-town">@sug.Town</div>
+                                        }
+                                        @if (sug.Price.Length > 0)
+                                        {
+                                            <div class="webook-price">@sug.Price</div>
+                                        }
+                                        @if (sug.Notation != null)
+                                        {
+                                            <SearchCardNotation Note="sug.Notation" Class="webook-search-card-notation webook-small"></SearchCardNotation>
+                                        }
+                                    </WeCard>
+                                }
+                            </WeCard>
+
                         }
                     </WeCard>
                 </Content>
             </WeAccordion>
 
-            
+
         </WeRow>
     </div>
 </WeMain>
 @code{
-    bool IsOpen { get; set; } = true;
+    bool IsOpen { get; set; } = false;
     void onclick(MouseEventArgs e)
     {
         IsOpen = !IsOpen;
@@ -182,7 +191,7 @@
         {
             Title="Rechercher par type d'hébergement",
             Items=new List<CardSuggestionItem>()
-            {
+    {
                 new CardSuggestionItem()
                 {
                     Title="Hotels",
@@ -258,7 +267,7 @@
         {
             Title="Les hébergements que les clients adorent",
             Items=new List<CardSuggestionItem>()
-            {
+    {
                 new CardSuggestionItem()
                 {
                     Title="",

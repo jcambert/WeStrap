@@ -10,12 +10,12 @@ html, body {
 
 
 [role="main"] {
-    padding-top: $topbar-height * 2; /* Space for fixed navbar */
+    padding-top: $topbar-height ; /* Space for fixed navbar */
 }
 
 @media (min-width: 768px) {
     [role="main"] {
-        padding-top: $topbar-height * 2;
+        padding-top: $topbar-height ;
     }
 }
 
@@ -373,6 +373,13 @@ $i: 200;
 
 .navbar {
     margin-bottom: 0;
+        height: auto;
+}
+@media  (min-width:770px){
+    .navbar {
+        margin-bottom: 0;
+    height: $topbar-height;
+    }
 }
 
 .navbar-header {
@@ -1049,6 +1056,225 @@ $widths: 5,10,15,16,20,25,33,40,50,60,66,70,75,80,85,90,100;
     }
 }
 
+
+///REACTIVE NAVBAR {
+/*@see https://github.com/fireship-io/222-responsive-icon-nav-css/blob/master/public */
+$text-primary: #b6b6b6 ;
+$text-secondary: #ececec ;
+$bg-primary: #23232e;
+$bg-secondary: #141418;
+$light-text-primary: #1f1f1f;
+$light-text-secondary: #000000;
+$light-bg-primary: #ffffff;
+$light-bg-secondary: #e4e4e4;
+$solar-text-primary: #576e75;
+$solar-text-secondary: #35535c;
+$solar-bg-primary: #fdf6e3;
+$solar-bg-secondary: #f5e5b8;
+$transition-speed:600ms;
+:root {
+    font-size: 16px;
+    font-family: 'Open Sans';
+    --text-primary: $text-primary;
+    --text-secondary: $text-secondary;
+    --bg-primary: $bg-primary;
+    --bg-secondary: $bg-secondary;
+    --transition-speed: $transition-speed;
+}
+
+.dark {
+    --text-primary: var(--text-primary);
+    --text-secondary: var(--text-secondary);
+    --bg-primary: var(--bg-primary);
+    --bg-secondary: var(--bg-secondary);
+}
+.light {
+    --text-primary: $light-text-primary;
+    --text-secondary: $light-text-secondary;
+    --bg-primary: $light-bg-primary;
+    --bg-secondary: $light-bg-secondary;
+}
+.solar {
+    --text-primary: $solar-text-primary;
+    --text-secondary: $solar-text-secondary;
+    --bg-primary: $solar-bg-primary;
+    --bg-secondary: $solar-bg-secondary;
+}
+
+.theme-icon {
+    display: none;
+}
+
+.dark #darkIcon {
+    display: block;
+}
+
+.light #lightIcon {
+    display: block;
+}
+
+.solar #solarIcon {
+    display: block;
+}
+
+.fa-primary {
+    color: #ff7eee;
+}
+
+.fa-secondary {
+    color: #df49a6;
+}
+
+.fa-primary,
+.fa-secondary {
+    transition: var(--transition-speed);
+}
+/* Small screens */
+@media only screen and (max-width: 600px) {
+    .navbar.reactive {
+        width: 100vw;
+        height: 5rem;
+
+        &.bottom {
+            bottom: 0;
+        }
+
+        & > .navbar-nav {
+            flex-direction: row !important;
+
+            & > .logo {
+                display: none;
+            }
+
+            & > .nav-item > .nav-link {
+                justify-content: center;
+            }
+        }
+    }
+
+    main {
+        margin: 0;
+    }
+}
+
+/* Large screens */
+@media only screen and (min-width: 600px) {
+    .navbar.reactive {
+        top: 0;
+        width: 5rem;
+        height: 100vh;
+
+        &:hover {
+            width: 16rem;
+        }
+    }
+
+
+    .navbar.reactive:hover > .navbar-nav > .nav-item > .nav-link, .navbar.reactive:hover > .navbar-nav > .logo > .nav-link {
+        & > .link-text {
+            display: inline;
+        }
+
+        & > .logo-text {
+            left: 0px;
+        }
+    }
+
+    .navbar.reactive:hover > .navbar-nav > .logo svg {
+        margin-left: 11rem !important;
+    }
+}
+
+.navbar.reactive {
+    position: fixed;
+    //background-color: var(--bg-primary);
+    transition: width 200ms ease;
+    overflow: hidden;
+    display: inherit;
+    flex-wrap: nowrap;
+    align-items: inherit;
+    justify-content: inherit;
+    padding: 0;
+
+    &.right {
+        right: 0;
+    }
+
+    &:hover > .navbar-nav > .logo svg {
+        transform: rotate(-180deg);
+    }
+
+    & > .navbar-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+
+        & > .logo {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            font-size: 1.5rem;
+            letter-spacing: 0.3ch;
+            width: 100%;
+
+            & svg {
+                transform: rotate(0deg);
+                transition: var(--transition-speed);
+            }
+        }
+
+        & > .nav-item {
+            width: 100%;
+
+            &:last-child {
+                margin-top: auto;
+            }
+        }
+
+        & > .nav-item > .nav-link, & > .logo > .nav-link {
+            display: flex;
+            align-items: center;
+            height: 5rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            filter: grayscale(100%) opacity(0.7);
+            transition: var(--transition-speed);
+
+            &:hover {
+                filter: grayscale(0%) opacity(1);
+                background: var(--bg-secondary);
+                color: var(--text-secondary);
+            }
+
+            & > .link-text {
+                display: none;
+                margin-left: 1rem;
+            }
+
+            & > .logo-text {
+                display: inline;
+                position: absolute;
+                left: -999px;
+                transition: var(--transition-speed);
+            }
+
+            & svg {
+                width: 2rem;
+                min-width: 2rem;
+                margin: 0 1.5rem;
+            }
+        }
+    }
+}
+/// }REACTIVE NAVBAR 
+
 ///WEBOOK
 $card-width: 320px;
 
@@ -1073,12 +1299,7 @@ body {
 
 @media (min-width: 0px) {
     .card-deck {
-        // display: inline-flex;
         justify-content: center;
-        /*& .card {
-            flex: none;
-            align-items: center;
-        }*/
     }
 }
 
@@ -1182,3 +1403,4 @@ body {
     font-weight: 600;
     color: #6b6b6b;
 }
+@import "_stepper";

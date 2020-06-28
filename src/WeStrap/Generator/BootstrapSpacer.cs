@@ -5,6 +5,18 @@ namespace WeStrap{
 	MarginRightAuto,
 	[Description("ml-auto")]
 	MarginLeftAuto,
+		[Description("mt-0")]
+		MarginTopXtraSmall0,
+		[Description("mt-1")]
+		MarginTopXtraSmall1,
+		[Description("mt-2")]
+		MarginTopXtraSmall2,
+		[Description("mt-3")]
+		MarginTopXtraSmall3,
+		[Description("mt-4")]
+		MarginTopXtraSmall4,
+		[Description("mt-5")]
+		MarginTopXtraSmall5,
 		[Description("mt-sm-0")]
 		MarginTopSmall0,
 		[Description("mt-sm-1")]
@@ -53,6 +65,18 @@ namespace WeStrap{
 		MarginTopXtraLarge4,
 		[Description("mt-xl-5")]
 		MarginTopXtraLarge5,
+		[Description("mb-0")]
+		MarginBottomXtraSmall0,
+		[Description("mb-1")]
+		MarginBottomXtraSmall1,
+		[Description("mb-2")]
+		MarginBottomXtraSmall2,
+		[Description("mb-3")]
+		MarginBottomXtraSmall3,
+		[Description("mb-4")]
+		MarginBottomXtraSmall4,
+		[Description("mb-5")]
+		MarginBottomXtraSmall5,
 		[Description("mb-sm-0")]
 		MarginBottomSmall0,
 		[Description("mb-sm-1")]
@@ -101,6 +125,18 @@ namespace WeStrap{
 		MarginBottomXtraLarge4,
 		[Description("mb-xl-5")]
 		MarginBottomXtraLarge5,
+		[Description("ml-0")]
+		MarginLeftXtraSmall0,
+		[Description("ml-1")]
+		MarginLeftXtraSmall1,
+		[Description("ml-2")]
+		MarginLeftXtraSmall2,
+		[Description("ml-3")]
+		MarginLeftXtraSmall3,
+		[Description("ml-4")]
+		MarginLeftXtraSmall4,
+		[Description("ml-5")]
+		MarginLeftXtraSmall5,
 		[Description("ml-sm-0")]
 		MarginLeftSmall0,
 		[Description("ml-sm-1")]
@@ -149,6 +185,18 @@ namespace WeStrap{
 		MarginLeftXtraLarge4,
 		[Description("ml-xl-5")]
 		MarginLeftXtraLarge5,
+		[Description("mr-0")]
+		MarginRightXtraSmall0,
+		[Description("mr-1")]
+		MarginRightXtraSmall1,
+		[Description("mr-2")]
+		MarginRightXtraSmall2,
+		[Description("mr-3")]
+		MarginRightXtraSmall3,
+		[Description("mr-4")]
+		MarginRightXtraSmall4,
+		[Description("mr-5")]
+		MarginRightXtraSmall5,
 		[Description("mr-sm-0")]
 		MarginRightSmall0,
 		[Description("mr-sm-1")]
@@ -197,6 +245,18 @@ namespace WeStrap{
 		MarginRightXtraLarge4,
 		[Description("mr-xl-5")]
 		MarginRightXtraLarge5,
+		[Description("mx-0")]
+		MarginLeftAndRightXtraSmall0,
+		[Description("mx-1")]
+		MarginLeftAndRightXtraSmall1,
+		[Description("mx-2")]
+		MarginLeftAndRightXtraSmall2,
+		[Description("mx-3")]
+		MarginLeftAndRightXtraSmall3,
+		[Description("mx-4")]
+		MarginLeftAndRightXtraSmall4,
+		[Description("mx-5")]
+		MarginLeftAndRightXtraSmall5,
 		[Description("mx-sm-0")]
 		MarginLeftAndRightSmall0,
 		[Description("mx-sm-1")]
@@ -245,6 +305,18 @@ namespace WeStrap{
 		MarginLeftAndRightXtraLarge4,
 		[Description("mx-xl-5")]
 		MarginLeftAndRightXtraLarge5,
+		[Description("my-0")]
+		MarginTopAndBottomXtraSmall0,
+		[Description("my-1")]
+		MarginTopAndBottomXtraSmall1,
+		[Description("my-2")]
+		MarginTopAndBottomXtraSmall2,
+		[Description("my-3")]
+		MarginTopAndBottomXtraSmall3,
+		[Description("my-4")]
+		MarginTopAndBottomXtraSmall4,
+		[Description("my-5")]
+		MarginTopAndBottomXtraSmall5,
 		[Description("my-sm-0")]
 		MarginTopAndBottomSmall0,
 		[Description("my-sm-1")]
@@ -293,6 +365,18 @@ namespace WeStrap{
 		MarginTopAndBottomXtraLarge4,
 		[Description("my-xl-5")]
 		MarginTopAndBottomXtraLarge5,
+		[Description("pt-0")]
+		PaddingTopXtraSmall0,
+		[Description("pt-1")]
+		PaddingTopXtraSmall1,
+		[Description("pt-2")]
+		PaddingTopXtraSmall2,
+		[Description("pt-3")]
+		PaddingTopXtraSmall3,
+		[Description("pt-4")]
+		PaddingTopXtraSmall4,
+		[Description("pt-5")]
+		PaddingTopXtraSmall5,
 		[Description("pt-sm-0")]
 		PaddingTopSmall0,
 		[Description("pt-sm-1")]
@@ -341,6 +425,18 @@ namespace WeStrap{
 		PaddingTopXtraLarge4,
 		[Description("pt-xl-5")]
 		PaddingTopXtraLarge5,
+		[Description("pb-0")]
+		PaddingBottomXtraSmall0,
+		[Description("pb-1")]
+		PaddingBottomXtraSmall1,
+		[Description("pb-2")]
+		PaddingBottomXtraSmall2,
+		[Description("pb-3")]
+		PaddingBottomXtraSmall3,
+		[Description("pb-4")]
+		PaddingBottomXtraSmall4,
+		[Description("pb-5")]
+		PaddingBottomXtraSmall5,
 		[Description("pb-sm-0")]
 		PaddingBottomSmall0,
 		[Description("pb-sm-1")]
@@ -389,6 +485,18 @@ namespace WeStrap{
 		PaddingBottomXtraLarge4,
 		[Description("pb-xl-5")]
 		PaddingBottomXtraLarge5,
+		[Description("pl-0")]
+		PaddingLeftXtraSmall0,
+		[Description("pl-1")]
+		PaddingLeftXtraSmall1,
+		[Description("pl-2")]
+		PaddingLeftXtraSmall2,
+		[Description("pl-3")]
+		PaddingLeftXtraSmall3,
+		[Description("pl-4")]
+		PaddingLeftXtraSmall4,
+		[Description("pl-5")]
+		PaddingLeftXtraSmall5,
 		[Description("pl-sm-0")]
 		PaddingLeftSmall0,
 		[Description("pl-sm-1")]
@@ -437,6 +545,18 @@ namespace WeStrap{
 		PaddingLeftXtraLarge4,
 		[Description("pl-xl-5")]
 		PaddingLeftXtraLarge5,
+		[Description("pr-0")]
+		PaddingRightXtraSmall0,
+		[Description("pr-1")]
+		PaddingRightXtraSmall1,
+		[Description("pr-2")]
+		PaddingRightXtraSmall2,
+		[Description("pr-3")]
+		PaddingRightXtraSmall3,
+		[Description("pr-4")]
+		PaddingRightXtraSmall4,
+		[Description("pr-5")]
+		PaddingRightXtraSmall5,
 		[Description("pr-sm-0")]
 		PaddingRightSmall0,
 		[Description("pr-sm-1")]
@@ -485,6 +605,18 @@ namespace WeStrap{
 		PaddingRightXtraLarge4,
 		[Description("pr-xl-5")]
 		PaddingRightXtraLarge5,
+		[Description("px-0")]
+		PaddingLeftAndRightXtraSmall0,
+		[Description("px-1")]
+		PaddingLeftAndRightXtraSmall1,
+		[Description("px-2")]
+		PaddingLeftAndRightXtraSmall2,
+		[Description("px-3")]
+		PaddingLeftAndRightXtraSmall3,
+		[Description("px-4")]
+		PaddingLeftAndRightXtraSmall4,
+		[Description("px-5")]
+		PaddingLeftAndRightXtraSmall5,
 		[Description("px-sm-0")]
 		PaddingLeftAndRightSmall0,
 		[Description("px-sm-1")]
@@ -533,6 +665,18 @@ namespace WeStrap{
 		PaddingLeftAndRightXtraLarge4,
 		[Description("px-xl-5")]
 		PaddingLeftAndRightXtraLarge5,
+		[Description("py-0")]
+		PaddingTopAndBottomXtraSmall0,
+		[Description("py-1")]
+		PaddingTopAndBottomXtraSmall1,
+		[Description("py-2")]
+		PaddingTopAndBottomXtraSmall2,
+		[Description("py-3")]
+		PaddingTopAndBottomXtraSmall3,
+		[Description("py-4")]
+		PaddingTopAndBottomXtraSmall4,
+		[Description("py-5")]
+		PaddingTopAndBottomXtraSmall5,
 		[Description("py-sm-0")]
 		PaddingTopAndBottomSmall0,
 		[Description("py-sm-1")]
@@ -585,6 +729,8 @@ namespace WeStrap{
 
 	public enum NavBarExpand{
 		None,
+		[Description("navbar-expand")]
+		ExpandXtraSmall,
 		[Description("navbar-expand-sm")]
 		ExpandSmall,
 		[Description("navbar-expand-md")]
@@ -597,6 +743,24 @@ namespace WeStrap{
 	
 	public enum Display{
 		None,
+		[Description("d-none")]
+		XtraSmallNone,
+		[Description("d-inline")]
+		XtraSmallInline,
+		[Description("d-inline-block")]
+		XtraSmallInlineBlock,
+		[Description("d-block")]
+		XtraSmallBlock,
+		[Description("d-table")]
+		XtraSmallTable,
+		[Description("d-table-cell")]
+		XtraSmallTableCell,
+		[Description("d-table-row")]
+		XtraSmallTableRow,
+		[Description("d-flex")]
+		XtraSmallFlex,
+		[Description("d-inline-flex")]
+		XtraSmallInlineFlex,
 		[Description("d-sm-none")]
 		SmallNone,
 		[Description("d-sm-inline")]

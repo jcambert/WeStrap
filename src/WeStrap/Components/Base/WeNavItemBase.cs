@@ -67,7 +67,8 @@ namespace WeStrap
         protected override WeStringBuilder BuildClassName(string s = "")
         {
             return base.BuildClassName(s)
-                .Add("nav-item", !RemoveDefaultClass)
+                .Add("nav-item", !RemoveDefaultClass && !IsLogoItem)
+                .Add("logo",IsLogoItem)
                 .Add("dropdown", IsDropdown)
                 .Add("dropdown-submenu", IsSubmenu)
                 .Add("show", IsDropdown && (Nav?.Selected == this || IsOpen))
@@ -76,10 +77,13 @@ namespace WeStrap
 
 
         protected string Tag => Nav.IsList ? "li" : "div";
+
+       
         [Parameter] public bool RemoveDefaultClass { get; set; }
         [Parameter] public bool IsDropdown { get; set; }
         [Parameter] public bool CloseOnFocusout { get; set; } = true;
-
+        [Parameter] public bool IsLogoItem { get; set; }
+        [CascadingParameter] internal WeNavbarBase Navbar { get; set; }
         [CascadingParameter] internal WeNavBase Nav { get; set; }
         [CascadingParameter] internal WeNavItem NavItem { get; set; }
 

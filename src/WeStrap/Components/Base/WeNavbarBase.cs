@@ -8,9 +8,12 @@ namespace WeStrap
         protected override WeStringBuilder BuildClassName(string s = "")
         {
             return base.BuildClassName("navbar")
-            .Add("fixed-top", IsFixedTop)
-            .Add("fixed-bottom", IsFixedBottom)
-            .Add("sticky-top", IsStickyTop)
+            .Add("reactive",IsReactive)
+            .Add("bottom",IsReactive && (ReactivePosition== NavbarReactivePosition.BottomLeft || ReactivePosition == NavbarReactivePosition.BottomRight ))
+            .Add("right", IsReactive && (ReactivePosition == NavbarReactivePosition.BottomRight || ReactivePosition == NavbarReactivePosition.TopRight))
+            .Add("fixed-top", IsFixedTop && !IsReactive)
+            .Add("fixed-bottom", IsFixedBottom && !IsReactive)
+            .Add("sticky-top", IsStickyTop && !IsReactive)
             .Add("navbar-dark", IsDark)
             .Add("bg-dark", IsDark)
             .Add("navbar-light", !IsDark && !HideLight)
@@ -20,7 +23,9 @@ namespace WeStrap
         }
         [Parameter] public Color BackgroundColor { get; set; } = Color.None;
         [Parameter] public bool IsDark { get; set; }
-       // [Parameter] public bool IsExpand { get; set; }
+        // [Parameter] public bool IsExpand { get; set; }
+        [Parameter] public bool IsReactive { get; set; }
+        [Parameter] public NavbarReactivePosition ReactivePosition { get; set; } = NavbarReactivePosition.BottomLeft;
         [Parameter] public bool IsFixedBottom { get; set; }
         [Parameter] public bool IsFixedTop { get; set; }
         [Parameter] public bool IsStickyTop { get; set; }
