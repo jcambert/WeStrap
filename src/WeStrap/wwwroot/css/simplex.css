@@ -8503,6 +8503,7 @@ body {
   font-weight: 600;
   color: #6b6b6b; }
 
+/* @see https://mdbootstrap.com/docs/jquery/components/stepper/ */
 ul.we_stepper {
   padding: 1.5rem;
   margin: 1em -1.5rem;
