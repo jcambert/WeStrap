@@ -1,8 +1,10 @@
 ﻿@namespace WeStrap
 @inherits WeStepperBase
-<DynamicTag TagName="ul" class="@ClassName" @attributes="UnknownParameters">
-    @ChildContent
-</DynamicTag>
+<CascadingValue Value="this">
+    <DynamicTag TagName="ul" class="@ClassName" @attributes="UnknownParameters">
+        @ChildContent
+    </DynamicTag>
+</CascadingValue>
 
 @code {
 

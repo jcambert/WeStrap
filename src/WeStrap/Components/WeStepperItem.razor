@@ -1,0 +1,23 @@
+﻿@namespace WeStrap
+@inherits WeStepperItemBase
+<DynamicTag TagName="li" @attributes="UnknownParameters" class="@ClassName">
+    @if (StepperType == WeStepperItemType.Link)
+    {
+        @if (Link != null)
+        {
+            @Link
+        }
+        else
+        {
+            <a href="#!" @onclick="@(()=>OnClick.InvokeAsync(this.Index))">
+                <span class="circle">@Index</span>
+                <span class="label">@Label</span>
+            </a>
+        }
+    }
+    @ChildContent
+
+</DynamicTag>
+@code {
+    [Parameter] public RenderFragment Link { get; set; }
+}

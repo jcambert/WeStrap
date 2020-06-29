@@ -1,70 +1,95 @@
 ﻿@page "/stepper"
-    <WeStepper>
-        <li class="completed">
-            <a href="#!">
-                <span class="circle bg-primary">1</span>
-                <span class="label">First step</span>
-            </a>
-        </li>
+<WeStepper>
 
-        <!-- Second Step -->
-        <li class="active">
-            <a href="#!">
-                <span class="circle">2</span>
-                <span class="label">Second step</span>
-            </a>
-        </li>
+    <li class="completed">
+        <a href="#!">
+            <span class="circle">1</span>
+            <span class="label">First step</span>
+        </a>
+    </li>
 
-        <!-- Third Step -->
-        <li class="warning">
-            <a href="#!">
-                <span class="circle bg-danger"><i class="fas fa-exclamation"></i></span>
-                <span class="label">Third step</span>
-            </a>
-        </li>
+    <!-- Second Step -->
+    <li class="active">
+        <a href="#!">
+            <span class="circle">2</span>
+            <span class="label">Second step</span>
+        </a>
+    </li>
 
-    </WeStepper>
-    <WeStepper Type="WeStepperType.HorizontalContentLinear">
-        <li class="step active ">
-            <div class="step-title waves-effect waves-dark bg-gradient-primary">Step 1</div>
-            <div class="step-new-content">
-                <div class="row">
-                    <div class="md-form col-12 ml-auto">
-                        <input id="email-horizontal" type="email" class="validate form-control valid" required="" aria-invalid="false"><label id="email-horizontal-error" class="invalid active" for="email-horizontal"></label>
-                        <label for="email-horizontal" class="active">Email</label>
-                    </div>
-                </div>
-                <div class="step-actions ml-5">
-                    <button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>
-                </div>
-            </div>
-        </li>
-        <li class="step">
-            <div class="step-title waves-effect waves-dark">Step 2</div>
-            <div class="step-new-content" >
-                <div class="row">
-                    <div class="md-form col-12 ml-auto">
-                        <input id="password-horizontal" type="password" class="validate form-control" required="" aria-invalid="true"><label id="password-horizontal-error" class="invalid" for="password-horizontal">This field is required.</label>
-                        <label for="password-horizontal" class="">Your password</label>
-                    </div>
-                </div>
-                <div class="step-actions ml-5">
-                    <button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>
-                    <button class="waves-effect waves-dark btn btn-sm btn-secondary previous-step">BACK</button>
-                </div>
-            </div>
-        </li>
-        <li class="step" data-last="true">
+    <!-- Third Step -->
+    <li class="warning">
+        <a href="#!">
             <span class="circle bg-danger"><i class="fas fa-exclamation"></i></span>
             <span class="label">Third step</span>
-            <div class="step-new-content">
-                Finish!
-                <div class="step-actions ml-5">
-                    <button class="waves-effect waves-dark btn-sm btn btn-primary m-0 mt-4" type="button">SUBMIT</button>
+        </a>
+    </li>
+
+</WeStepper>
+<WeStepper Type="WeStepperType.HorizontalContentLinear">
+    <li class="step completed ">
+        <div class="step-title waves-effect waves-dark">Step 1</div>
+        <div class="step-new-content">
+            <div class="row">
+                <div class="md-form col-12 ml-auto">
+                    <input id="email-horizontal" type="email" class="validate form-control valid" required="" aria-invalid="false"><label id="email-horizontal-error" class="invalid active" for="email-horizontal"></label>
+                    <label for="email-horizontal" class="active">Email</label>
                 </div>
             </div>
-        </li>
-    </WeStepper>
+            <div class="step-actions ml-5">
+                <button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>
+            </div>
+        </div>
+    </li>
+    <li class="step active">
+        <div class="step-title waves-effect waves-dark">Step 2</div>
+        <div class="step-new-content">
+            <div class="row">
+                <div class="md-form col-12 ml-auto">
+                    <input id="password-horizontal" type="password" class="validate form-control" required="" aria-invalid="true"><label id="password-horizontal-error" class="invalid" for="password-horizontal">This field is required.</label>
+                    <label for="password-horizontal" class="">Your password</label>
+                </div>
+            </div>
+            <div class="step-actions ml-5">
+                <button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>
+                <button class="waves-effect waves-dark btn btn-sm btn-secondary previous-step">BACK</button>
+            </div>
+        </div>
+    </li>
+    <li class="step">
+        <span class="circle "><i class="fas fa-exclamation"></i></span>
+        <span class="label">Third step</span>
+        <div class="step-new-content">
+            Finish!
+            <div class="step-actions ml-5">
+                <button class="waves-effect waves-dark btn-sm btn btn-primary m-0 mt-4" type="button">SUBMIT</button>
+            </div>
+        </div>
+    </li>
+</WeStepper>
+
+<WeStepper StepperType="WeStepperItemType.Link" >
+    <WeStepperItem Status="WeStepperStatus.Completed" Label="First Step Label">
+       
+    </WeStepperItem>
+    <WeStepperItem Status="WeStepperStatus.Active">
+        <a href="#!">
+            <span class="circle">2</span>
+            <span class="label">Second step</span>
+        </a>
+    </WeStepperItem>
+    <WeStepperItem Status="WeStepperStatus.Wrong">
+        <a href="#!">
+            <span class="circle ">3</span>
+            <span class="label">Third step</span>
+        </a>
+    </WeStepperItem>
+    <WeStepperItem >
+        <a href="#!">
+            <span class="circle"><i class="fas fa-exclamation"></i></span>
+            <span class="label">Fourth step</span>
+        </a>
+    </WeStepperItem>
+</WeStepper>
 @code {
 
 }

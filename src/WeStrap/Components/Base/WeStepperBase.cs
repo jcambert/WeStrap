@@ -27,5 +27,9 @@ namespace WeStrap
             .Add(Type.ToDescriptionString())
             ;
         [Parameter] public WeStepperType Type { get; set; } = WeStepperType.HorizontalNonLinear;
+        [Parameter] public WeStepperItemType StepperType { get; set; } = WeStepperItemType.Link;
+        [Parameter] public EventCallback<int> OnStepClick { get; set; }
+        [Parameter] public EventCallback<int> OnStepCompleted { get; set; }
+        [Parameter] public EventCallback<int> OnStepWrong { get; set; }
     }
 }
