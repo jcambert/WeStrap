@@ -17,6 +17,7 @@ namespace WeStrap
         [Parameter] public EventCallback OnClick { get; set; }
         [Parameter]public WeStepperItemType StepperType { get; set; }
         [Parameter] public string Label { get; set; } = string.Empty;
+        [Parameter] public string IconClass { get; set; } = string.Empty;
         protected override Task OnInitializedAsync()
         {
             if (Stepper == null) throw new ApplicationException("A WeStepperItem must be in WeStepper Tag");

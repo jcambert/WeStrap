@@ -2,8 +2,9 @@
 {
     public enum WeStepperItemType
     {
-        Title,
+        
         Content,
-        Link
+        Link,
+        ChildContent,
     }
 }

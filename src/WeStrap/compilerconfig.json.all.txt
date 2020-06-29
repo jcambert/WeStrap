@@ -1,0 +1,95 @@
+//// Rename or copy all in compilerconfig.json for having all themes generated
+[
+  {
+    "outputFile": "wwwroot/css/styles.css",
+    "inputFile": "wwwroot/css/styles.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cerulean.css",
+    "inputFile": "wwwroot/css/cerulean.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cosmo.css",
+    "inputFile": "wwwroot/css/cosmo.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/bootstrap.css",
+    "inputFile": "wwwroot/css/bootstrap.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/cyborg.css",
+    "inputFile": "wwwroot/css/cyborg.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/darkly.css",
+    "inputFile": "wwwroot/css/darkly.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/flatly.css",
+    "inputFile": "wwwroot/css/flatly.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/journal.css",
+    "inputFile": "wwwroot/css/journal.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/litera.css",
+    "inputFile": "wwwroot/css/litera.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/lumen.css",
+    "inputFile": "wwwroot/css/lumen.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/lux.css",
+    "inputFile": "wwwroot/css/lux.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/materia.css",
+    "inputFile": "wwwroot/css/materia.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/minty.css",
+    "inputFile": "wwwroot/css/minty.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/pulse.css",
+    "inputFile": "wwwroot/css/pulse.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/sandstone.css",
+    "inputFile": "wwwroot/css/sandstone.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/simplex.css",
+    "inputFile": "wwwroot/css/simplex.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/sketchy.css",
+    "inputFile": "wwwroot/css/sketchy.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/slate.css",
+    "inputFile": "wwwroot/css/slate.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/solar.css",
+    "inputFile": "wwwroot/css/solar.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/spacelab.css",
+    "inputFile": "wwwroot/css/spacelab.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/superhero.css",
+    "inputFile": "wwwroot/css/superhero.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/united.css",
+    "inputFile": "wwwroot/css/united.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/yeti.css",
+    "inputFile": "wwwroot/css/yeti.scss"
+  }
+]

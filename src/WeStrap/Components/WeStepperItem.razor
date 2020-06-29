@@ -3,21 +3,62 @@
 <DynamicTag TagName="li" @attributes="UnknownParameters" class="@ClassName">
     @if (StepperType == WeStepperItemType.Link)
     {
-        @if (Link != null)
+        @if (@ChildContent != null)
         {
-            @Link
+            @ChildContent
         }
         else
         {
-            <a href="#!" @onclick="@(()=>OnClick.InvokeAsync(this.Index))">
-                <span class="circle">@Index</span>
+            <a href="" @onclick:preventDefault @onclick="@(() => Stepper.OnStepClick.InvokeAsync(this.Index))">
+                <span class="circle">
+                    @if (string.IsNullOrEmpty(IconClass))
+                    {
+                        @Index
+                    }
+                    else
+                    {
+                        <i class="@IconClass"></i>
+                    }
+
+                </span>
                 <span class="label">@Label</span>
             </a>
         }
     }
-    @ChildContent
+    else if (StepperType == WeStepperItemType.Content)
+    {
+        @if (Title != null)
+        {
+            @Title
+        }
+        else
+        {
+            <div class="step-title waves-effect waves-dark" @onclick="@(() => Stepper.OnStepClick.InvokeAsync(this.Index))">@Label</div>
+        }
+        @if (ChildContent != null)
+        {
+            <div class="step-new-content">
+                @ChildContent
+                
+            </div>
+        }
+        else
+        {
+        }
+    }
+    else if (StepperType == WeStepperItemType.ChildContent)
+    {
+        @ChildContent
+    }
 
 </DynamicTag>
 @code {
-    [Parameter] public RenderFragment Link { get; set; }
+    protected override WeStringBuilder BuildClassName(string s = "") =>
+        base.BuildClassName(s)
+        .Add("step", Stepper.Type == WeStepperType.HorizontalContentLinear)
+        ;
+
+
+    [Parameter] public RenderFragment Title { get; set; }
+    
 }

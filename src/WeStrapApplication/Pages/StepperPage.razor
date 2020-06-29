@@ -67,29 +67,43 @@
     </li>
 </WeStepper>
 
-<WeStepper StepperType="WeStepperItemType.Link" >
-    <WeStepperItem Status="WeStepperStatus.Completed" Label="First Step Label">
-       
+<WeStepper StepperType="WeStepperItemType.Link" OnStepClick="OnStepClick">
+    <WeStepperItem Status="WeStepperStatus.Completed" Label="First Step"></WeStepperItem>
+    <WeStepperItem Status="WeStepperStatus.Active" Label="Second Step"></WeStepperItem>
+    <WeStepperItem Status="WeStepperStatus.Wrong" Label="Third Step"></WeStepperItem>
+    <WeStepperItem Label="Fourth Step" IconClass="fas fa-exclamation"></WeStepperItem>
+</WeStepper>
+
+<WeStepper Type="WeStepperType.HorizontalContentLinear" StepperType="WeStepperItemType.Content" OnStepClick="OnStepClick">
+    <WeStepperItem Status="WeStepperStatus.Completed" Label="Email">
+
+        <div class="row">
+            <div class="md-form col-12 ml-auto">
+                <input id="email-horizontal" type="email" class="validate form-control valid" required aria-invalid="false"><label id="email-horizontal-error" class="invalid active" for="email-horizontal"></label>
+                <label for="email-horizontal" class="active">Email</label>
+            </div>
+        </div>
+        <div class="step-actions ml-5">
+            <button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>
+        </div>
+
     </WeStepperItem>
-    <WeStepperItem Status="WeStepperStatus.Active">
-        <a href="#!">
-            <span class="circle">2</span>
-            <span class="label">Second step</span>
-        </a>
-    </WeStepperItem>
-    <WeStepperItem Status="WeStepperStatus.Wrong">
-        <a href="#!">
-            <span class="circle ">3</span>
-            <span class="label">Third step</span>
-        </a>
-    </WeStepperItem>
-    <WeStepperItem >
-        <a href="#!">
-            <span class="circle"><i class="fas fa-exclamation"></i></span>
-            <span class="label">Fourth step</span>
-        </a>
+    <WeStepperItem Status="WeStepperStatus.Active" Label="Password">
+        <div class="row">
+            <div class="md-form col-12 ml-auto">
+                <input id="password-horizontal" type="password" class="validate form-control" required="" aria-invalid="true"><label id="password-horizontal-error" class="invalid" for="password-horizontal">This field is required.</label>
+                <label for="password-horizontal" class="">Your password </label>
+            </div>
+        </div>
+        <div class="step-actions ml-5">
+            <button class="waves-effect waves-dark btn btn-sm btn-primary next-step" data-feedback="someFunction21">CONTINUE</button>
+            <button class="waves-effect waves-dark btn btn-sm btn-secondary previous-step">BACK</button>
+        </div>
     </WeStepperItem>
 </WeStepper>
 @code {
-
+    private  void OnStepClick(int step)
+    {
+        Console.WriteLine($"step {step} was clicked");
+    }
 }
