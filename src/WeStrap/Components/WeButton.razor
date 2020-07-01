@@ -1,6 +1,6 @@
 ﻿@namespace WeStrap
 @inherits WeButtonBase
-    <DynamicTag TagName="@Tag" type="@type" class="@ClassName" role="button" tabindex="@tab" @attributes="@UnknownParameters" @onclick="OnClick">
+    <DynamicTag TagName="@Tag" type="@type" class="@ClassName" role="button" tabindex="@tab" @attributes="@UnknownParameters" @onclick="@((evt)=>HandleOnClick(evt))" >
         @if (IsLoading)
         {
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

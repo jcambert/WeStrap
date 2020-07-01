@@ -8,6 +8,8 @@
         Submit,
         Reset,
         Checkbox,
-        Radio
+        Radio,
+        StepNext,
+        StepPrevious
     }
 }

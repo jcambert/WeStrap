@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using WeCommon;
+using System;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 namespace WeStrap
 {
 
@@ -13,6 +17,7 @@ namespace WeStrap
         {
         }
         [CascadingParameter] public IWeEditContext EditContext { get; set; }
+        [CascadingParameter] public WeStepperItemBase StepperItem { get; set; }
         [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
         [Parameter] public Color Color { get; set; } = Color.Primary;
         [Parameter] public bool IsOutline { get; set; } = false;
@@ -28,7 +33,36 @@ namespace WeStrap
        
 
         private ButtonType _buttonType = ButtonType.Button;
+            
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            StepperItem?.OnStepItemValidAsObservable().Subscribe( (WeStepItemValidationArgs args) =>
+            {
+                IsDisabled = !args.IsValid;
+                StateHasChanged();
+            });
+        }
+        protected void HandleOnClick(MouseEventArgs evt)
+        {
+            if(StepperItem != null && (ButtonType==ButtonType.StepNext || ButtonType == ButtonType.StepPrevious) )
+            {
+                HandleStep(StepperItem);
+            }
+            else
+            {
+                OnClick.InvokeAsync(evt);
+            }
+        }
+        internal void HandleStep(WeStepperItemBase step)
+        {
+            if (ButtonType == ButtonType.StepNext)
+                step.Next();
+            else if (ButtonType == ButtonType.StepPrevious)
+                step.Previous();
 
+            //System.Console.WriteLine($"try validate step {step.Index}");
+        }
         protected override WeStringBuilder BuildClassName(string s = "") =>
             base.BuildClassName(s).Add("btn")
           .Add($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
@@ -37,10 +71,15 @@ namespace WeStrap
           .Add($"btn-{Size.ToDescriptionString()}", Size != Size.None)
           .Add("btn-block", IsBlock)
           .Add("active", ButtonType == ButtonType.Link && IsActive)
-          .Add("disabled", ((ButtonType==ButtonType.Button || ButtonType == ButtonType.Submit) && IsLoading) || (ButtonType == ButtonType.Link && (IsDisabled || (!EditContext?.IsValid() ?? false))) || (ButtonType == ButtonType.Submit && (IsDisabled || (!EditContext?.IsValid() ?? false))))
+          .Add("disabled", _IsDisabled)
           .Add("valid", IsValid)
           .Add("invalid", IsInvalid)
            ;
+        private bool _IsDisabled =>
+            IsDisabled ||
+            ((ButtonType == ButtonType.Button || ButtonType == ButtonType.Submit) && IsLoading) ||
+            (ButtonType == ButtonType.Link && (!EditContext?.IsValid() ?? false)) || 
+            (ButtonType == ButtonType.Submit &&  (!EditContext?.IsValid() ?? false));
         protected string type => ButtonType switch
         {
             ButtonType.Input => "button",
@@ -48,6 +87,8 @@ namespace WeStrap
             ButtonType.Submit => "submit",
             ButtonType.Reset => "reset",
             ButtonType.Checkbox => "checkbox",
+            ButtonType.StepNext=>"button",
+            ButtonType.StepPrevious => "button",
             _ => ""
         };
 

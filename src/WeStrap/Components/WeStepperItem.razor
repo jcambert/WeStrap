@@ -1,64 +1,66 @@
 ﻿@namespace WeStrap
 @inherits WeStepperItemBase
-<DynamicTag TagName="li" @attributes="UnknownParameters" class="@ClassName">
-    @if (StepperType == WeStepperItemType.Link)
-    {
-        @if (@ChildContent != null)
-        {
-            @ChildContent
-        }
-        else
-        {
-            <a href="" @onclick:preventDefault @onclick="@(() => Stepper.OnStepClick.InvokeAsync(this.Index))">
-                <span class="circle">
-                    @if (string.IsNullOrEmpty(IconClass))
-                    {
-                        @Index
-                    }
-                    else
-                    {
-                        <i class="@IconClass"></i>
-                    }
+    <CascadingValue Value="this">
+        <DynamicTag TagName="li" @attributes="UnknownParameters" class="@ClassName">
+            @if (StepperType == WeStepperItemType.Link)
+            {
+                @if (@ChildContent != null)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    <a href="" @onclick:preventDefault @onclick="@(() => Stepper.OnStepClick.InvokeAsync(this.Index))">
+                        <span class="circle">
+                            @if (string.IsNullOrEmpty(IconClass))
+                            {
+                                @Index
+                            }
+                            else
+                            {
+                                <i class="@IconClass"></i>
+                            }
 
-                </span>
-                <span class="label">@Label</span>
-            </a>
-        }
-    }
-    else if (StepperType == WeStepperItemType.Content)
-    {
-        @if (Title != null)
-        {
-            @Title
-        }
-        else
-        {
-            <div class="step-title waves-effect waves-dark" @onclick="@(() => Stepper.OnStepClick.InvokeAsync(this.Index))">@Label</div>
-        }
-        @if (ChildContent != null)
-        {
-            <div class="step-new-content">
+                        </span>
+                        <span class="label">@Label</span>
+                    </a>
+                }
+            }
+            else if (StepperType == WeStepperItemType.Content)
+            {
+                @if (Title != null)
+                {
+                    @Title
+                }
+                else
+                {
+                    <div class="step-title waves-effect waves-dark" @onclick="@(() => Stepper.OnStepClick.InvokeAsync(this.Index))">@Label</div>
+                }
+                @if (ChildContent != null)
+                {
+                    <div class="step-new-content">
+                        @ChildContent
+
+                    </div>
+                }
+                else
+                {
+                }
+            }
+            else if (StepperType == WeStepperItemType.ChildContent)
+            {
                 @ChildContent
-                
-            </div>
-        }
-        else
-        {
-        }
+            }
+
+        </DynamicTag>
+    </CascadingValue>
+    @code {
+        protected override WeStringBuilder BuildClassName(string s = "") =>
+            base.BuildClassName(s)
+            .Add("step", Stepper.Type == WeStepperType.HorizontalContentLinear)
+            ;
+
+
+        [Parameter] public RenderFragment Title { get; set; }
+
     }
-    else if (StepperType == WeStepperItemType.ChildContent)
-    {
-        @ChildContent
-    }
-
-</DynamicTag>
-@code {
-    protected override WeStringBuilder BuildClassName(string s = "") =>
-        base.BuildClassName(s)
-        .Add("step", Stepper.Type == WeStepperType.HorizontalContentLinear)
-        ;
-
-
-    [Parameter] public RenderFragment Title { get; set; }
-    
-}

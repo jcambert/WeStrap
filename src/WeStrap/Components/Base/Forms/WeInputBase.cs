@@ -32,6 +32,7 @@ namespace WeStrap
         [Inject] public StringService StringSvc { get; set; }
 
         [CascadingParameter] protected IWeEditContext CascadedEditContext { get; set; }
+        [CascadingParameter]protected WeStepperItemBase StepperItem { get; set; }
         protected IWeForm Parent => CascadedEditContext?.ParentForm;
 
         [Parameter] public bool ValidateOnChange { get; set; } = true;
@@ -243,6 +244,8 @@ namespace WeStrap
             base.OnInitialized();
             if (CascadedEditContext?.ParentForm?.ValidateOnInit ?? false)
                 CascadedEditContext?.Validate(FieldIdentifier);
+            
+            StepperItem?.AddFieldIdentifier(FieldIdentifier);
 
         }
         protected virtual void Dispose(bool disposing)
