@@ -18,7 +18,7 @@
     {
         var c = await js.InvokeAsync<string>("westrap.update_picker", PickId, Id);
         Color =WeColor.From(c );
-        Console.WriteLine(Color.ToString());
+        //Console.WriteLine(Color.ToString());
         await OnColorChanged.InvokeAsync(Color);
     }
 

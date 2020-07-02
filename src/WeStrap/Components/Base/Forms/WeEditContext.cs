@@ -60,7 +60,7 @@ namespace WeStrap
         public IObservable<WeValidationStateChangedEventArgs> OnFormValid() => _OnFormValid.AsObservable();
         internal WeEditContext(IWeForm parentForm, TModel model)
         {
-            Console.WriteLine($"Create {nameof(WeEditContext<TModel>)}");
+            //Console.WriteLine($"Create {nameof(WeEditContext<TModel>)}");
             ParentForm = parentForm;
             Model = model;
         }
@@ -95,7 +95,7 @@ namespace WeStrap
         /// <param name="fieldIdentifier">Identifies the field whose value has been changed.</param>
         public void NotifyFieldChanged(in WeFieldIdentifier fieldIdentifier)
         {
-            Console.WriteLine($"NotifyfieldChanged:{fieldIdentifier.FieldName}");
+           // Console.WriteLine($"NotifyfieldChanged:{fieldIdentifier.FieldName}");
             GetFieldState(fieldIdentifier, ensureExists: true).IsModified = true;
             _onFieldChanged.OnNext(new WeFieldChangedEventArgs(fieldIdentifier));
 

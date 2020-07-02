@@ -1,0 +1,23 @@
+﻿@page "/form"
+<WeContainer IsFluid="false">
+    <WeForm ValidateOnInit="true" Model="model" TModel="SingleFieldModel">
+        <WeDataAnnotationsValidator />
+        <WeFormGroup IsRow="true">
+            <WeCol Columns="new List<WeColumn>() {WeColumn.lg4 }">
+                <WeInput Id="exampleEmail3" @bind-Value="model.Description" ValidateOnChange="true" PlaceHolder="Description"></WeInput>
+                <WeFormFeedback For="@(() => model.Description)" ValidMessage="You have entered a valid description" />
+            </WeCol>
+        </WeFormGroup>
+        <WeFormGroup IsRow="true">
+            <WeCol Columns="new List<WeColumn>() {WeColumn.lg4 }">
+                <input @bind="model.Description" @bind:event="oninput"/>
+                <WeFormFeedback For="@(() => model.Description)" ValidMessage="You have entered a valid description" />
+            </WeCol>
+        </WeFormGroup>
+    </WeForm>
+    <p>@model.Description</p>
+</WeContainer>
+
+@code {
+    private SingleFieldModel model = new SingleFieldModel();
+}

@@ -37,7 +37,7 @@ namespace WeStrap
         [Parameter] public EventCallback<int> OnStepClick { get; set; }
         [Parameter] public EventCallback<int> OnStepCompleted { get; set; }
         [Parameter] public EventCallback<int> OnStepWrong { get; set; }
-
+        [CascadingParameter] public IWeEditContext EditContext { get; set; }
         private ISubject<int> _onStepChanged = new Subject<int>();
         internal IObservable<int> OnStepChangedAsObservable() => _onStepChanged.AsObservable();
 
@@ -54,6 +54,7 @@ namespace WeStrap
             base.OnAfterRender(firstRender);
             if (firstRender)
             {
+                EditContext?.Validate();
                 var step = FindFirstInvalid();
                 if (step != null)
                     Go(step.Index);

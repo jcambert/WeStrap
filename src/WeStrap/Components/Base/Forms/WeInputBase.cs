@@ -82,7 +82,7 @@ namespace WeStrap
                 var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
                 if (hasChanged)
                 {
-                    Console.WriteLine($"changed Current Value to {value}");
+                   // Console.WriteLine($"changed Current Value to {value}");
                     Value = value;
 
                     _ = ValueChanged.InvokeAsync(value);
@@ -93,7 +93,7 @@ namespace WeStrap
                 }
                 else
                 {
-                    Console.WriteLine("Its same Current value ");
+                   // Console.WriteLine("Its same Current value ");
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace WeStrap
             get => FormatValueAsString(CurrentValue);
             set
             {
-                Console.WriteLine($"SetCurrentValueAsString:{value}");
+               // Console.WriteLine($"SetCurrentValueAsString:{value}");
                 _parsingValidationMessages?.Clear();
 
                 bool parsingFailed;
@@ -121,7 +121,7 @@ namespace WeStrap
                 }
                 else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
                 {
-                    Console.WriteLine($"Changing Current Value to {parsedValue}");
+                   // Console.WriteLine($"Changing Current Value to {parsedValue}");
                     parsingFailed = false;
                     CurrentValue = parsedValue;
                 }

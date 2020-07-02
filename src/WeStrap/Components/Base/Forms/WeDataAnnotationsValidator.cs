@@ -43,20 +43,20 @@ namespace WeStrap
             // Perform object-level validation on request
             editContext.OnValidationRequested().Where(args => args.Field == WeFieldIdentifier.Empty).Subscribe(args =>
             {
-                Console.WriteLine($"DataAnnotationValidator OnValidationRequested on Model");
+                //Console.WriteLine($"DataAnnotationValidator OnValidationRequested on Model");
                 ValidateModel(editContext, messages);
             });
 
             editContext.OnValidationRequested().Where(args => args.Field != WeFieldIdentifier.Empty).Subscribe(args =>
             {
-                Console.WriteLine($"DataAnnotationValidator OnValidationRequested on field:{args.Field.FieldName}");
+               // Console.WriteLine($"DataAnnotationValidator OnValidationRequested on field:{args.Field.FieldName}");
                 ValidateField(editContext, messages, args.Field);
             });
 
             // Perform per-field validation on each field edit
             editContext.OnFieldChanged().Subscribe(args =>
             {
-                Console.WriteLine($"DataAnnotationValidator OnfieldChanged->ValidateField:{args.FieldIdentifier.FieldName}");
+                //Console.WriteLine($"DataAnnotationValidator OnfieldChanged->ValidateField:{args.FieldIdentifier.FieldName}");
                 ValidateField(editContext, messages, args.FieldIdentifier);
             });
 
@@ -92,7 +92,7 @@ namespace WeStrap
 
         private static void ValidateField(IWeEditContext editContext, IWeValidationMessageStore messages, in WeFieldIdentifier fieldIdentifier)
         {
-            Console.WriteLine($"DataAnnotationValidator start ValidateField:{fieldIdentifier.FieldName}");
+           // Console.WriteLine($"DataAnnotationValidator start ValidateField:{fieldIdentifier.FieldName}");
             if (TryGetValidatableProperty(fieldIdentifier, out var propertyInfo))
             {
                 var propertyValue = propertyInfo.GetValue(fieldIdentifier.Model);
@@ -106,12 +106,12 @@ namespace WeStrap
                 messages.Clear(fieldIdentifier);
                 messages.Add(fieldIdentifier, results.Select(result => result.ErrorMessage));
 
-                Console.WriteLine($"DataAnnotationValidator Validated with {messages.Count(fieldIdentifier)} Error(s)");
+                //Console.WriteLine($"DataAnnotationValidator Validated with {messages.Count(fieldIdentifier)} Error(s)");
                 // We have to notify even if there were no messages before and are still no messages now,
                 // because the "state" that changed might be the completion of some async validation task
                 editContext.NotifyValidationStateChanged(fieldIdentifier);
             }
-            Console.WriteLine($"DataAnnotationValidator end ValidateField:{fieldIdentifier.FieldName}");
+            //Console.WriteLine($"DataAnnotationValidator end ValidateField:{fieldIdentifier.FieldName}");
         }
 
         private static bool TryGetValidatableProperty(in WeFieldIdentifier fieldIdentifier, out PropertyInfo propertyInfo)

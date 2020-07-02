@@ -27,7 +27,7 @@ namespace WeStrap
            .Add($"form-control-{Size.ToDescriptionString()}", Size != Size.None)
            .Add("is-valid", IsValid && IsRequired )
            .Add("is-invalid", IsInvalid && IsRequired );
-            Console.WriteLine($"{Tag}-{FieldIdentifier.FieldName} - Class={result}");
+          //  Console.WriteLine($"{Tag}-{FieldIdentifier.FieldName} - Class={result}");
             return result;
         }
 
@@ -119,16 +119,16 @@ namespace WeStrap
         protected void OnChange(string e)
         {
             //ValidationWasMade = false;
-            Console.WriteLine("*******************************");
+           //Console.WriteLine("*******************************");
             Console.WriteLine($"OnChangeTo:{e}");
 
-            CurrentValueAsString = e;
+            CurrentValueAsString = FormatInput?.Invoke(e) ?? e;
         }
 
         protected void OnInput(string e)
         {
             //ValidationWasMade = false;
-            Console.WriteLine("*******************************");
+          //  Console.WriteLine("*******************************");
             Console.WriteLine($"OnInputTo:{e}");
 
             CurrentValueAsString = FormatInput?.Invoke(e) ?? e;
@@ -140,12 +140,12 @@ namespace WeStrap
             base.OnAfterRender(firstRender);
             if (CascadedEditContext?.ParentForm != null)
                 CascadedEditContext.ParentForm.AddInputChild(this);
-            Console.WriteLine("WeInout->OnAfterRender");
+          //  Console.WriteLine("WeInout->OnAfterRender");
         }
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
 
-            Console.WriteLine("WeInput->BuildRenderTree");
+         //   Console.WriteLine("WeInput->BuildRenderTree");
             builder?.OpenElement(0, Tag);
             builder.AddMultipleAttributes(1, UnknownParameters);
             builder.AddAttribute(2, "class", ClassName);

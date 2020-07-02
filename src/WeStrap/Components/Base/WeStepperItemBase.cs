@@ -67,24 +67,31 @@ namespace WeStrap
             });
 
             Stepper.OnStepChangedAsObservable().Subscribe(index => {
-                if (index == this.Index)
-                    Status = WeStepperStatus.Active;
-                else if (IsValid )
-                    Status = WeStepperStatus.Completed;
-                else if (!IsValid && index < this.Index)
-                    Status = WeStepperStatus.Wrong;
-                else
-                    Status = WeStepperStatus.None;
-            
+                UpdateStatus(index);
             });
+            //EditContext?.NotifyValidationStateChanged();
             return base.OnInitializedAsync();
+        }
+        private void UpdateStatus(int index)
+        {
+            
+            if (index == this.Index)
+                Status = WeStepperStatus.Active;
+            else if (IsValid)
+                Status = WeStepperStatus.Completed;
+            else if (!IsValid && index < this.Index)
+                Status = WeStepperStatus.Wrong;
+            else
+                Status = WeStepperStatus.None;
+
+            Console.WriteLine($"this index {this.Index} - compare to {index} -> Satus:{Status.ToDescriptionString()}");
         }
         protected override void OnAfterRender(bool firstRender)
         {
             base.OnAfterRender(firstRender);
             if (firstRender)
             {
-                
+               
             }
         }
         internal void Previous()

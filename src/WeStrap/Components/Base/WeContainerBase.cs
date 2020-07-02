@@ -24,11 +24,11 @@ namespace WeStrap
             {
                 if (state == ToggleState.Open)
                 {
-                    Console.WriteLine("######################");
-                    Console.WriteLine($"{popover.Target} is opened");
+                    //Console.WriteLine("######################");
+                   // Console.WriteLine($"{popover.Target} is opened");
                     foreach (var poper in popovers.Where(p => p != popover))
                     {
-                        Console.WriteLine($"{poper.Target} is closed");
+                       // Console.WriteLine($"{poper.Target} is closed");
                         poper.Hide();
                     }
                 }

@@ -53,7 +53,7 @@ namespace WeStrap
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            Console.WriteLine("***************************");
+            /*Console.WriteLine("***************************");
             if (firstRender)
             {
                 Console.WriteLine("PRE-RENDERING");
@@ -62,11 +62,11 @@ namespace WeStrap
             {
                 Console.WriteLine("RENDERING");
             }
-            Console.WriteLine("Start Rendering Form");
+            Console.WriteLine("Start Rendering Form");*/
             base.OnAfterRender(firstRender);
 
            // await SetFocus();
-            Console.WriteLine("Form Rendered ");
+            //Console.WriteLine("Form Rendered ");
         }
 
         IDisposable d1, d2;
@@ -93,7 +93,7 @@ namespace WeStrap
         public void AddInputChild(IWeInputBase component)
         {
             if (component == null) return;
-            Console.WriteLine($"Form Add Child->{component.Id}");
+           // Console.WriteLine($"Form Add Child->{component.Id}");
             ComponentChilds.Add(component);
             component.TabIndex = ComponentChilds.Count();
         }
@@ -101,7 +101,7 @@ namespace WeStrap
         protected async Task SetFocus()
         {
 
-            Console.WriteLine($"Setting focus");
+            //Console.WriteLine($"Setting focus");
             await JQuery.Native("input.is-invalid:first", "focus");
 
 

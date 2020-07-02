@@ -30,22 +30,23 @@ namespace WeStrap
         [Parameter] public bool IsLink { get; set; }
         [Parameter] public bool IsLoading { get; set; } = false;
         [Parameter] public string LoadingLabel { get; set; } = "Loading";
-       
+
 
         private ButtonType _buttonType = ButtonType.Button;
-            
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            StepperItem?.OnStepItemValidAsObservable().Subscribe( (WeStepItemValidationArgs args) =>
-            {
-                IsDisabled = !args.IsValid;
-                StateHasChanged();
-            });
+            if (this.ButtonType != ButtonType.StepPrevious)
+                StepperItem?.OnStepItemValidAsObservable().Subscribe((WeStepItemValidationArgs args) =>
+               {
+                   IsDisabled = !args.IsValid;
+                   StateHasChanged();
+               });
         }
         protected void HandleOnClick(MouseEventArgs evt)
         {
-            if(StepperItem != null && (ButtonType==ButtonType.StepNext || ButtonType == ButtonType.StepPrevious) )
+            if (StepperItem != null && (ButtonType == ButtonType.StepNext || ButtonType == ButtonType.StepPrevious))
             {
                 HandleStep(StepperItem);
             }
@@ -78,8 +79,8 @@ namespace WeStrap
         private bool _IsDisabled =>
             IsDisabled ||
             ((ButtonType == ButtonType.Button || ButtonType == ButtonType.Submit) && IsLoading) ||
-            (ButtonType == ButtonType.Link && (!EditContext?.IsValid() ?? false)) || 
-            (ButtonType == ButtonType.Submit &&  (!EditContext?.IsValid() ?? false));
+            (ButtonType == ButtonType.Link && (!EditContext?.IsValid() ?? false)) ||
+            (ButtonType == ButtonType.Submit && (!EditContext?.IsValid() ?? false));
         protected string type => ButtonType switch
         {
             ButtonType.Input => "button",
@@ -87,7 +88,7 @@ namespace WeStrap
             ButtonType.Submit => "submit",
             ButtonType.Reset => "reset",
             ButtonType.Checkbox => "checkbox",
-            ButtonType.StepNext=>"button",
+            ButtonType.StepNext => "button",
             ButtonType.StepPrevious => "button",
             _ => ""
         };
