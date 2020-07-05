@@ -1,9 +1,18 @@
 ﻿@namespace WeStrap
-<WeModal @ref="modal">
-    <WeModalHeader>Select Date</WeModalHeader>
+<WeModal @ref="modal" NoBackdrop="false" IgnoreClickOnBackdrop="true">
+    <WeModalHeader OnClick="()=>modal.Hide()">Select Date</WeModalHeader>
     <WeModalBody>
-        <WeTable Items="_date.WeekMap" TableHeadType="TableHeadType.Dark" IsBordered="true" IsHovarable="true" HeadCellsSimple="HeadDays">
-            
+        <WeTable Items="_date.WeekMap" TableHeadType="TableHeadType.Dark" IsBordered="true" IsHovarable="false" HeadCellsSimple="HeadDays">
+            <TBody Context="date">
+                
+
+                @for (int i = 0; i < date.Item.Length; i++)
+                {
+                    var j=i;
+                    <WeTableCell Class="date-picker-cell" OnCellClick="SelectDate">@date.Item[j]</WeTableCell>
+                    
+                }
+            </TBody>
         </WeTable>
     </WeModalBody>
     <WeModalFooter>
@@ -15,11 +24,16 @@
 @code {
     private WeModal modal { get; set; }
     private Date _date = new Date();
-    protected List<string> HeadDays = new List<string>() { "Lun", "Mar", "Mer", "Jeu","Ven","Sam","Dim" };
-    public void Show() {
-       
-            modal?.Toggle();
-        
+    protected List<string> HeadDays = new List<string>() { "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim" };
+    public void Show()
+    {
+
+        modal?.Toggle();
+
     }
-    
+    private void SelectDate(WeEvent<WeTableCell> evt)
+    {
+        evt.Target.
+    }
+
 }

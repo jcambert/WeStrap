@@ -102,6 +102,7 @@ namespace WeStrap
                     //await query.RemoveClass("div.modal-backdrop", "show");
                     //await query.RemoveClass("div.modal", "show");
                 }
+                StateHasChanged();
             });
             base.OnInitialized();
         }
