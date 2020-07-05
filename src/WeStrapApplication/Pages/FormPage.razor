@@ -4,13 +4,13 @@
         <WeDataAnnotationsValidator />
         <WeFormGroup IsRow="true">
             <WeCol Columns="new List<WeColumn>() {WeColumn.lg4 }">
-                <WeInput Id="exampleEmail3" @bind-Value="model.Description" ValidateOnChange="true" PlaceHolder="Description"></WeInput>
+                <WeInput Id="exampleEmail3" @bind-Value="model.Description"  ValidateOnInput="true" is PlaceHolder="Description"></WeInput>
                 <WeFormFeedback For="@(() => model.Description)" ValidMessage="You have entered a valid description" />
             </WeCol>
         </WeFormGroup>
         <WeFormGroup IsRow="true">
             <WeCol Columns="new List<WeColumn>() {WeColumn.lg4 }">
-                <input @bind="model.Description" @bind:event="oninput"/>
+                <input @bind="model.Description" @bind:event="oninput" />
                 <WeFormFeedback For="@(() => model.Description)" ValidMessage="You have entered a valid description" />
             </WeCol>
         </WeFormGroup>

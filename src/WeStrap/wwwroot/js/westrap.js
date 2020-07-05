@@ -62,8 +62,8 @@ window.westrap = {
 
 $(document).ready(function () {
 
-    const topbarHeight =Math.floor( $(".navbar.fixed-top").height());
+    //const topbarHeight =Math.floor( $(".navbar.fixed-top").height());
     //console.log(topbarHeight);
     //$("main[role='main']").css('padding-top', 15);
-    console.log($("main[role='main']").css('padding-top'));
+    //console.log($("main[role='main']").css('padding-top'));
 })

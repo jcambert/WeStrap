@@ -44,7 +44,7 @@
 <WeMain IsFluid="true">
     <div class="jumbotron jumbotron-fluid" style="background-color: #e0e0e0">
         <div class="container">
-            <h3 class="display-4">Votre destination</h3>
+            <h3 class="display-4">Votre savez où partir</h3>
             <p class="lead  d-none d-md-block">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
             <div class="search-destination " style="padding: 4px; ">
                 <div class=" d-none d-md-block">
@@ -108,7 +108,21 @@
     </div>
     <div class="container-fluid" style="">
         <WeRow Spacers="new List<WeSpacer> { WeSpacer.PaddingLeftAndRightMedium5}">
+            <WeForm Model="_bookModel" TModel="BookModel">
+                <WeDataAnnotationsValidator />
+                <WeStepper Type="WeStepperType.HorizontalContentLinear" StepperType="WeStepperItemType.Content">
+                    <WeStepperItem Label="Vos Dates">
+                        <WeFormGroup IsRow="true">
+                            <WeCol Columns="new List<WeColumn>() {WeColumn.lg4 }">
+                                <WeInput Id="exampleEmail3" @bind-Value="_bookModel.Start" ValidateOnInput="true" PlaceHolder="Date de Départ"></WeInput>
+                                <WeFormFeedback For="@(() => _bookModel.Start)" ValidMessage="You have entered a valid First Name" />
+                            </WeCol>
+                        </WeFormGroup>
+                        <WeButton ButtonType="ButtonType.StepNext" Color="Color.Success">Continuer</WeButton>
+                    </WeStepperItem>
+                </WeStepper>
 
+            </WeForm>
             <WeAccordion Class="accordion-suggestion w-100" InnerCardClass="accordion-suggestion-innercard w-100" HeaderClass="mx-md-1 mx-auto " ActivatorClass="btn-outline-primary" @ref="_accordionsug" Items="_sugs" OnShow="ShowingSuggestionAccordion">
                 <CardHeader Context="item">
                     <WeCard CardType="CardType.Header" Class="mx-md-1 mx-auto  ">
@@ -118,7 +132,7 @@
                             </WeButton>
 
                         </h2>
-                        <h4 class="	d-none d-md-block">@item.Item3.Title</h4>
+                        <h4 class="	d-none d-md-block" @onclick="() => ( ((WeAccordionBase) item.Item1).Activate(item.Item2))">@item.Item3.Title</h4>
                     </WeCard>
                 </CardHeader>
                 <Content Context="sugs">
@@ -126,16 +140,30 @@
                         @foreach (var sug in sugs.Items)
                         {
 
-                            <WeCard Class="card-search-suggestion my-3">
+                            <WeCard Class="card-search-suggestion md my-3" >
                                 @if (sug.Title.Length > 0)
                                 {
                                     <WeCard CardType="CardType.Header"><h5>@sug.Title</h5></WeCard>
                                 }
-                                @if (sug.ImgSource.Length > 0)
+                                @if (sug.Image != null)
                                 {
-                                    <div>
-                                        <WeCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="@sug.ImgSource" Class="card-img-center"></WeCard>
-                                    </div>
+                                    <WeCard CardType="CardType.ImageOverlayContainer" class="card-img-zoom-out-1">
+                                        <WeCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="@sug.Image.Source" Class="card-img-center"></WeCard>
+                                        <WeOverlay IsBottom="true" Height="Height.H100"></WeOverlay>
+                                        @if (sug.Image.Title.Length > 0 || sug.Image.Content.Length > 0)
+                                        {
+                                            <WeCard CardType="CardType.ImageOverlay" Class="bottom mb-5 mx-3">
+                                                @if (sug.Image.Title.Length > 0)
+                                                {
+                                                    <WeCard CardType="CardType.Title" Color="Color.black" Class="w800">@sug.Image.Title</WeCard>
+                                                }
+                                                @if (sug.Image.Content.Length > 0)
+                                                {
+                                                    <WeCard CardType="CardType.Text" Color="Color.black" Class="w500">@sug.Image.Content</WeCard>
+                                                }
+                                            </WeCard>
+                                        }
+                                    </WeCard>
                                 }
                                 <WeCard CardType="CardType.Body">
                                     <WeCard CardType="CardType.Subtitle">@sug.SubTitle</WeCard>
@@ -171,6 +199,7 @@
     </div>
 </WeMain>
 @code{
+    private BookModel _bookModel = new BookModel() ;
     bool IsOpen { get; set; } = false;
     void onclick(MouseEventArgs e)
     {
@@ -191,73 +220,115 @@
         {
             Title="Rechercher par type d'hébergement",
             Items=new List<CardSuggestionItem>()
-    {
+{
                 new CardSuggestionItem()
                 {
                     Title="Hotels",
-                    ImgSource="https://r-cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
+                    Image=new CardSugesstionImage(){
+                        Source="https://r-cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o=",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="712 876 Disponibles"
 
                 },
                 new CardSuggestionItem()
                 {
                      Title="Appartements",
-                    ImgSource="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-apartments_300/9f60235dc09a3ac3f0a93adbc901c61ecd1ce72e.jpg",
+                    Image=new CardSugesstionImage(){
+                        Source="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-apartments_300/9f60235dc09a3ac3f0a93adbc901c61ecd1ce72e.jpg",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="779 997 Disponibles"
                 },
                 new CardSuggestionItem()
                 {
                     Title="Complexes Hoteliers",
-                    ImgSource="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_resorts/6f87c6143fbd51a0bb5d15ca3b9cf84211ab0884.jpg",
+                    Image=new CardSugesstionImage(){
+                        Source="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_resorts/6f87c6143fbd51a0bb5d15ca3b9cf84211ab0884.jpg",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="20 669 Disponibles"
 
                 },
                 new CardSuggestionItem()
                 {
                     Title="Villas",
-                    ImgSource="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg",
+                    Image=new CardSugesstionImage(){
+                        Source="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-villas_300/dd0d7f8202676306a661aa4f0cf1ffab31286211.jpg",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="390 443 Disponibles"
 
                 },
                 new CardSuggestionItem()
                 {
                     Title="Chalets",
-                    ImgSource="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-chalet_300/8ee014fcc493cb3334e25893a1dee8c6d36ed0ba.jpg ",
+                    Image=new CardSugesstionImage(){
+                        Source="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-chalet_300/8ee014fcc493cb3334e25893a1dee8c6d36ed0ba.jpg ",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="13 744 Disponibles"
 
                 },
                 new CardSuggestionItem()
                 {
                     Title="Cottages",
-                    ImgSource="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_cottages/5e1fd9cd716f4825c6c7eac5abe692c52cc64516.jpg ",
+                    Image=new CardSugesstionImage(){
+                        Source="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_cottages/5e1fd9cd716f4825c6c7eac5abe692c52cc64516.jpg ",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="126 478 Disponibles"
 
                 },
                 new CardSuggestionItem()
                 {
                     Title="Campings de Luxe",
-                    ImgSource="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_glamping/6e181b9e942c160f4605239be7ddc1728cbcc4c8.jpg ",
+                     Image=new CardSugesstionImage(){
+                        Source="https://r-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_glamping/6e181b9e942c160f4605239be7ddc1728cbcc4c8.jpg ",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
+
                     SubTitle="10 090 Disponibles"
 
                 },
                 new CardSuggestionItem()
                 {
                     Title="Appart'hotels",
-                    ImgSource="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_aparthotel/10e092f390b128dcff92727912299eef7824b751.jpg ",
+
+                    Image=new CardSugesstionImage(){
+                        Source="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_aparthotel/10e092f390b128dcff92727912299eef7824b751.jpg ",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="34 511 Disponibles"
 
                 },
                 new CardSuggestionItem()
                 {
                     Title="Maisons de vacances",
-                    ImgSource="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-holidayhomes_300/604c7484d34a9e8791c2d5a0e2df4bc8c803dc7c.jpg ",
+                    Image=new CardSugesstionImage(){
+                        Source="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/card-image-holidayhomes_300/604c7484d34a9e8791c2d5a0e2df4bc8c803dc7c.jpg ",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="390 443 Disponibles"
 
                 },
                 new CardSuggestionItem()
                 {
                     Title="Maisons d'hotes",
-                    ImgSource="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_guest_house/70618d86d515349ce56296a56d2eaaf283fd1542.jpg ",
+                    Image=new CardSugesstionImage(){
+                        Source="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_guest_house/70618d86d515349ce56296a56d2eaaf283fd1542.jpg ",
+                        Title="Nos Hotels",
+                        Content="Tous nos hotels sont confortables !!"
+                    },
                     SubTitle="125 349 Disponibles"
 
                 },
@@ -265,97 +336,16 @@
         },
         new CardSuggestion()
         {
-            Title="Les hébergements que les clients adorent",
+            Title="Rechercher parmis les mieux notés",
             Items=new List<CardSuggestionItem>()
-    {
+{
                 new CardSuggestionItem()
                 {
                     Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
+                    Image=new CardSugesstionImage(){
+                        Source="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
+
+                    },
                     Town="Lisbonne",
                     SubTitle="Sugar Loft Apartments",
                     Price="Dès 60€",
@@ -367,51 +357,10 @@
                     }
                 },
 
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
-                new CardSuggestionItem()
-                {
-                    Title="",
-                    ImgSource="https://q-cf.bstatic.com/xdata/images/hotel/max500/38437078.jpg?k=241519692574af90306f0dbec0121eacfddc9a183df3ea34a7b7c8f2b4f5febb&o=",
-                    Town="Lisbonne",
-                    SubTitle="Sugar Loft Apartments",
-                    Price="Dès 60€",
-                    Notation=new Notation()
-                    {
-                        Note=9.4,
-                        Evaluation="Fabuleux",
-                        Numbers=283
-                    }
-                },
 
             }
         }
+
     };
 
     class CardSuggestion
@@ -422,11 +371,17 @@
     class CardSuggestionItem
     {
         public string Title { get; set; } = "";
-        public string ImgSource { get; set; } = "";
+        public CardSugesstionImage Image { get; set; }
         public string SubTitle { get; set; } = "";
         public string Town { get; set; } = "";
         public string Price { get; set; } = "";
         public Notation Notation { get; set; } = null;
+    }
+    class CardSugesstionImage
+    {
+        public string Source { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Content { get; set; } = "";
     }
 
 

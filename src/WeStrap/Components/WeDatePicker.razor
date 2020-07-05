@@ -1,0 +1,25 @@
+﻿@namespace WeStrap
+<WeModal @ref="modal">
+    <WeModalHeader>Select Date</WeModalHeader>
+    <WeModalBody>
+        <WeTable Items="_date.WeekMap" TableHeadType="TableHeadType.Dark" IsBordered="true" IsHovarable="true" HeadCellsSimple="HeadDays">
+            
+        </WeTable>
+    </WeModalBody>
+    <WeModalFooter>
+        <WeButton ButtonType="ButtonType.Button" Color="Color.Success">Ok</WeButton>
+        <WeButton ButtonType="ButtonType.Button" Color="Color.Danger">Close</WeButton>
+    </WeModalFooter>
+</WeModal>
+
+@code {
+    private WeModal modal { get; set; }
+    private Date _date = new Date();
+    protected List<string> HeadDays = new List<string>() { "Lun", "Mar", "Mer", "Jeu","Ven","Sam","Dim" };
+    public void Show() {
+       
+            modal?.Toggle();
+        
+    }
+    
+}

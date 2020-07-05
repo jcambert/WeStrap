@@ -64,7 +64,6 @@ namespace WeStrap
         public virtual void Toggle()
         {
             Open = !Open;
-
         }
     }
 }

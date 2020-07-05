@@ -10,12 +10,12 @@ html, body {
 
 
 [role="main"] {
-    padding-top: $topbar-height ; /* Space for fixed navbar */
+    padding-top: $topbar-height; /* Space for fixed navbar */
 }
 
 @media (min-width: 768px) {
     [role="main"] {
-        padding-top: $topbar-height ;
+        padding-top: $topbar-height;
     }
 }
 
@@ -373,12 +373,13 @@ $i: 200;
 
 .navbar {
     margin-bottom: 0;
-        height: auto;
+    height: auto;
 }
-@media  (min-width:770px){
+
+@media (min-width:770px) {
     .navbar {
         margin-bottom: 0;
-    height: $topbar-height;
+        height: $topbar-height;
     }
 }
 
@@ -1059,8 +1060,8 @@ $widths: 5,10,15,16,20,25,33,40,50,60,66,70,75,80,85,90,100;
 
 ///REACTIVE NAVBAR {
 /*@see https://github.com/fireship-io/222-responsive-icon-nav-css/blob/master/public */
-$text-primary: #b6b6b6 ;
-$text-secondary: #ececec ;
+$text-primary: #b6b6b6;
+$text-secondary: #ececec;
 $bg-primary: #23232e;
 $bg-secondary: #141418;
 $light-text-primary: #1f1f1f;
@@ -1071,7 +1072,8 @@ $solar-text-primary: #576e75;
 $solar-text-secondary: #35535c;
 $solar-bg-primary: #fdf6e3;
 $solar-bg-secondary: #f5e5b8;
-$transition-speed:600ms;
+$transition-speed: 600ms;
+
 :root {
     font-size: 16px;
     font-family: 'Open Sans';
@@ -1088,12 +1090,14 @@ $transition-speed:600ms;
     --bg-primary: var(--bg-primary);
     --bg-secondary: var(--bg-secondary);
 }
+
 .light {
     --text-primary: $light-text-primary;
     --text-secondary: $light-text-secondary;
     --bg-primary: $light-bg-primary;
     --bg-secondary: $light-bg-secondary;
 }
+
 .solar {
     --text-primary: $solar-text-primary;
     --text-secondary: $solar-text-secondary;
@@ -1273,23 +1277,48 @@ $transition-speed:600ms;
         }
     }
 }
-/// }REACTIVE NAVBAR 
+/// }REACTIVE NAVBAR
 
 ///WEBOOK
+$cards: ("xs":200px,"sm":250px,"md":320px,"lg":380px,"xl":450px);
+
+
+
 $card-width: 320px;
 
 body {
     min-width: $card-width;
 }
+/* TITI */
+@mixin card($name,$width) {
+    .card.card-search-suggestion.#{$name} img.card-img-top {
+        width: $width;
+        height: $width;
+    }
 
-.card.card-search-suggestion {
-    justify-content: center;
-    margin:auto;
+    .card.card-search-suggestion.#{$name} {
+        min-width: $width;
+        max-width: $width;
+    }
+}
+
+@each $name,$width in $cards {
+    @include card($name,$width);
 }
 
 .card.card-search-suggestion img.card-img-top {
     width: $card-width;
     height: 210px;
+}
+
+.card.card-search-suggestion {
+    min-width: $card-width;
+    max-width: $card-width;
+}
+
+.card.card-search-suggestion {
+    justify-content: center;
+    margin: auto;
 }
 
 .card-img-center {
@@ -1303,10 +1332,6 @@ body {
     }
 }
 
-.card.card-search-suggestion {
-    min-width: $card-width+5;
-    max-width: $card-width+5;
-}
 
 .accordion-suggestion {
     //width: 100%;
@@ -1392,6 +1417,7 @@ body {
     color: #6b6b6b;
 }
 
+/*  Card Effect {*/
 .card-footer .webook-town {
     font-size: 14px;
     font-weight: 600;
@@ -1403,4 +1429,62 @@ body {
     font-weight: 600;
     color: #6b6b6b;
 }
+
+.card-img-overlay-container {
+    position: relative;
+    overflow: hidden;
+
+    & img {
+        transition: 1s;
+    }
+
+    & *:not(.overlay) {
+       // padding: 10px 10px 15px;
+    }
+}
+
+.card-img-overlay {
+    padding: 0;
+    position: absolute;
+
+    &.bottom {
+        display: table-cell;
+        vertical-align: bottom;
+        bottom: 0;
+        top: unset;
+    }
+}
+
+.overlay {
+    &.bottom {
+        bottom: 0;
+    }
+
+    position: absolute;
+    width: 100%;
+}
+
+$i: 1;
+
+@for $i from 1 through 9 {
+    .card-img-zoom-out-#{$i} {
+        &:hover img {
+            transform: scale(1 + $i / 10 );
+        }
+    }
+}
+
+$i: 1;
+
+@for $i from 1 through 9 {
+    .card-img-zoom-in-#{$i} {
+        &:hover img {
+            transform: scale(1 - $i / 10 );
+        }
+    }
+}
+/* } Card Effect */
+
+
+
 @import "_stepper";

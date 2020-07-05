@@ -27,6 +27,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>BootstrapSpacer.tt</DependentUpon>
     </None>
+    <None Include="Generator\Color.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Color.tt</DependentUpon>
+    </None>
     <None Include="Generator\Column.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -91,6 +96,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>BootstrapSpacer.tt</DependentUpon>
     </Compile>
+    <Compile Update="Generator\Color.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Color.tt</DependentUpon>
+    </Compile>
     <Compile Update="Generator\Column.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -141,6 +151,10 @@
     <None Update="Generator\BootstrapSpacer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>BootstrapSpacer.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\Color.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Color.cs</LastGenOutput>
     </None>
     <None Update="Generator\Column.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

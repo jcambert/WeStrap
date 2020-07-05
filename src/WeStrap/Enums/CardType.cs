@@ -12,6 +12,7 @@
         Header,
         Footer,
         ImageOverlay,
+        ImageOverlayContainer,
         Group,
         Deck,
         Columns

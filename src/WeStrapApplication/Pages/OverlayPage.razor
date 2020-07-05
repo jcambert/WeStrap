@@ -1,0 +1,16 @@
+﻿@page "/overlay"
+
+<WeContainer IsFluid="false">
+    <WeCard CardType="CardType.ImageOverlayContainer" class="card-img-zoom-out-1">
+        <WeCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="https://q-cf.bstatic.com/static/img/theme-index/carousel_320x240/bg_cottages/5e1fd9cd716f4825c6c7eac5abe692c52cc64516.jpg" Class="card-img-center"></WeCard>
+        <WeCard CardType="CardType.ImageOverlay" Class="bottom mb-3">
+            <WeCard CardType="CardType.Title" Color="Color.White">Overlay title</WeCard>
+            <WeCard CardType="CardType.Text" Color="Color.Danger">Contenu Overlay</WeCard>
+        </WeCard>
+        <WeOverlay IsBottom="true"></WeOverlay>
+    </WeCard>
+</WeContainer>
+
+@code {
+
+}

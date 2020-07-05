@@ -1,0 +1,30 @@
+﻿@page "/datepicker"
+<WeContainer IsFluid="false">
+    <WeRow RowColumnCount="WeRowCount.Row1">
+        <WeButton ButtonType="ButtonType.Button" Color="Color.Primary" OnClick="OpenPickDate">Pick a date</WeButton>
+        <WeButton ButtonType="ButtonType.Button" Color="Color.Primary" OnClick="OpenPickDate1">Pick another date</WeButton>
+    </WeRow>
+
+</WeContainer>
+
+<WeDatePicker @ref="picker1" >
+
+</WeDatePicker>
+@code {
+    WeModal picker;
+    WeDatePicker picker1;
+    bool show = false;
+    private void OpenPickDate()
+    {
+        picker.Show();
+    }
+    private void OpenPickDate1()
+    {
+        picker1.Show();
+    }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+    }
+}

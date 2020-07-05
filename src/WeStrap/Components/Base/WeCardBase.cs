@@ -7,7 +7,10 @@ namespace WeStrap
 
         protected override WeStringBuilder BuildClassName(string s = "")
         {
-            return base.BuildClassName(s).Add(GetClass());
+            return base.BuildClassName(s)
+                .Add($"color-{Color.ToDescriptionString()}",Color!=Color.None)
+                
+                .Add(GetClass());
         }
 
         protected override string Tag
@@ -76,6 +79,7 @@ namespace WeStrap
                 CardType.Link => "card-link",
                 CardType.Header => "card-header",
                 CardType.Footer => "card-footer",
+                CardType.ImageOverlayContainer => "card-img-overlay-container",
                 CardType.ImageOverlay => "card-img-overlay",
                 CardType.Group => "card-group",
                 CardType.Deck => "card-deck",

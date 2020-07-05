@@ -9,7 +9,7 @@
                     <WeStepperItem Label="FirstName"  OnStepItemValid="OnStepItemValid">
                         <WeFormGroup IsRow="true">
                             <WeCol Columns="new List<WeColumn>() {WeColumn.lg4 }">
-                                <WeInput Id="exampleEmail3" @bind-Value="_exampleModel.FirstName" ValidateOnChange="true" PlaceHolder="Your First Name"></WeInput>
+                                <WeInput Id="exampleEmail3" @bind-Value="_exampleModel.FirstName" ValidateOnInput="true" PlaceHolder="Your First Name"></WeInput>
                                 <WeFormFeedback For="@(() => _exampleModel.FirstName)" ValidMessage="You have entered a valid First Name" />
                             </WeCol>
                         </WeFormGroup>
@@ -18,7 +18,7 @@
                     <WeStepperItem Label="LastName">
                         <WeFormGroup IsRow="true">
                             <WeCol Columns="new List<WeColumn>() {WeColumn.lg6 }">
-                                <WeInput Id="exampleEmail4" @bind-Value="_exampleModel.LastName" ValidateOnChange="true" PlaceHolder="Your Last Name"></WeInput>
+                                <WeInput Id="exampleEmail4" @bind-Value="_exampleModel.LastName" ValidateOnInput="true" PlaceHolder="Your Last Name"></WeInput>
                                 <WeFormFeedback ShowInvalidMessage="false" For="@(() => _exampleModel.LastName)" ValidMessage="You have entered a valid Last Name" />
                             </WeCol>
                         </WeFormGroup>

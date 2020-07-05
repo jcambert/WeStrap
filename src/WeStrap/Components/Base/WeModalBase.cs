@@ -56,51 +56,7 @@ namespace WeStrap
         private bool _toggleModel { get; set; }
         private bool _isInitialized { get; set; }
 
-        /*  internal override async Task Changed(bool e)
-          {
-              if (!_isInitialized)
-              {
-                  return;
-              }
-
-              WeModalEvent = new WeEvent<WeModalBase>(this);
-              if (e)
-              {
-                  await query.AddClass("div.modal-backdrop", "show");
-                  await query.AddClass("div.modal", "show");
-                  //await new BlazorStrapInterop(JSRuntime).AddBodyClass("modal-open");
-                  if (!IgnoreEscape)
-                  {
-
-                      //await new BlazorStrapInterop(JSRuntime).ModalEscapeKey();
-                      //BlazorStrapInterop.OnEscapeEvent += OnEscape;
-                  }
-                  new Task(async () =>
-                  {
-                      _toggleModel = true;
-                      await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-                      await Task.Delay(300).ConfigureAwait(false);
-                      _toggleShow = e;
-                      await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-                  }).Start();
-                  await ShowEvent.InvokeAsync(WeModalEvent).ConfigureAwait(false);
-              }
-              else
-              {
-                  new Task(async () =>
-                  {
-                      _toggleShow = e;
-                      await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-                      await Task.Delay(300).ConfigureAwait(false);
-                      _toggleModel = false;
-                      await InvokeAsync(StateHasChanged).ConfigureAwait(false);
-                  }).Start();
-                  await HideEvent.InvokeAsync(WeModalEvent).ConfigureAwait(false);
-                  // await new BlazorStrapInterop(JSRuntime).RemoveBodyClass("modal-open");
-                  await query.RemoveClass("div.modal", "show");
-                  await query.RemoveClass("div.modal-backdrop", "show");
-              }
-          }*/
+        
 
         protected override Task OnAfterRenderAsync(bool firstrun)
         {
@@ -126,7 +82,6 @@ namespace WeStrap
         protected async Task OnEscape()
         {
             Hide();
-            //BlazorStrapInterop.OnEscapeEvent -= OnEscape;
             await InvokeAsync(StateHasChanged).ConfigureAwait(false);
         }
 

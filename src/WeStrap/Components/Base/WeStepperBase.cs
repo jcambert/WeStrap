@@ -44,6 +44,9 @@ namespace WeStrap
         private WeStepperItemBase FindFirstInvalid()
         => StepperItems.OrderBy(x=>x.Index).Where(step=>!step.IsValid).FirstOrDefault() ;
 
+        private WeStepperItemBase FindFirst()
+            => StepperItems.OrderBy(x => x.Index).FirstOrDefault();
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
@@ -58,6 +61,8 @@ namespace WeStrap
                 var step = FindFirstInvalid();
                 if (step != null)
                     Go(step.Index);
+                else
+                    Go(FindFirst()?.Index );
             }
         }
         internal void Previous()
@@ -70,9 +75,9 @@ namespace WeStrap
            Go( Selected + 1);
         }
 
-        internal void Go(int index)
+        internal void Go(int? index)
         {
-            Selected = index;
+            Selected = index ?? 0;
         }
     }
 }

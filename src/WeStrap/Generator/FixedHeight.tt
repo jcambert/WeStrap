@@ -14,4 +14,11 @@ namespace WeStrap{
 		<#}#>
 	
 	}
+	public enum Height{
+		None,
+		<#for(int i=50;i<=500;i+=5){#>
+[Description("h<#=i#>")]
+		H<#=i#>,	
+		<#}#>
+	}
 }
