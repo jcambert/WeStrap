@@ -9,7 +9,12 @@ namespace WeStrap
         protected string divClassname =>
             new WeStringBuilder().Add("modal-header").ToString();
 
-        protected string headingClassname => new WeStringBuilder().Add("modal-title").Add(HeadingClass).ToString();
+        protected string headingClassname => 
+            new WeStringBuilder()
+            .Add("modal-title")
+            .Add("container")
+            .Add(HeadingClass)
+            .ToString();
 
         [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 

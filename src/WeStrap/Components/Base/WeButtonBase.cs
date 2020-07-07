@@ -30,6 +30,7 @@ namespace WeStrap
         [Parameter] public bool IsLink { get; set; }
         [Parameter] public bool IsLoading { get; set; } = false;
         [Parameter] public string LoadingLabel { get; set; } = "Loading";
+        [Parameter] public bool IsCircle { get; set; } = false;
 
 
         private ButtonType _buttonType = ButtonType.Button;
@@ -68,6 +69,7 @@ namespace WeStrap
             base.BuildClassName(s).Add("btn")
           .Add($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
           .Add("btn-link", IsLink)
+          .Add("btn-circle", IsCircle)
           .Add($"btn-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline && !IsLink)
           .Add($"btn-{Size.ToDescriptionString()}", Size != Size.None)
           .Add("btn-block", IsBlock)

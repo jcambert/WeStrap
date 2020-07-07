@@ -47,6 +47,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FixedHeight.tt</DependentUpon>
     </None>
+    <None Include="Generator\FontWeight.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FontWeight.tt</DependentUpon>
+    </None>
     <None Include="Generator\RowMediumColumnCount.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -56,6 +61,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>RowSmallColumnCount.tt</DependentUpon>
+    </None>
+    <None Include="Generator\Tag.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Tag.tt</DependentUpon>
     </None>
   </ItemGroup>
 
@@ -116,10 +126,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>FixedHeight.tt</DependentUpon>
     </Compile>
+    <Compile Update="Generator\FontWeight.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FontWeight.tt</DependentUpon>
+    </Compile>
     <Compile Update="Generator\RowColumnCount.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>RowColumnCount.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Generator\Tag.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Tag.tt</DependentUpon>
     </Compile>
     <Compile Update="Resources\WeStrapResources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -168,6 +188,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FixedHeight.cs</LastGenOutput>
     </None>
+    <None Update="Generator\FontWeight.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FontWeight.cs</LastGenOutput>
+    </None>
     <None Update="Generator\RowColumnCount.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RowColumnCount.cs</LastGenOutput>
@@ -179,6 +203,10 @@
     <None Update="Generator\RowSmallColumnCount.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RowSmallColumnCount.cs</LastGenOutput>
+    </None>
+    <None Update="Generator\Tag.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Tag.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

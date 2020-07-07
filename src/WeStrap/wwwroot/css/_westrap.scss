@@ -1,5 +1,52 @@
 ﻿@import "_variables";
 
+@mixin box-sizing($box-model) {
+    -webkit-box-sizing: $box-model; // Safari <= 5
+    -moz-box-sizing: $box-model; // Firefox <= 19
+    box-sizing: $box-model;
+}
+
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+}
+
+@mixin transition($transition...) {
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    -webkit-transition: $transition;
+    transition: $transition;
+}
+
+@mixin transition-property($property...) {
+    -moz-transition-property: $property;
+    -o-transition-property: $property;
+    -webkit-transition-property: $property;
+    transition-property: $property;
+}
+
+@mixin transition-duration($duration...) {
+    -moz-transition-property: $duration;
+    -o-transition-property: $duration;
+    -webkit-transition-property: $duration;
+    transition-property: $duration;
+}
+
+@mixin transition-timing-function($timing...) {
+    -moz-transition-timing-function: $timing;
+    -o-transition-timing-function: $timing;
+    -webkit-transition-timing-function: $timing;
+    transition-timing-function: $timing;
+}
+
+@mixin transition-delay($delay...) {
+    -moz-transition-delay: $delay;
+    -o-transition-delay: $delay;
+    -webkit-transition-delay: $delay;
+    transition-delay: $delay;
+}
+
 html, body {
     height: 100%;
 }
@@ -72,6 +119,24 @@ a:hover, a:focus {
 .disable-hovarable {
     cursor: default !important;
     background-color: rgba(0, 0, 0, 0) !important;
+}
+.modal-header {
+    & .close {
+        right: 0px;
+        top: 0px;
+    }
+}
+
+.btn-circle {
+    border-radius: 50%;
+    position: relative;
+    //width: 50%;
+
+    &:before {
+        content: "";
+        float: left;
+        padding-top: 100%;
+    }
 }
 
 @media (min-width: 768px) {
@@ -1439,7 +1504,7 @@ body {
     }
 
     & *:not(.overlay) {
-       // padding: 10px 10px 15px;
+        // padding: 10px 10px 15px;
     }
 }
 
@@ -1485,6 +1550,106 @@ $i: 1;
 }
 /* } Card Effect */
 
+.hide {
+    visibility: hidden;
+}
+/* DatePicker {*/
+.hovicon {
+    &:not(.selected) {
+        background-color: var(--dark);
+        color: var(--white);
+    }
+
+    &.selected {
+        background-color: var(--success);
+        color: var(--dark);
+    }
+
+    &:not(.disabled) {
+        cursor: pointer;
+
+        &:after {
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            content: '';
+            @include box-sizing(content-box);
+        }
+
+        &.effect-9 {
+            @include transition(box-shadow 0.2s);
+            box-shadow: 0 0 0 4px var(--dark);
 
 
+            &:after {
+                top: 0;
+                left: 0;
+                padding: 0;
+                box-shadow: 0 0 0 5px var(--light);
+                @include transition(transform 0.2s, opacity 0.2s);
+            }
+
+            &.sub-b {
+                &:hover {
+
+                    &:not(.selected) {
+                        box-shadow: 0 0 0 4px var(--dark);
+                    }
+
+                    &.selected {
+                        box-shadow: 0 0 0 4px var(--success);
+                    }
+
+                    &:after {
+                        @include transform(scale(0.85))
+                    }
+                }
+            }
+        }
+    }
+
+    &.disabled {
+        cursor: not-allowed;
+        background-color: var(--gray-dark);
+        color: var(--light);
+
+        &:after, &:before {
+            position: absolute;
+            content: '';
+            background: var(--danger);
+            display: block;
+            width: 100%;
+            height: 30px;
+            //center the X vertically and horizontally:
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 2px
+        }
+
+        &:after {
+            @include transform(rotate(-45deg));
+        }
+
+        &:before {
+            @include transform(rotate(45deg));
+        }
+    }
+
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    text-decoration: none;
+    height: 25px;
+    width: 25px;
+    line-height: 25px;
+    z-index: 1;
+}
+
+/* DatePicker {*/
 @import "_stepper";

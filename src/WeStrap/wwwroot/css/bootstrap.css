@@ -7246,6 +7246,18 @@ a:hover, a:focus {
   cursor: default !important;
   background-color: transparent !important; }
 
+.modal-header .close {
+  right: 0px;
+  top: 0px; }
+
+.btn-circle {
+  border-radius: 50%;
+  position: relative; }
+  .btn-circle:before {
+    content: "";
+    float: left;
+    padding-top: 100%; }
+
 @media (min-width: 768px) {
   .d-md-block {
     display: flex !important; } }
@@ -8535,6 +8547,88 @@ body {
   transform: scale(0.1); }
 
 /* } Card Effect */
+.hide {
+  visibility: hidden; }
+
+/* DatePicker {*/
+.hovicon {
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  position: relative;
+  text-decoration: none;
+  height: 25px;
+  width: 25px;
+  line-height: 25px;
+  z-index: 1; }
+  .hovicon:not(.selected) {
+    background-color: var(--dark);
+    color: var(--white); }
+  .hovicon.selected {
+    background-color: var(--success);
+    color: var(--dark); }
+  .hovicon:not(.disabled) {
+    cursor: pointer; }
+    .hovicon:not(.disabled):after {
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      content: '';
+      -webkit-box-sizing: content-box;
+      -moz-box-sizing: content-box;
+      box-sizing: content-box; }
+    .hovicon:not(.disabled).effect-9 {
+      -moz-transition: box-shadow 0.2s;
+      -o-transition: box-shadow 0.2s;
+      -webkit-transition: box-shadow 0.2s;
+      transition: box-shadow 0.2s;
+      box-shadow: 0 0 0 4px var(--dark); }
+      .hovicon:not(.disabled).effect-9:after {
+        top: 0;
+        left: 0;
+        padding: 0;
+        box-shadow: 0 0 0 5px var(--light);
+        -moz-transition: transform 0.2s, opacity 0.2s;
+        -o-transition: transform 0.2s, opacity 0.2s;
+        -webkit-transition: transform 0.2s, opacity 0.2s;
+        transition: transform 0.2s, opacity 0.2s; }
+      .hovicon:not(.disabled).effect-9.sub-b:hover:not(.selected) {
+        box-shadow: 0 0 0 4px var(--dark); }
+      .hovicon:not(.disabled).effect-9.sub-b:hover.selected {
+        box-shadow: 0 0 0 4px var(--success); }
+      .hovicon:not(.disabled).effect-9.sub-b:hover:after {
+        -webkit-transform: scale(0.85);
+        -ms-transform: scale(0.85);
+        transform: scale(0.85); }
+  .hovicon.disabled {
+    cursor: not-allowed;
+    background-color: var(--gray-dark);
+    color: var(--light); }
+    .hovicon.disabled:after, .hovicon.disabled:before {
+      position: absolute;
+      content: '';
+      background: var(--danger);
+      display: block;
+      width: 100%;
+      height: 30px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: 2px; }
+    .hovicon.disabled:after {
+      -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg); }
+    .hovicon.disabled:before {
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg); }
+
+/* DatePicker {*/
 /* @see https://mdbootstrap.com/docs/jquery/components/stepper/ */
 ul.we_stepper {
   padding: 1.5rem;

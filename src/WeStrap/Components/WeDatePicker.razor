@@ -1,39 +1,219 @@
 ﻿@namespace WeStrap
 <WeModal @ref="modal" NoBackdrop="false" IgnoreClickOnBackdrop="true">
-    <WeModalHeader OnClick="()=>modal.Hide()">Select Date</WeModalHeader>
-    <WeModalBody>
-        <WeTable Items="_date.WeekMap" TableHeadType="TableHeadType.Dark" IsBordered="true" IsHovarable="false" HeadCellsSimple="HeadDays">
-            <TBody Context="date">
-                
+    <WeModalHeader OnClick="()=>modal.Hide()">
+        <div class="row">
+            <DynamicTag TagName="@TitleTag.ToDescriptionString()">@Title</DynamicTag>
+        </div>
+        @if (ShowDateAsSubTitle)
+        {
+            <div class="row">
+                <DynamicTag TagName="@SubTitleTag.ToDescriptionString()">@( Selected.HasValue? Selected.Value.ToString(SubTitleDateFormat) :" ") </DynamicTag>
+            </div>
+        }
+        <WeRow>
+            @if (ShowPreviousYearArrow)
+            {
+                <WeCol Class="col">
+                    <WeButton ButtonType="ButtonType.Button" IsCircle="true" OnClick="@((evt)=>Date=Date-12)"><i class="fas fa-angle-double-left"></i></WeButton>
+                </WeCol>
+            }
+            @if (ShowPreviousMonthArrow)
+            {
+                <WeCol Class="col">
+                    <WeButton ButtonType="ButtonType.Button" IsCircle="true" OnClick="@((evt)=>Date=Date-1)"><i class="fas fa-angle-left"></i></WeButton>
+                </WeCol>
+            }
+            @if (ShowToday)
+            {
+                <WeCol Class="col">
+                    <WeButton ButtonType="ButtonType.Button" IsCircle="true" OnClick="@((evt)=> { Date = new Date(); _selected = Date; })"><i class="far fa-clock"></i></WeButton>
+                </WeCol>
+            }
+            @if (ShowNextMonthArrow)
+            {
+                <WeCol Class="col">
+                    <WeButton ButtonType="ButtonType.Button" IsCircle="true" OnClick="@((evt)=>Date=Date+1)"><i class="fas fa-angle-right"></i></WeButton>
+                </WeCol>
+            }
+            @if (ShowNextYearArrow)
+            {
+                <WeCol Class="col">
+                    <WeButton ButtonType="ButtonType.Button" IsCircle="true" OnClick="@((evt)=>Date=Date+12)"><i class="fas fa-angle-double-right"></i></WeButton>
+                </WeCol>
+            }
+        </WeRow>
 
+
+    </WeModalHeader>
+    <WeModalBody>
+        <WeTable Items="_date.WeekMap" TableHeadType="HeadType" IsBordered="IsBordered" IsHovarable="IsHovarable" HeadCellsSimple="NameOfDays">
+            <TBody Context="date">
                 @for (int i = 0; i < date.Item.Length; i++)
                 {
-                    var j=i;
-                    <WeTableCell Class="date-picker-cell" OnCellClick="SelectDate">@date.Item[j]</WeTableCell>
-                    
+                    var j = i;
+                    <WeTableCell Class="@CellClass" RowIndex="date.Index" ColIndex="j" OnCellClick="SelectDate">
+                        <i class="@InnerCellClass(date.Item[j])">@date.Item[j]</i>
+                    </WeTableCell>
                 }
             </TBody>
         </WeTable>
     </WeModalBody>
     <WeModalFooter>
-        <WeButton ButtonType="ButtonType.Button" Color="Color.Success">Ok</WeButton>
-        <WeButton ButtonType="ButtonType.Button" Color="Color.Danger">Close</WeButton>
+        <WeButton ButtonType="ButtonType.Button" Color="Color.Success" OnClick="_OnOk">@OkLabel</WeButton>
+        <WeButton ButtonType="ButtonType.Button" Color="Color.Danger" OnClick="_OnCancel">@CancelLabel</WeButton>
     </WeModalFooter>
 </WeModal>
 
 @code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _onSelected.Subscribe(dt =>
+        {
+            StateHasChanged();
+        });
+        if (string.IsNullOrEmpty(SubTitleDateFormat))
+        {
+            SubTitleDateFormat = "ddd d MMM y";
+        }
+
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            modal.OnChanged.Where(state => state == ToggleState.Open).Subscribe(state =>
+            {
+                _selected = null;
+            });
+        }
+    }
+
     private WeModal modal { get; set; }
     private Date _date = new Date();
-    protected List<string> HeadDays = new List<string>() { "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim" };
     public void Show()
     {
 
         modal?.Toggle();
 
     }
+
     private void SelectDate(WeEvent<WeTableCell> evt)
     {
-        evt.Target.
+        NotifySelected(evt.Target.RowIndex, evt.Target.ColIndex);
+
+    }
+    private Nullable<DateTime> _selected;
+    private ISubject<Nullable<DateTime>> _onSelected = new Subject<Nullable<DateTime>>();
+    public IObservable<Nullable<DateTime>> OnSelectedAsObservable => _onSelected.AsObservable();
+    protected void NotifySelected(int week, int day)
+    {
+        try
+        {
+            _selected = _date[week, day];
+            if (_selected != null)
+            {
+                _onSelected.OnNext(_selected);
+                OnDateSelected.InvokeAsync(_selected);
+            }
+        }
+        catch { }
     }
 
+
+    private string CellClass =>
+        new WeStringBuilder()
+        .Add("date-picker-cell")
+        .Add(Color.ToDescriptionString())
+        .ToString();
+    private string InnerCellClass(int value) =>
+        new WeStringBuilder()
+            .Add("hovicon")
+            .Add("text-center")
+            .Add("hide", value == 0)
+            .Add("selected", AllowSelectedFlag && _selected.HasValue && value == _selected.Value.Day)
+            .Add("disabled", AllowDisableBefore && _selected.HasValue && value < _selected.Value.Day)
+            .Add("disabled", AllowDisableAfter && _selected.HasValue && value > _selected.Value.Day)
+            .Add(FontWeight.ToDescriptionString(), FontWeight != FontWeight.None)
+              .Add(Effect.ToDescriptionString(), Effect != Effect.None)
+              .ToString();
+
+    public Date Date
+    {
+        get => _date;
+        set
+        {
+            _date = value;
+            if (_selected != null)
+            {
+                var day = _selected.Value.Day;
+                while (true)
+                {
+                    try
+                    {
+
+                        _selected = new DateTime(_date.Year, Date.Month, day--);
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        continue;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        break;
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+
+    [Parameter]
+    public Nullable<DateTime> Selected
+    {
+        get => _selected;
+        set
+        {
+            _selected = value;
+            _date = value ?? new Date();
+        }
+    }
+    [Parameter] public string Title { get; set; } = "Select a Date";
+
+    [Parameter] public FontWeight FontWeight { get; set; } = FontWeight.W600;
+    [Parameter] public Effect Effect { get; set; } = Effect.E9B;
+    [Parameter] public List<string> NameOfDays { get; set; } = new List<string>() { "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim" };
+    [Parameter] public Color Color { get; set; } = Color.Primary;
+    [Parameter] public EventCallback<Nullable<DateTime>> OnDateSelected { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback<Nullable<DateTime>> OnOk { get; set; }
+    [Parameter] public Tag TitleTag { get; set; } = Tag.H2;
+    [Parameter] public Tag SubTitleTag { get; set; } = Tag.H4;
+    [Parameter] public bool ShowDateAsSubTitle { get; set; } = false;
+    [Parameter] public string SubTitleDateFormat { get; set; }
+    [Parameter] public string OkLabel { get; set; } = "Ok";
+    [Parameter] public string CancelLabel { get; set; } = "Cancel";
+    [Parameter] public TableHeadType HeadType { get; set; } = TableHeadType.None;
+    [Parameter] public bool IsBordered { get; set; } = false;
+    [Parameter] public bool IsHovarable { get; set; } = false;
+    [Parameter] public bool AllowSelectedFlag { get; set; } = false;
+    [Parameter] public bool AllowDisableBefore { get; set; } = false;
+    [Parameter] public bool AllowDisableAfter { get; set; } = false;
+    [Parameter] public bool ShowToday { get; set; } = false;
+    [Parameter] public bool ShowNextMonthArrow { get; set; } = false;
+    [Parameter] public bool ShowPreviousMonthArrow { get; set; } = false;
+    [Parameter] public bool ShowNextYearArrow { get; set; } = false;
+    [Parameter] public bool ShowPreviousYearArrow { get; set; } = false;
+    private void _OnOk()
+    {
+        modal?.Hide();
+        OnOk.InvokeAsync(Selected);
+    }
+    private void _OnCancel()
+    {
+        modal?.Hide();
+        OnCancel.InvokeAsync(null);
+    }
 }

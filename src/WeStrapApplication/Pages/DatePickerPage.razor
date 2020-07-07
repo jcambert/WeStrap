@@ -1,16 +1,35 @@
 ﻿@page "/datepicker"
 
 <WeRow RowColumnCount="WeRowCount.Row1">
-    <WeDatePicker @ref="picker1" ></WeDatePicker>
+    <WeDatePicker @ref="picker1" 
+                  OnOk="OnDateOk" 
+                  Selected="new DateTime(2020,8,5)" 
+                  AllowSelectedFlag="true" 
+                  ShowDateAsSubTitle="true" 
+                  NameOfDays="NameOfDays" 
+                  SubTitleDateFormat="dddd d MMMM yyy"
+                  ShowNextMonthArrow="true"
+                  ShowNextYearArrow="true"
+                  ShowToday="true"
+                  ShowPreviousMonthArrow="true"
+                  ShowPreviousYearArrow="true"
+                  ></WeDatePicker>
     <WeButton OnClick="ShowModal">Show Modal</WeButton>
-    
+    @if (dt != null)
+    {
+   <p>@dt.Value.ToLongDateString()</p>
+    }
 </WeRow>
 
 @code {
 
     WeDatePicker picker1;
-   
-
+    Nullable<DateTime> dt;
+    List<string> NameOfDays = new List<string>() { "L", "M", "M", "J", "V", "S", "D" };
+    private void OnDateOk(Nullable<DateTime> date)
+    {
+        dt = date;
+    }
     private void ShowModal()
     {
         picker1.Show();

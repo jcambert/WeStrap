@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -38,6 +39,7 @@ namespace WeStrap
             FirstDayOfMonth = new DateTime(Year, Month, 1).DayOfWeek;
             LastDayOfMonth = new DateTime(Year, Month, DayInMonth).DayOfWeek;
             var idx = FirstDayOfMonth - DayOfWeek;
+            if (idx < 0) idx = 6;
             List<int[]> month = new List<int[]>();
 
             var day = 1;
@@ -70,6 +72,8 @@ namespace WeStrap
         public List<int[]> WeekMap { get; }
         public DateTime Value => _start;
         public CultureInfo Culture => _ci;
+
+        public DateTime this[int week, int day]=> new DateTime(Year, Month, this.WeekMap[week][day]);
         public static Date operator +(Date date, int month) => new Date(date.Value.AddMonths(month), date.Culture);
         public static Date operator -(Date date, int month) => new Date(date.Value.AddMonths(month * -1), date.Culture);
         public static Date operator ++(Date date) => new Date(date.Value.AddMonths(1), date.Culture);
