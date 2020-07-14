@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeExpression", "src\WeExpre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroS-Common", "..\MicroS-Common\src\MicroS-Common\MicroS-Common.csproj", "{14E51655-2488-4C1B-9DDF-80286D93E480}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeCommonApplication", "src\WeCommonApplication\WeCommonApplication.csproj", "{9BFB0546-7BE1-4CB6-A630-8224DC1DC062}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{14E51655-2488-4C1B-9DDF-80286D93E480}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14E51655-2488-4C1B-9DDF-80286D93E480}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E51655-2488-4C1B-9DDF-80286D93E480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BFB0546-7BE1-4CB6-A630-8224DC1DC062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BFB0546-7BE1-4CB6-A630-8224DC1DC062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BFB0546-7BE1-4CB6-A630-8224DC1DC062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BFB0546-7BE1-4CB6-A630-8224DC1DC062}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

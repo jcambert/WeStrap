@@ -2,34 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace WeStrap
-{/*
-    public readonly struct Periode
-    {
-        public Periode(Date start, Date end)=>
-            (Start, End) = (start < end ? start : end, end < start ? end : start);
-
-
-        public readonly Date Start { get; }
-        public readonly Date End { get; }
-        public Date this[int offset] => Start + offset;
-
-        public int GetDays() => End - Start;
-        public IEnumerable<Date> GetDates()
-        {
-            for (int i = 0; i < GetDays(); i++)
-            {
-                yield return this[i];
-            }
-        }
-    }
+namespace WeCommon
+{
     public class Date
     {
-        private readonly DateTime _start;
-        private readonly CultureInfo _ci;
         private readonly Calendar _cal;
         private readonly CalendarWeekRule _weekRule;
-        private readonly DayOfWeek _dayOfWeek;
 
         public Date() : this(null, null)
         {
@@ -48,11 +26,11 @@ namespace WeStrap
 
         public Date(DateTime start, CultureInfo cultureInfo)
         {
-            _start = start;
-            _ci = cultureInfo ?? CultureInfo.CurrentCulture;
-            _cal = _ci.Calendar;
-            _weekRule = _ci.DateTimeFormat.CalendarWeekRule;
-            _dayOfWeek = _ci.DateTimeFormat.FirstDayOfWeek;
+            Value = start;
+            Culture = cultureInfo ?? CultureInfo.CurrentCulture;
+            _cal = Culture.Calendar;
+            _weekRule = Culture.DateTimeFormat.CalendarWeekRule;
+            DayOfWeek = Culture.DateTimeFormat.FirstDayOfWeek;
 
             FirstDayOfMonth = new DateTime(Year, Month, 1).DayOfWeek;
             LastDayOfMonth = new DateTime(Year, Month, DayInMonth).DayOfWeek;
@@ -78,36 +56,42 @@ namespace WeStrap
 
         public DayOfWeek FirstDayOfMonth { get; }
         public DayOfWeek LastDayOfMonth { get; }
-        public int Day => _start.Day;
-        public int Year => _start.Year;
-        public int Month => _start.Month;
-        public DayOfWeek DayOfWeek => _dayOfWeek;
-        public int DayOfYear => _start.DayOfYear;
-        public int DayInMonth => _cal.GetDaysInMonth(_start.Year, _start.Month);
-        public int DayInYear => _cal.GetDaysInYear(_start.Year);
-        public int MonthsInYear => _cal.GetMonthsInYear(_start.Year);
-        public int WeekOfYear => _cal.GetWeekOfYear(_start, _weekRule, _dayOfWeek);
+        public int Day => Value.Day;
+        public int Year => Value.Year;
+        public int Month => Value.Month;
+        public DayOfWeek DayOfWeek { get; }
+        public int DayOfYear => Value.DayOfYear;
+        public int DayInMonth => _cal.GetDaysInMonth(Value.Year, Value.Month);
+        public int DayInYear => _cal.GetDaysInYear(Value.Year);
+        public int MonthsInYear => _cal.GetMonthsInYear(Value.Year);
+        public int WeekOfYear => _cal.GetWeekOfYear(Value, _weekRule, DayOfWeek);
         public List<int[]> WeekMap { get; }
-        public DateTime Value => _start;
-        public CultureInfo Culture => _ci;
+        public DateTime Value { get; }
+        public CultureInfo Culture { get; }
 
+        public override string ToString() => Value.ToString();
+     
+        public  string ToString(IFormatProvider provider) => Value.ToString(provider);
+        public string ToString(string format) => Value.ToString(format);
+        public string ToString(string format, IFormatProvider provider) => Value.ToString(format,provider);
         public DateTime this[int week, int day] => new DateTime(Year, Month, this.WeekMap[week][day]);
         public static bool operator >(Date first, Date second) => (DateTime)first > (DateTime)second;
         public static bool operator <(Date first, Date second) => (DateTime)first < (DateTime)second;
         public static int operator -(Date first, Date second) => Convert.ToInt32(((DateTime)first - (DateTime)second).TotalDays);
-        public static Date operator +(Date date, int month) => new Date(date.Value.AddMonths(month), date.Culture);
-        public static Date operator -(Date date, int month) => new Date(date.Value.AddMonths(month * -1), date.Culture);
-        public static Date operator ++(Date date) => new Date(date.Value.AddMonths(1), date.Culture);
-        public static Date operator --(Date date) => new Date(date.Value.AddMonths(-1), date.Culture);
+        public static Date operator +(Date date, int day) => new Date(date.Value.AddDays(day), date.Culture);
+        public static Date operator -(Date date, int day) => new Date(date.Value.AddDays(day * -1), date.Culture);
+        public static Date operator ++(Date date) => new Date(date.Value.AddDays(1), date.Culture);
+        public static Date operator --(Date date) => new Date(date.Value.AddDays(-1), date.Culture);
 
         public static implicit operator DateTime(Date date) => date.Value;
 
         public static implicit operator Date(DateTime date) => new Date(date);
     }
-    
+
     public static class DateExtensions
     {
-        public static Date NextMonth(this Date date) => ++date;
-        public static Date PreviousMonth(this Date date) => --date;
-    }*/
+        public static Date NextMonth(this Date date) =>date.AddMonth(1);
+        public static Date PreviousMonth(this Date date) => date.AddMonth(-1);
+        public static Date AddMonth(this Date date,int month) => new Date(date.Value.AddMonths(month));
+    }
 }

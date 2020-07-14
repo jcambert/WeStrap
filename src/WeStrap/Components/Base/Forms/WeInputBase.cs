@@ -86,7 +86,7 @@ namespace WeStrap
                     _ = ValueChanged.InvokeAsync(value);
                     if (this.ValidateOnChange || ValidateOnInput)
                     {
-                        CascadedEditContext.NotifyFieldChanged(FieldIdentifier);
+                        CascadedEditContext?.NotifyFieldChanged(FieldIdentifier);
                     }
                 }
                 else
